@@ -1,0 +1,1151 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Archivo', 'Poppins', sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+}
+
+@layer base {
+  :root {
+    --font-display: 'Archivo', 'Poppins', sans-serif;
+    --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'Space Grotesk', monospace;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+
+    --color-teal: #008280;
+    --color-teal-dim: #006B69;
+    --color-cyan-glow: #008280;
+    --color-slate: #367588;
+    --color-slate-light: #4A8FA3;
+    --color-gray-light: #EBECF0;
+    --color-gray-mid: #BEBEBE;
+    --color-gold: #367588;
+    --color-gold-dim: #2D6373;
+
+    /* Controlled Viewport & Disciplined Content Width System */
+    --page-max: 1280px;
+    --content-max: 1120px;
+    --editorial-max: 960px;
+    --text-max: 70ch;
+    --page-pad: clamp(24px, 5vw, 84px);
+    --card-pad: clamp(28px, 4vw, 52px);
+    --panel-gap: clamp(28px, 3.5vw, 48px);
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    background-color: #050607;
+    color: #EBECF0;
+    letter-spacing: 0.015em;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Body typography hierarchy - Poppins Light (300) with generous white space */
+  p, li, dd, dt {
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.78;
+    letter-spacing: 0.015em;
+  }
+
+  .font-sans {
+    font-family: var(--font-body) !important;
+    font-weight: 300;
+  }
+
+  /* Generous breathing room for reading comfort */
+  .leading-relaxed {
+    line-height: 1.82 !important;
+  }
+
+  .leading-loose {
+    line-height: 2.05 !important;
+  }
+
+  /* Disciplined Layout Containers */
+  .page-container {
+    width: 100%;
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-inline: var(--page-pad);
+  }
+
+  .content-container {
+    width: 100%;
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--page-pad);
+  }
+
+  .editorial-container {
+    width: 100%;
+    max-width: var(--editorial-max);
+    margin-inline: auto;
+    padding-inline: var(--page-pad);
+  }
+
+  .page-pad-x {
+    padding-inline: var(--page-pad);
+  }
+
+  /* Controlled text line measures */
+  .prose-measure {
+    max-width: var(--text-max);
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+
+  code, kbd, samp, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Custom Glassmorphism Tiers & Tinted Varieties (Obsidian Lumina Design Spec) */
+.glass-tier-1 {
+  background: linear-gradient(150deg, rgba(18, 22, 28, 0.72) 0%, rgba(10, 13, 17, 0.88) 100%);
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14), inset 0 0 20px -10px rgba(255, 255, 255, 0.04), 0 14px 36px -10px rgba(0, 0, 0, 0.65);
+}
+
+.glass-tier-2 {
+  background: linear-gradient(155deg, rgba(14, 34, 40, 0.82) 0%, rgba(8, 18, 22, 0.94) 100%);
+  backdrop-filter: blur(28px) saturate(130%);
+  -webkit-backdrop-filter: blur(28px) saturate(130%);
+  border: 1px solid rgba(0, 130, 128, 0.42);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 0 28px -8px rgba(0, 130, 128, 0.25), 0 20px 48px -12px rgba(0, 0, 0, 0.75), 0 0 35px -10px rgba(0, 130, 128, 0.22);
+}
+
+/* ========================================================================= */
+/* SPECIFIC BRAND-HARMONIZED GLASS TINTS (Smoke, Teal, Slate, Violet, Amber) */
+/* ========================================================================= */
+
+/* 1. SMOKE: Refined warm obsidian charcoal with brushed-silver specular rim */
+.glass-smoke {
+  background: linear-gradient(150deg, rgba(22, 27, 34, 0.68) 0%, rgba(11, 14, 18, 0.88) 100%);
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14), inset 0 0 20px -8px rgba(255, 255, 255, 0.05), 0 16px 40px -10px rgba(0, 0, 0, 0.6);
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-smoke:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 0 24px -6px rgba(255, 255, 255, 0.08), 0 22px 50px -12px rgba(0, 0, 0, 0.75);
+}
+
+/* 2. TEAL: Deep sea pine and obsidian cyan aura with luminous highlight */
+.glass-teal {
+  background: linear-gradient(150deg, rgba(8, 52, 56, 0.44) 0%, rgba(4, 24, 27, 0.88) 100%);
+  backdrop-filter: blur(22px) saturate(130%);
+  -webkit-backdrop-filter: blur(22px) saturate(130%);
+  border: 1px solid rgba(0, 130, 128, 0.38);
+  box-shadow: inset 0 1px 0 0 rgba(22, 210, 200, 0.35), inset 0 0 30px -8px rgba(0, 130, 128, 0.22), 0 18px 44px -10px rgba(0, 0, 0, 0.68), 0 0 32px -10px rgba(0, 130, 128, 0.25);
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-teal:hover {
+  border-color: rgba(22, 210, 200, 0.6);
+  box-shadow: inset 0 1px 0 0 rgba(22, 210, 200, 0.5), inset 0 0 36px -6px rgba(0, 130, 128, 0.35), 0 24px 54px -12px rgba(0, 0, 0, 0.78), 0 0 45px -8px rgba(22, 210, 200, 0.32);
+}
+
+/* 3. SLATE: Steel-blue dusk atmospheric tint with calm architectural sheen */
+.glass-slate {
+  background: linear-gradient(150deg, rgba(22, 44, 72, 0.4) 0%, rgba(9, 20, 36, 0.86) 100%);
+  backdrop-filter: blur(22px) saturate(125%);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+  border: 1px solid rgba(54, 117, 136, 0.38);
+  box-shadow: inset 0 1px 0 0 rgba(148, 190, 235, 0.28), inset 0 0 28px -8px rgba(54, 117, 136, 0.2), 0 18px 44px -10px rgba(0, 0, 0, 0.68), 0 0 32px -10px rgba(45, 95, 140, 0.22);
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-slate:hover {
+  border-color: rgba(96, 165, 250, 0.55);
+  box-shadow: inset 0 1px 0 0 rgba(191, 219, 254, 0.4), inset 0 0 36px -6px rgba(54, 117, 136, 0.32), 0 24px 54px -12px rgba(0, 0, 0, 0.78), 0 0 40px -8px rgba(54, 117, 136, 0.3);
+}
+
+/* 4. VIOLET: Sophisticated deep imperial twilight amethyst/violet glow */
+.glass-violet {
+  background: linear-gradient(150deg, rgba(48, 30, 80, 0.4) 0%, rgba(18, 12, 36, 0.88) 100%);
+  backdrop-filter: blur(22px) saturate(125%);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+  border: 1px solid rgba(139, 92, 246, 0.32);
+  box-shadow: inset 0 1px 0 0 rgba(196, 168, 255, 0.3), inset 0 0 28px -8px rgba(139, 92, 246, 0.22), 0 18px 44px -10px rgba(0, 0, 0, 0.68), 0 0 32px -10px rgba(124, 58, 237, 0.22);
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-violet:hover {
+  border-color: rgba(167, 139, 250, 0.58);
+  box-shadow: inset 0 1px 0 0 rgba(221, 214, 254, 0.45), inset 0 0 36px -6px rgba(139, 92, 246, 0.32), 0 24px 54px -12px rgba(0, 0, 0, 0.78), 0 0 42px -8px rgba(139, 92, 246, 0.3);
+}
+
+/* 5. AMBER: Rich warm bronze / gold editorial accent tint */
+.glass-amber {
+  background: linear-gradient(150deg, rgba(58, 36, 16, 0.42) 0%, rgba(24, 15, 7, 0.88) 100%);
+  backdrop-filter: blur(22px) saturate(125%);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+  border: 1px solid rgba(217, 119, 6, 0.34);
+  box-shadow: inset 0 1px 0 0 rgba(252, 211, 77, 0.3), inset 0 0 28px -8px rgba(217, 119, 6, 0.2), 0 18px 44px -10px rgba(0, 0, 0, 0.68), 0 0 32px -10px rgba(217, 119, 6, 0.22);
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-amber:hover {
+  border-color: rgba(251, 191, 36, 0.58);
+  box-shadow: inset 0 1px 0 0 rgba(254, 243, 199, 0.45), inset 0 0 36px -6px rgba(217, 119, 6, 0.32), 0 24px 54px -12px rgba(0, 0, 0, 0.78), 0 0 42px -8px rgba(217, 119, 6, 0.3);
+}
+
+.glass-graphite {
+  background: rgba(14, 17, 22, 0.82);
+  backdrop-filter: blur(24px) saturate(115%);
+  -webkit-backdrop-filter: blur(24px) saturate(115%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 16px 42px -12px rgba(0, 0, 0, 0.65);
+}
+
+/* Featured / Dominant Glass Panel (Used selectively for 1-2 key flagship panels per section) */
+.glass-dominant {
+  position: relative;
+  background: linear-gradient(155deg, rgba(14, 46, 52, 0.55) 0%, rgba(7, 20, 24, 0.9) 100%);
+  backdrop-filter: blur(28px) saturate(135%);
+  -webkit-backdrop-filter: blur(28px) saturate(135%);
+  border: 1px solid rgba(22, 210, 200, 0.45);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.28), inset 0 0 35px -8px rgba(22, 210, 200, 0.25), 0 24px 60px -15px rgba(0, 0, 0, 0.8), 0 0 45px -10px rgba(0, 130, 128, 0.32);
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-dominant:hover {
+  border-color: rgba(22, 210, 200, 0.7);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.38), inset 0 0 45px -6px rgba(22, 210, 200, 0.35), 0 28px 70px -15px rgba(0, 0, 0, 0.85), 0 0 60px -10px rgba(22, 210, 200, 0.38);
+}
+
+.glass-dominant::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(22, 210, 200, 0.75), transparent);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Sophisticated Interactive Card Transitions */
+.glass-card-interactive {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.35s ease,
+              background 0.35s ease;
+}
+
+.glass-card-interactive:hover {
+  transform: translateY(-3px);
+  border-color: rgba(22, 210, 200, 0.5);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.25), 0 22px 50px -12px rgba(0, 0, 0, 0.75), 0 0 35px -8px rgba(0, 130, 128, 0.25);
+}
+
+.glass-nav {
+  background: rgba(8, 9, 11, 0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Atmospheric Volumetric Glows */
+.radial-mesh-teal {
+  background: radial-gradient(circle at 50% 0%, rgba(0, 130, 128, 0.18) 0%, rgba(5, 6, 7, 0) 70%);
+}
+
+.radial-mesh-gold,
+.radial-mesh-slate {
+  background: radial-gradient(circle at 85% 20%, rgba(54, 117, 136, 0.18) 0%, rgba(5, 6, 7, 0) 65%);
+}
+
+/* Button Glow Effects */
+.btn-gold-glow:hover,
+.btn-slate-glow:hover {
+  box-shadow: 0 0 28px rgba(54, 117, 136, 0.5);
+}
+
+.btn-teal-glow:hover {
+  box-shadow: 0 0 28px rgba(0, 130, 128, 0.5);
+}
+
+/* Text Accent Colors (Solid, Crisp, No Gradient Blur) */
+.grad-teal-gold,
+.grad-teal-slate {
+  color: #008280;
+}
+
+.grad-gold,
+.grad-slate {
+  color: #367588;
+}
+
+.text-studio-teal {
+  color: #008280;
+}
+
+.text-studio-gold,
+.text-studio-slate {
+  color: #367588;
+}
+
+/* Shade of Teal Gradient Titles (Requested by user) */
+.title-gradient-teal {
+  background: linear-gradient(135deg, #00A8A6 0%, #16D2C8 40%, #4A8FA3 85%, #367588 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.title-gradient-teal-subtle {
+  background: linear-gradient(135deg, #EBECF0 15%, #16D2C8 65%, #008280 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050607;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E2629;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #008280;
+}
+
+/* Lenis Smooth Scroll Normalization */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Orbit Turquoise Sparkles Keyframe Animations */
+@keyframes sparkle-twinkle {
+  0%, 100% {
+    transform: scale(0.75) rotate(0deg);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.35) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+@keyframes sparkle-pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+@keyframes sparkle-spin-steady {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-sparkle-twinkle {
+  animation: sparkle-twinkle 3s ease-in-out infinite;
+  transform-origin: 0 0;
+}
+
+.animate-sparkle-twinkle-fast {
+  animation: sparkle-twinkle 1.8s ease-in-out infinite;
+  transform-origin: 0 0;
+}
+
+.animate-sparkle-pulse {
+  animation: sparkle-pulse-glow 2.4s ease-in-out infinite;
+  transform-origin: 0 0;
+}
+
+.animate-sparkle-spin {
+  animation: sparkle-spin-steady 12s linear infinite;
+  transform-origin: 0 0;
+}
+
+/* Flag In The Wind Simulation Keyframes */
+@keyframes windy-flag-billow {
+  0% {
+    transform: rotateY(0deg) rotateZ(0deg) skewY(0deg) translateZ(0px);
+  }
+  14% {
+    transform: rotateY(6.5deg) rotateZ(1.8deg) skewY(-2.2deg) translateZ(20px);
+  }
+  28% {
+    transform: rotateY(-3.8deg) rotateZ(-1.4deg) skewY(1.5deg) translateZ(-10px);
+  }
+  42% {
+    transform: rotateY(8.2deg) rotateZ(2.4deg) skewY(-2.8deg) translateZ(26px);
+  }
+  57% {
+    transform: rotateY(-2.5deg) rotateZ(-2deg) skewY(1.4deg) translateZ(-6px);
+  }
+  71% {
+    transform: rotateY(5.8deg) rotateZ(1.5deg) skewY(-1.8deg) translateZ(16px);
+  }
+  85% {
+    transform: rotateY(-4.5deg) rotateZ(-1deg) skewY(1.9deg) translateZ(-12px);
+  }
+  100% {
+    transform: rotateY(0deg) rotateZ(0deg) skewY(0deg) translateZ(0px);
+  }
+}
+
+@keyframes windy-sheen-sweep {
+  0% {
+    transform: translateX(-120%) skewX(-25deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  60% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(280%) skewX(-25deg);
+    opacity: 0;
+  }
+}
+
+@keyframes windy-flutter-fast {
+  0%, 100% {
+    transform: rotateY(0deg) rotateX(0deg);
+  }
+  25% {
+    transform: rotateY(2deg) rotateX(1.2deg);
+  }
+  50% {
+    transform: rotateY(-1.8deg) rotateX(-1deg);
+  }
+  75% {
+    transform: rotateY(2.2deg) rotateX(-0.8deg);
+  }
+}
+
+@keyframes amaze-letter-glow {
+  0%, 100% {
+    text-shadow: 0 0 12px rgba(22, 210, 200, 0.4), 0 0 24px rgba(22, 210, 200, 0.2);
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow: 0 0 24px rgba(22, 210, 200, 0.9), 0 0 45px rgba(22, 210, 200, 0.5);
+    filter: brightness(1.25);
+  }
+}
+
+.animate-amaze-glow {
+  animation: amaze-letter-glow 2.5s ease-in-out infinite;
+}
+
+/* ========================================================================= */
+/* BRAND PALETTE HORIZONTAL SEPARATORS & RHYTHMIC DIVIDERS                   */
+/* ========================================================================= */
+
+.brand-line-teal {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 130, 128, 0.45) 50%, transparent 100%);
+}
+
+.brand-line-cyan {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(22, 210, 200, 0.5) 50%, transparent 100%);
+  box-shadow: 0 0 10px rgba(22, 210, 200, 0.25);
+}
+
+.brand-line-slate {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.12) 50%, transparent 100%);
+}
+
+.brand-line-gradient {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 130, 128, 0.35) 25%, rgba(22, 210, 200, 0.6) 50%, rgba(54, 117, 136, 0.35) 75%, transparent 100%);
+}
+
+.brand-line-subtle {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.07) 50%, transparent 100%);
+}
+
+/* Progressive Image Shimmer & Loading Feedback */
+@keyframes image-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-image-shimmer {
+  animation: image-shimmer 2s infinite ease-in-out;
+}
+
+/* ========================================================================= */
+/* LUNAR: HIGH-CONTRAST LIGHT ACCESSIBILITY VARIATION                        */
+/* ========================================================================= */
+[data-theme="lunar"],
+html[data-theme="lunar"],
+.theme-lunar {
+  color-scheme: light;
+  --bg-canvas: #F8FAFC;
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-tertiary: #475569;
+  --accent-teal: #007A78;
+  --accent-cyan: #007A78;
+  --card-bg: #FFFFFF;
+  --card-border: #E2E8F0;
+}
+
+[data-theme="lunar"] body,
+html[data-theme="lunar"] body,
+.theme-lunar body {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+/* ========================================================================= */
+/* 1. SOLID DARK BUTTONS & BADGES — MUST ALWAYS RETAIN PURE WHITE TEXT       */
+/* ========================================================================= */
+[data-theme="lunar"] button.bg-\[\#008280\],
+[data-theme="lunar"] a.bg-\[\#008280\],
+[data-theme="lunar"] div.bg-\[\#008280\],
+[data-theme="lunar"] span.bg-\[\#008280\],
+[data-theme="lunar"] .bg-\[\#008280\],
+[data-theme="lunar"] button.bg-\[\#009491\],
+[data-theme="lunar"] a.bg-\[\#009491\],
+[data-theme="lunar"] .bg-\[\#009491\],
+[data-theme="lunar"] button.bg-\[\#367588\],
+[data-theme="lunar"] a.bg-\[\#367588\],
+[data-theme="lunar"] .bg-\[\#367588\],
+[data-theme="lunar"] .bg-gradient-to-r.from-\[\#008280\],
+[data-theme="lunar"] button.bg-gradient-to-r,
+[data-theme="lunar"] a.bg-gradient-to-r,
+[data-theme="lunar"] #navbar-start-a-project-cta,
+[data-theme="lunar"] #mobile-drawer-start-a-project-btn {
+  background-color: #007A78 !important;
+  color: #FFFFFF !important;
+  border-color: #006B69 !important;
+}
+
+/* Ensure ALL text and inner elements inside solid dark buttons stay crisp white */
+[data-theme="lunar"] button.bg-\[\#008280\] *,
+[data-theme="lunar"] a.bg-\[\#008280\] *,
+[data-theme="lunar"] div.bg-\[\#008280\] *,
+[data-theme="lunar"] .bg-\[\#008280\] *,
+[data-theme="lunar"] button.bg-\[\#009491\] *,
+[data-theme="lunar"] a.bg-\[\#009491\] *,
+[data-theme="lunar"] .bg-\[\#009491\] *,
+[data-theme="lunar"] button.bg-\[\#367588\] *,
+[data-theme="lunar"] a.bg-\[\#367588\] *,
+[data-theme="lunar"] .bg-\[\#367588\] *,
+[data-theme="lunar"] .bg-gradient-to-r.from-\[\#008280\] *,
+[data-theme="lunar"] button.bg-gradient-to-r *,
+[data-theme="lunar"] a.bg-gradient-to-r *,
+[data-theme="lunar"] #navbar-start-a-project-cta *,
+[data-theme="lunar"] #mobile-drawer-start-a-project-btn * {
+  color: #FFFFFF !important;
+}
+
+/* Hover states for solid buttons */
+[data-theme="lunar"] button.bg-\[\#008280\]:hover,
+[data-theme="lunar"] a.bg-\[\#008280\]:hover,
+[data-theme="lunar"] .bg-\[\#008280\]:hover {
+  background-color: #006B69 !important;
+  color: #FFFFFF !important;
+}
+
+/* ========================================================================= */
+/* 2. BASE TYPOGRAPHY & TEXT CONTRAST (WCAG AAA >= 7:1)                      */
+/* ========================================================================= */
+[data-theme="lunar"] h1,
+[data-theme="lunar"] h2,
+[data-theme="lunar"] h3,
+[data-theme="lunar"] h4,
+[data-theme="lunar"] h5,
+[data-theme="lunar"] h6,
+[data-theme="lunar"] .font-display {
+  color: #0F172A;
+}
+
+[data-theme="lunar"] p,
+[data-theme="lunar"] li,
+[data-theme="lunar"] dd,
+[data-theme="lunar"] dt {
+  color: #334155;
+}
+
+/* Dark-mode off-white text becomes high-contrast slate-900 on light backgrounds */
+[data-theme="lunar"] .text-\[\#EBECF0\],
+[data-theme="lunar"] .text-\[\#F3F7F8\],
+[data-theme="lunar"] .text-slate-100,
+[data-theme="lunar"] .text-slate-200 {
+  color: #0F172A !important;
+}
+
+/* Light slate becomes slate-800 */
+[data-theme="lunar"] .text-\[\#CBD5E1\],
+[data-theme="lunar"] .text-slate-300 {
+  color: #1E293B !important;
+}
+
+/* Secondary muted text becomes slate-700 */
+[data-theme="lunar"] .text-\[\#94A3B8\],
+[data-theme="lunar"] .text-slate-400 {
+  color: #334155 !important;
+}
+
+/* Subdued labels become slate-600 */
+[data-theme="lunar"] .text-\[\#64748B\],
+[data-theme="lunar"] .text-slate-500 {
+  color: #475569 !important;
+}
+
+/* Translucent white text on light cards - prevent invisible text */
+[data-theme="lunar"] .text-white\/40,
+[data-theme="lunar"] .text-white\/50 {
+  color: #64748B !important;
+}
+
+[data-theme="lunar"] .text-white\/60,
+[data-theme="lunar"] .text-white\/70 {
+  color: #334155 !important;
+}
+
+[data-theme="lunar"] .text-white\/80,
+[data-theme="lunar"] .text-white\/90 {
+  color: #0F172A !important;
+}
+
+/* Pure text-white inside light containers */
+[data-theme="lunar"] .text-white:not(button.bg-\[\#008280\] *):not(a.bg-\[\#008280\] *):not(.bg-\[\#008280\] *):not(.bg-gradient-to-r *):not(.work-expanded-card *):not(#navbar-start-a-project-cta *):not(#mobile-drawer-start-a-project-btn *) {
+  color: #0F172A !important;
+}
+
+/* Prevent white text on hover over light cards */
+[data-theme="lunar"] a:hover.hover\:text-white,
+[data-theme="lunar"] button:hover.hover\:text-white,
+[data-theme="lunar"] .hover\:text-white:hover {
+  color: #007A78 !important;
+}
+
+/* High-contrast brand teal adjustments (>4.8:1 on light grounds) */
+[data-theme="lunar"] .text-\[\#16D2C8\],
+[data-theme="lunar"] .text-\[\#00F2FE\],
+[data-theme="lunar"] .text-\[\#5EEAD4\] {
+  color: #007A78 !important;
+}
+
+[data-theme="lunar"] .text-\[\#008280\] {
+  color: #006B69 !important;
+}
+
+[data-theme="lunar"] .text-\[\#367588\] {
+  color: #285B6B !important;
+}
+
+[data-theme="lunar"] .text-\[\#2A363A\],
+[data-theme="lunar"] .text-\[\#3A494B\] {
+  color: #94A3B8 !important;
+}
+
+/* Title gradients */
+[data-theme="lunar"] .title-gradient-teal {
+  background: linear-gradient(135deg, #005F5E 0%, #007A78 50%, #0369A1 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+[data-theme="lunar"] .title-gradient-cyan {
+  background: linear-gradient(135deg, #007A78 0%, #0284C7 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* ========================================================================= */
+/* 3. WORKVIEW EXPANDED CARD OVERLAY SCENE                                   */
+/* ========================================================================= */
+[data-theme="lunar"] .work-expanded-card h2,
+[data-theme="lunar"] .work-expanded-card p,
+[data-theme="lunar"] .work-expanded-card .text-\[\#EBECF0\],
+[data-theme="lunar"] .work-expanded-card .text-\[\#CBD5E1\],
+[data-theme="lunar"] .work-expanded-card .text-\[\#94A3B8\] {
+  color: #FFFFFF !important;
+}
+[data-theme="lunar"] .work-expanded-card .text-\[\#16D2C8\] {
+  color: #5EEAD4 !important;
+}
+[data-theme="lunar"] .work-expanded-card .glass-smoke {
+  background: rgba(5, 6, 7, 0.75) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ========================================================================= */
+/* 4. SURFACE MAPPING: ALL DARK SURFACES -> ARCHITECTURAL LIGHT SURFACES    */
+/* ========================================================================= */
+/* Clean White Surfaces (#FFFFFF) */
+[data-theme="lunar"] .bg-\[\#050607\],
+[data-theme="lunar"] .bg-\[\#07090C\],
+[data-theme="lunar"] .bg-\[\#07090B\],
+[data-theme="lunar"] .bg-\[\#070A0D\],
+[data-theme="lunar"] .bg-\[\#070A0F\],
+[data-theme="lunar"] .bg-\[\#070B0E\],
+[data-theme="lunar"] .bg-\[\#080C11\],
+[data-theme="lunar"] .bg-\[\#0A0D10\],
+[data-theme="lunar"] .bg-\[\#0A0D11\],
+[data-theme="lunar"] .bg-\[\#0A0D12\],
+[data-theme="lunar"] .bg-\[\#0B0F14\],
+[data-theme="lunar"] .bg-\[\#0B0F15\],
+[data-theme="lunar"] .bg-\[\#0C1014\],
+[data-theme="lunar"] .bg-\[\#0C1117\],
+[data-theme="lunar"] .bg-\[\#0C121A\],
+[data-theme="lunar"] .bg-\[\#0D1115\],
+[data-theme="lunar"] .bg-\[\#0D1214\],
+[data-theme="lunar"] .bg-\[\#0E1216\],
+[data-theme="lunar"] .bg-\[\#0E1217\],
+[data-theme="lunar"] .bg-\[\#06090E\],
+[data-theme="lunar"] .bg-\[\#10161A\],
+[data-theme="lunar"] .bg-\[\#13191B\] {
+  background-color: #FFFFFF !important;
+}
+
+/* Opacity variants of white cards */
+[data-theme="lunar"] .bg-\[\#050607\]\/80,
+[data-theme="lunar"] .bg-\[\#050607\]\/85,
+[data-theme="lunar"] .bg-\[\#050607\]\/90,
+[data-theme="lunar"] .bg-\[\#050607\]\/95,
+[data-theme="lunar"] .bg-\[\#07090B\]\/98,
+[data-theme="lunar"] .bg-\[\#07090C\]\/90,
+[data-theme="lunar"] .bg-\[\#070A0D\]\/95,
+[data-theme="lunar"] .bg-\[\#070A0F\]\/95,
+[data-theme="lunar"] .bg-\[\#070B0E\]\/95,
+[data-theme="lunar"] .bg-\[\#080B0E\]\/90,
+[data-theme="lunar"] .bg-\[\#080B0E\]\/95,
+[data-theme="lunar"] .bg-\[\#0A0D0E\]\/80,
+[data-theme="lunar"] .bg-\[\#0A0D0E\]\/90,
+[data-theme="lunar"] .bg-\[\#0A0D0E\]\/95,
+[data-theme="lunar"] .bg-\[\#0A0D10\]\/80,
+[data-theme="lunar"] .bg-\[\#0A0D10\]\/85,
+[data-theme="lunar"] .bg-\[\#0A0D10\]\/90,
+[data-theme="lunar"] .bg-\[\#0A0D10\]\/95,
+[data-theme="lunar"] .bg-\[\#0B0F12\]\/90,
+[data-theme="lunar"] .bg-\[\#0E1217\]\/90,
+[data-theme="lunar"] .bg-\[\#06090E\]\/90 {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+}
+
+/* Full-width Section Backgrounds (#F8FAFC) */
+[data-theme="lunar"] section.bg-\[\#050607\],
+[data-theme="lunar"] section.bg-\[\#050709\],
+[data-theme="lunar"] section.bg-\[\#06080B\],
+[data-theme="lunar"] section.bg-\[\#080C11\],
+[data-theme="lunar"] .bg-\[\#06080B\],
+[data-theme="lunar"] .bg-\[\#06080B\]\/80,
+[data-theme="lunar"] .bg-\[\#06080B\]\/90 {
+  background-color: #F8FAFC !important;
+}
+
+/* Subtle architectural neutral fills (#F1F5F9) */
+[data-theme="lunar"] .bg-\[\#080B0E\],
+[data-theme="lunar"] .bg-\[\#050608\],
+[data-theme="lunar"] .bg-\[\#090C0F\],
+[data-theme="lunar"] .bg-\[\#090D10\],
+[data-theme="lunar"] .bg-\[\#090D14\],
+[data-theme="lunar"] .bg-\[\#0A0E12\],
+[data-theme="lunar"] .bg-\[\#0B0E12\],
+[data-theme="lunar"] .bg-\[\#0E1317\],
+[data-theme="lunar"] .bg-\[\#0E1317\]\/90,
+[data-theme="lunar"] .bg-\[\#0F181D\],
+[data-theme="lunar"] .bg-\[\#040608\] {
+  background-color: #F1F5F9 !important;
+}
+
+/* Pricing Radio Circle */
+[data-theme="lunar"] .bg-\[\#1E2629\] {
+  background-color: #E2E8F0 !important;
+  border: 1px solid #CBD5E1 !important;
+}
+
+/* Mint Badges & Tags (Translucent teal mapped to crisp mint) */
+[data-theme="lunar"] .bg-\[\#008280\]\/10,
+[data-theme="lunar"] .bg-\[\#008280\]\/15,
+[data-theme="lunar"] .bg-\[\#008280\]\/20,
+[data-theme="lunar"] .bg-\[\#008280\]\/25,
+[data-theme="lunar"] .bg-\[\#008280\]\/30,
+[data-theme="lunar"] .bg-\[\#008280\]\/40,
+[data-theme="lunar"] .bg-\[\#008280\]\/60,
+[data-theme="lunar"] .bg-\[\#16D2C8\]\/10,
+[data-theme="lunar"] .bg-\[\#16D2C8\]\/15,
+[data-theme="lunar"] .bg-\[\#16D2C8\]\/20,
+[data-theme="lunar"] .bg-\[\#16D2C8\]\/25,
+[data-theme="lunar"] .bg-\[\#16D2C8\]\/30,
+[data-theme="lunar"] .bg-\[\#5EEAD4\]\/10,
+[data-theme="lunar"] .bg-\[\#5EEAD4\]\/20 {
+  background-color: #CCFBF1 !important;
+  border-color: #99F6E4 !important;
+  color: #007A78 !important;
+}
+
+[data-theme="lunar"] .bg-\[\#008280\]\/10 *,
+[data-theme="lunar"] .bg-\[\#008280\]\/15 *,
+[data-theme="lunar"] .bg-\[\#008280\]\/20 *,
+[data-theme="lunar"] .bg-\[\#008280\]\/25 *,
+[data-theme="lunar"] .bg-\[\#008280\]\/30 *,
+[data-theme="lunar"] .bg-\[\#008280\]\/40 *,
+[data-theme="lunar"] .bg-\[\#008280\]\/60 *,
+[data-theme="lunar"] .bg-\[\#16D2C8\]\/10 *,
+[data-theme="lunar"] .bg-\[\#16D2C8\]\/15 *,
+[data-theme="lunar"] .bg-\[\#16D2C8\]\/20 *,
+[data-theme="lunar"] .bg-\[\#16D2C8\]\/25 *,
+[data-theme="lunar"] .bg-\[\#16D2C8\]\/30 * {
+  color: #007A78 !important;
+}
+
+/* Hero Blueprint X-Ray Sections */
+[data-theme="lunar"] .bg-\[\#041215\],
+[data-theme="lunar"] .bg-\[\#041215\]\/80,
+[data-theme="lunar"] .bg-\[\#091C20\],
+[data-theme="lunar"] .bg-\[\#091C20\]\/60,
+[data-theme="lunar"] .bg-\[\#08151A\],
+[data-theme="lunar"] .bg-\[\#08151A\]\/60,
+[data-theme="lunar"] .bg-\[\#0A1A1E\] {
+  background-color: #F0FDFA !important;
+  border-color: #99F6E4 !important;
+}
+
+/* Code & Pre Matrix Blocks */
+[data-theme="lunar"] pre,
+[data-theme="lunar"] pre.bg-\[\#050709\],
+[data-theme="lunar"] pre.bg-\[\#080B0E\] {
+  background-color: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+/* ========================================================================= */
+/* 5. FORM INPUTS & INTERACTIVE CONTROLS                                     */
+/* ========================================================================= */
+[data-theme="lunar"] input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="lunar"] textarea,
+[data-theme="lunar"] select {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+}
+
+[data-theme="lunar"] input:focus,
+[data-theme="lunar"] textarea:focus,
+[data-theme="lunar"] select:focus {
+  border-color: #007A78 !important;
+  box-shadow: 0 0 0 2px rgba(0, 122, 120, 0.18) !important;
+}
+
+[data-theme="lunar"] input::placeholder,
+[data-theme="lunar"] textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+[data-theme="lunar"] select option {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+/* Form validation status states */
+[data-theme="lunar"] .bg-\[\#061416\] {
+  background-color: #F0FDFA !important;
+  border-color: #007A78 !important;
+  color: #0F172A !important;
+}
+
+[data-theme="lunar"] .bg-\[\#16080A\] {
+  background-color: #FEF2F2 !important;
+  border-color: #F87171 !important;
+  color: #991B1B !important;
+}
+
+/* ========================================================================= */
+/* 6. GLASSMORPHISM CARDS IN LUNAR MODE                                      */
+/* ========================================================================= */
+[data-theme="lunar"] .glass-nav {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-bottom-color: #E2E8F0 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05) !important;
+}
+
+[data-theme="lunar"] .glass-smoke,
+[data-theme="lunar"] .glass-tier-1,
+[data-theme="lunar"] .glass-tier-2,
+[data-theme="lunar"] .glass-dominant {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 1px 3px 0 rgba(15, 23, 42, 0.04) !important;
+}
+
+[data-theme="lunar"] .glass-teal {
+  background: #F0FDFA !important;
+  border: 1px solid #99F6E4 !important;
+}
+
+[data-theme="lunar"] .glass-slate,
+[data-theme="lunar"] .glass-graphite {
+  background: #F8FAFC !important;
+  border: 1px solid #E2E8F0 !important;
+}
+
+[data-theme="lunar"] .glass-violet {
+  background: #FAF5FF !important;
+  border: 1px solid #E9D5FF !important;
+}
+
+[data-theme="lunar"] .glass-amber {
+  background: #FFFBEB !important;
+  border: 1px solid #FDE68A !important;
+}
+
+[data-theme="lunar"] .glass-card-interactive:hover,
+[data-theme="lunar"] .glass-smoke:hover {
+  border-color: #007A78 !important;
+  box-shadow: 0 12px 30px -4px rgba(0, 122, 120, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* ========================================================================= */
+/* 7. BORDERS & DIVIDERS                                                     */
+/* ========================================================================= */
+[data-theme="lunar"] .border-white\/5,
+[data-theme="lunar"] .border-white\/10,
+[data-theme="lunar"] .border-white\/15,
+[data-theme="lunar"] .border-white\/20,
+[data-theme="lunar"] .border-white\/\[0\.06\],
+[data-theme="lunar"] .border-white\/\[0\.07\],
+[data-theme="lunar"] .border-white\/\[0\.08\],
+[data-theme="lunar"] .border-white\/\[0\.09\] {
+  border-color: #E2E8F0 !important;
+}
+
+[data-theme="lunar"] .border-\[\#1E2629\],
+[data-theme="lunar"] .border-\[\#2A363A\] {
+  border-color: #CBD5E1 !important;
+}
+
+[data-theme="lunar"] .border-\[\#16D2C8\],
+[data-theme="lunar"] .border-\[\#008280\] {
+  border-color: #007A78 !important;
+}
+
+[data-theme="lunar"] .via-white\/10,
+[data-theme="lunar"] .via-white\/\[0\.07\] {
+  --tw-gradient-via: #CBD5E1 !important;
+}
+
+/* ========================================================================= */
+/* 8. MODALS, DRAWERS & SYSTEM BARS                                          */
+/* ========================================================================= */
+[data-theme="lunar"] #telemetry-bar,
+[data-theme="lunar"] #system-telemetry-bar {
+  background-color: #F1F5F9 !important;
+  border-bottom-color: #CBD5E1 !important;
+  color: #475569 !important;
+}
+
+[data-theme="lunar"] #mobile-nav-drawer {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+[data-theme="lunar"] #mobile-nav-drawer button {
+  color: #0F172A !important;
+}
+
+[data-theme="lunar"] #mobile-nav-drawer button:hover {
+  background-color: #F1F5F9 !important;
+}
+
+/* Chat Console Panel */
+[data-theme="lunar"] #chat-toggle-open-btn {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 10px 30px rgba(0, 122, 120, 0.15) !important;
+}
+
+[data-theme="lunar"] #chat-toggle-open-btn .text-slate-200 {
+  color: #0F172A !important;
+}
+
+[data-theme="lunar"] #chat-console-panel {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.16) !important;
+}
+
+[data-theme="lunar"] #chat-console-panel .bg-\[\#0B0F13\]\/80 {
+  background-color: #F8FAFC !important;
+  border-bottom-color: #E2E8F0 !important;
+}
+
+[data-theme="lunar"] #chat-console-panel h3 {
+  color: #0F172A !important;
+}
+
+[data-theme="lunar"] #chat-console-panel .bg-\[\#090C0F\] {
+  background-color: #F1F5F9 !important;
+  border-bottom-color: #E2E8F0 !important;
+}
+
+[data-theme="lunar"] #chat-model-selector {
+  color: #0F172A !important;
+}
+
+[data-theme="lunar"] #chat-model-selector option {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+[data-theme="lunar"] #chat-console-panel .bg-\[\#0E1317\]\/90 {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+[data-theme="lunar"] #chat-console-panel .prose {
+  color: #0F172A !important;
+}
+
+[data-theme="lunar"] #chat-console-panel .prose * {
+  color: #0F172A !important;
+}
+
+[data-theme="lunar"] #chat-console-panel .bg-gradient-to-br.from-\[\#16D2C8\].to-\[\#0E837D\] {
+  background: linear-gradient(135deg, #007A78, #005F5D) !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="lunar"] #chat-console-panel .bg-gradient-to-br.from-\[\#16D2C8\].to-\[\#0E837D\] * {
+  color: #FFFFFF !important;
+}
+
+[data-theme="lunar"] #chat-console-panel .bg-\[\#090C0F\]\/60 {
+  background-color: #F8FAFC !important;
+  border-top-color: #E2E8F0 !important;
+}
+
+[data-theme="lunar"] #chat-console-panel .bg-white\/5 {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #334155 !important;
+}
+
+[data-theme="lunar"] #chat-console-panel .bg-\[\#070A0D\] {
+  background-color: #F1F5F9 !important;
+  border-top-color: #E2E8F0 !important;
+}
+
+[data-theme="lunar"] #chat-console-panel .bg-\[\#0B0F13\] {
+  background-color: #F8FAFC !important;
+  border-top-color: #E2E8F0 !important;
+}
+
+[data-theme="lunar"] #chat-input-textarea {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+[data-theme="lunar"] #chat-input-textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Footer & Sub-sections */
+[data-theme="lunar"] #studio-footer {
+  background-color: #F1F5F9 !important;
+  border-top-color: rgba(0, 122, 120, 0.35) !important;
+  box-shadow: 0 -16px 50px rgba(0, 122, 120, 0.06) !important;
+}
+
+/* Ambient Visual Mesh adjustments for light background */
+[data-theme="lunar"] .radial-mesh-teal {
+  background: radial-gradient(circle at 50% 0%, rgba(0, 122, 120, 0.08) 0%, rgba(248, 250, 252, 0) 70%) !important;
+}
+
+[data-theme="lunar"] .radial-mesh-gold,
+[data-theme="lunar"] .radial-mesh-slate {
+  background: radial-gradient(circle at 85% 20%, rgba(30, 41, 59, 0.06) 0%, rgba(248, 250, 252, 0) 65%) !important;
+}
+
+[data-theme="lunar"] .brand-line-slate {
+  background: linear-gradient(90deg, transparent 0%, rgba(15, 23, 42, 0.12) 50%, transparent 100%) !important;
+}
+
+[data-theme="lunar"] .brand-line-subtle {
+  background: linear-gradient(90deg, transparent 0%, rgba(15, 23, 42, 0.08) 50%, transparent 100%) !important;
+}
+
+/* Custom Optical Cursor in Lunar Mode */
+[data-theme="lunar"] #custom-cursor-dot {
+  background-color: #007A78 !important;
+}
+
+[data-theme="lunar"] #custom-cursor-ring {
+  border-color: rgba(0, 122, 120, 0.5) !important;
+}
+
+
+
+
