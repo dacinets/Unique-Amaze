@@ -282,7 +282,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
                   key={pillar.num}
                   className={`rounded-xl border p-8 sm:p-9 transition-all group flex flex-col justify-between ${pillar.glass} ${
                     pillar.dominant
-                      ? 'border-[#16D2C8]/50 shadow-[0_20px_50px_rgba(0,130,128,0.22)]'
+                      ? 'border-[#16D2C8]/50 shadow-xl'
                       : 'border-white/[0.08] hover:border-[#008280]/50'
                   }`}
                 >
@@ -337,7 +337,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
                   key={idx}
                   className={`rounded-xl border p-8 sm:p-10 flex flex-col justify-between ${
                     isHighlight
-                      ? 'glass-teal border-[#008280]/50 shadow-[0_15px_40px_rgba(0,130,128,0.2)]'
+                      ? 'glass-teal border-[#008280]/50 shadow-md'
                       : 'glass-smoke border-white/[0.08]'
                   }`}
                 >
@@ -375,19 +375,29 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
           sublabel="START YOUR PROJECT"
         />
 
-        {/* Bottom Conversion Banner */}
-        <div className="rounded-2xl border border-[#008280]/40 bg-gradient-to-r from-[#008280]/20 via-[#0C1014] to-[#0A0D10] p-10 sm:p-16 text-center shadow-2xl relative overflow-hidden">
+        {/* Bottom Conversion Banner with Architectural Background Image */}
+        <div className="cta-image-container group rounded-2xl border border-white/10 p-10 sm:p-16 text-center shadow-xl relative overflow-hidden">
+          {/* Architectural Background Image */}
+          <img
+            src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=80"
+            alt="Unique Amaze Modern Architecture Interior"
+            className="cta-bg-image pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          />
+
+          {/* Theme-Adaptive Contrast Scrim */}
+          <div className="cta-scrim pointer-events-none absolute inset-0" />
+
           <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#16D2C8] tracking-widest uppercase">
-              <Sparkles className="h-3.5 w-3.5" />
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase font-bold">
+              <Sparkles className="h-3.5 w-3.5 text-[#008280]" />
               <span>READY TO ELEVATE YOUR BRAND?</span>
             </div>
 
-            <h2 className="font-display text-2xl sm:text-4xl font-bold text-[#EBECF0] tracking-tight uppercase">
+            <h2 className="font-display text-2xl sm:text-4xl font-bold text-[#0F172A] dark:text-[#EBECF0] tracking-tight uppercase">
               LET’S DESIGN A DIGITAL FLAGSHIP THAT WORKS FOR YOU.
             </h2>
 
-            <p className="font-sans text-sm sm:text-base text-[#94A3B8] leading-relaxed">
+            <p className="font-sans text-sm sm:text-base text-slate-600 dark:text-[#94A3B8] leading-relaxed">
               Book a free strategy conversation with our specialist or use our Project Planner to receive a custom recommendation tailored to your budget and objectives.
             </p>
 
@@ -397,10 +407,10 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
                   studioAudio.playClick(950);
                   onNavigate('planner');
                 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-[#16D2C8] bg-[#008280] hover:bg-[#009491] px-6 py-3.5 font-bold text-white shadow-[0_0_20px_rgba(0,130,128,0.4)] transition-all hover:scale-105"
+                className="cta-image-btn group/btn relative overflow-hidden w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 font-bold text-white shadow-lg transition-all hover:scale-105 active:scale-95 uppercase tracking-wider"
               >
-                <span>START A PROJECT</span>
-                <ArrowRight className="h-3.5 w-3.5" />
+                <span className="relative z-10 text-white">START A PROJECT</span>
+                <ArrowRight className="relative z-10 h-3.5 w-3.5 text-white" />
               </button>
 
               <button
@@ -408,7 +418,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
                   studioAudio.playClick(800);
                   onNavigate('services');
                 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 px-6 py-3.5 text-[#EBECF0] transition-colors"
+                className="cta-secondary-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border px-6 py-3.5 font-bold transition-all uppercase tracking-wider hover:scale-105 active:scale-95"
               >
                 <span>EXPLORE SERVICES</span>
               </button>
@@ -418,7 +428,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
                   studioAudio.playClick(800);
                   onNavigate('contact');
                 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 px-6 py-3.5 text-[#EBECF0] transition-colors"
+                className="cta-secondary-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border px-6 py-3.5 font-bold transition-all uppercase tracking-wider hover:scale-105 active:scale-95"
               >
                 <span>CONTACT US</span>
               </button>

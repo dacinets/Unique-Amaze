@@ -184,7 +184,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <section
       ref={heroSectionRef}
-      className="relative overflow-hidden min-h-[100svh] flex flex-col justify-start pt-4 pb-16 sm:pt-8 sm:pb-20 lg:pt-8 lg:pb-24 will-change-transform"
+      className="relative overflow-hidden flex flex-col justify-start pt-4 pb-8 sm:pt-6 sm:pb-10 lg:pt-6 lg:pb-12 will-change-transform"
     >
       {/* Interactive Architectural Canvas Animation */}
       <InteractiveStudioCanvas />
@@ -291,7 +291,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   studioAudio.playClick(1100);
                   onNavigate('contact');
                 }}
-                className="group flex items-center gap-2.5 rounded-lg bg-[#008280] px-8 py-4 font-mono text-xs font-semibold text-white shadow-lg hover:bg-[#367588] transition-all uppercase tracking-wider"
+                className="cta-image-btn group flex items-center gap-2.5 rounded-lg px-8 py-4 font-mono text-xs font-bold text-white shadow-lg transition-all uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>BOOK A FREE STRATEGY CALL</span>
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -302,7 +302,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   studioAudio.playClick(900);
                   onNavigate('planner');
                 }}
-                className="flex items-center gap-2 rounded-lg border border-white/20 bg-[#0E1216] px-8 py-4 font-mono text-xs font-semibold text-[#EBECF0] hover:border-[#008280] hover:text-[#008280] transition-all uppercase tracking-wider"
+                className="cta-secondary-btn flex items-center gap-2 rounded-lg border px-8 py-4 font-mono text-xs font-bold transition-all uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Sparkles className="h-4 w-4 text-[#008280]" />
                 <span>START 2-MIN AI PROJECT PLANNER</span>
@@ -635,10 +635,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                         <div className="pt-2 flex flex-wrap items-center gap-3">
                           <button
                             onClick={handleBooking}
-                            className="rounded-md bg-[#008280] px-5 py-2.5 font-mono text-xs font-semibold text-white hover:bg-[#367588] transition-colors flex items-center gap-2 uppercase tracking-wider"
+                            className="cta-image-btn rounded-md px-5 py-2.5 font-mono text-xs font-bold text-white transition-all flex items-center gap-2 uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98]"
                           >
                             <span>RESERVE APPOINTMENT</span>
-                            <span className="rounded bg-black/30 px-1.5 py-0.5 text-[10px]">
+                            <span className="rounded bg-black/40 px-1.5 py-0.5 text-[10px] text-white">
                               {interactiveCounter} Booked
                             </span>
                           </button>

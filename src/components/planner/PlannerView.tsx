@@ -517,18 +517,18 @@ Generated via Unique Amaze AI Planner. Ready for discovery call review.`;
                 <div className="pt-4 flex flex-wrap items-center gap-4">
                   <button
                     onClick={handlePrepareBrief}
-                    className="flex items-center gap-2 rounded-lg bg-[#008280] px-8 py-3.5 font-mono text-xs font-semibold text-white shadow-lg hover:bg-[#367588] transition-all uppercase tracking-wider"
+                    className="cta-image-btn flex items-center gap-2 rounded-lg px-8 py-3.5 font-mono text-xs font-bold text-white shadow-lg transition-all uppercase tracking-wider hover:scale-[1.01] active:scale-[0.99]"
                   >
                     {isCopied ? (
-                      <>
+                      <span className="relative z-10 flex items-center gap-2 text-white">
                         <CheckCircle2 className="h-4 w-4 text-emerald-300" />
                         <span>BRIEF PREPARED &amp; COPIED TO CLIPBOARD</span>
-                      </>
+                      </span>
                     ) : (
-                      <>
-                        <Copy className="h-4 w-4" />
+                      <span className="relative z-10 flex items-center gap-2 text-white">
+                        <Copy className="h-4 w-4 text-white" />
                         <span>PREPARE &amp; COPY MY PROJECT BRIEF →</span>
-                      </>
+                      </span>
                     )}
                   </button>
 
@@ -556,10 +556,10 @@ Generated via Unique Amaze AI Planner. Ready for discovery call review.`;
                         studioAudio.playClick(1000);
                         onNavigate('contact');
                       }}
-                      className="inline-flex items-center gap-2 rounded-lg bg-[#008280] px-6 py-2.5 font-mono text-xs font-semibold text-white hover:bg-[#367588] uppercase tracking-wider"
+                      className="cta-image-btn group/btn relative overflow-hidden inline-flex items-center gap-2 rounded-lg px-6 py-2.5 font-mono text-xs font-bold text-white uppercase tracking-wider shadow-md hover:scale-[1.01]"
                     >
-                      <span>CONTINUE TO BOOK FREE CALL</span>
-                      <ArrowRight className="h-3.5 w-3.5" />
+                      <span className="relative z-10 text-white">CONTINUE TO BOOK FREE CALL</span>
+                      <ArrowRight className="relative z-10 h-3.5 w-3.5 text-white" />
                     </button>
                   </div>
                 )}

@@ -270,9 +270,9 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, currentMar
                   href="https://wa.me/14039096447"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#008280] px-5 py-3 font-mono text-xs font-semibold text-white hover:bg-[#16D2C8] hover:text-[#050607] transition-all uppercase tracking-wider shadow-md"
+                  className="cta-image-btn inline-flex items-center gap-2 rounded-lg px-5 py-3 font-mono text-xs font-semibold text-white transition-all uppercase tracking-wider shadow-md hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  <span>OPEN WHATSAPP CHAT</span>
+                  <span className="relative z-10 text-white">OPEN WHATSAPP CHAT</span>
                 </a>
               </div>
             </div>
@@ -502,18 +502,18 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, currentMar
                     />
                   </div>
 
-                  {/* Form Submission Button */}
+                  {/* Form Submission Button with Image Texture */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full flex items-center justify-center gap-2 rounded-lg bg-[#008280] py-3.5 font-mono text-xs font-semibold text-white shadow-lg hover:bg-[#367588] transition-all disabled:opacity-50 uppercase tracking-wider"
+                    className="cta-image-btn w-full flex items-center justify-center gap-2 rounded-lg py-4 font-mono text-xs font-bold text-white shadow-lg transition-all disabled:opacity-50 uppercase tracking-wider hover:scale-[1.01] active:scale-[0.99]"
                   >
                     {isSubmitting ? (
-                      <span>DISPATCHING REQUEST...</span>
+                      <span className="relative z-10">DISPATCHING REQUEST...</span>
                     ) : (
                       <>
-                        <Send className="h-4 w-4" />
-                        <span>SCHEDULE MY FREE STRATEGY CALL</span>
+                        <Send className="relative z-10 h-4 w-4 text-white" />
+                        <span className="relative z-10 text-white">SCHEDULE MY FREE STRATEGY CALL</span>
                       </>
                     )}
                   </button>
@@ -598,35 +598,42 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, currentMar
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 3: ALTERNATIVE FAST-TRACK PATHWAYS (Shade: #06090D)                */}
+      {/* SECTION 3: ALTERNATIVE FAST-TRACK PATHWAYS                                 */}
       {/* ========================================================================= */}
       <section
         id="contact-section-pathways"
-        className="relative w-full bg-[#06090D] border-t border-white/[0.08] py-16 sm:py-20"
+        className="relative w-full bg-slate-50 dark:bg-[#06090D] border-t border-slate-200 dark:border-white/[0.08] py-16 sm:py-20"
       >
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-            {/* Pathway 1: Project Planner */}
-            <div className="rounded-xl border border-white/10 bg-[#0A0E13] p-8 flex flex-col justify-between shadow-xl group hover:border-[#16D2C8]/50 transition-all">
-              <div className="space-y-4">
-                <div className="inline-flex items-center gap-2 font-mono text-xs text-[#16D2C8] tracking-widest uppercase font-bold">
-                  <Zap className="h-3.5 w-3.5" />
+            {/* Pathway 1: Project Planner with Architectural Background */}
+            <div className="cta-image-container group rounded-xl border border-slate-200 dark:border-white/10 p-8 flex flex-col justify-between shadow-xl relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
+                alt="Project Planner Concept"
+                className="cta-bg-image pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="cta-scrim pointer-events-none absolute inset-0" />
+
+              <div className="relative z-10 space-y-4">
+                <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase font-bold">
+                  <Zap className="h-3.5 w-3.5 text-[#008280]" />
                   <span>PREFER A GUIDED SPECIFICATION?</span>
                 </div>
-                <h3 className="font-display text-xl font-bold uppercase text-[#EBECF0]">
+                <h3 className="font-display text-xl font-bold uppercase text-[#0F172A] dark:text-[#EBECF0]">
                   Launch the 2-Minute Project Planner
                 </h3>
-                <p className="font-sans text-xs sm:text-sm text-[#94A3B8] leading-relaxed">
+                <p className="font-sans text-xs sm:text-sm text-slate-600 dark:text-[#94A3B8] leading-relaxed">
                   Configure your target audience, required features, CMS needs, and get an instant transparent investment estimate tailored to your regional currency.
                 </p>
               </div>
-              <div className="pt-6">
+              <div className="relative z-10 pt-6">
                 <button
                   onClick={() => {
                     studioAudio.playClick(950);
                     onNavigate('planner');
                   }}
-                  className="inline-flex items-center gap-2 font-mono text-xs font-bold text-[#16D2C8] group-hover:text-white uppercase tracking-wider transition-colors"
+                  className="inline-flex items-center gap-2 font-mono text-xs font-bold text-[#008280] hover:text-[#00706E] uppercase tracking-wider transition-colors"
                 >
                   <span>LAUNCH INTERACTIVE PLANNER</span>
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
@@ -634,26 +641,33 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate, currentMar
               </div>
             </div>
 
-            {/* Pathway 2: WhatsApp Chat */}
-            <div className="rounded-xl border border-white/10 bg-[#0A0E13] p-8 flex flex-col justify-between shadow-xl group hover:border-[#008280]/60 transition-all">
-              <div className="space-y-4">
+            {/* Pathway 2: WhatsApp Chat with Architectural Background */}
+            <div className="cta-image-container group rounded-xl border border-slate-200 dark:border-white/10 p-8 flex flex-col justify-between shadow-xl relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80"
+                alt="Direct Mobile Triage"
+                className="cta-bg-image pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="cta-scrim pointer-events-none absolute inset-0" />
+
+              <div className="relative z-10 space-y-4">
                 <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase font-bold">
-                  <MessageSquare className="h-3.5 w-3.5" />
+                  <MessageSquare className="h-3.5 w-3.5 text-[#008280]" />
                   <span>URGENT TIMELINE / DIRECT WHATSAPP</span>
                 </div>
-                <h3 className="font-display text-xl font-bold uppercase text-[#EBECF0]">
+                <h3 className="font-display text-xl font-bold uppercase text-[#0F172A] dark:text-[#EBECF0]">
                   Immediate Mobile Triage
                 </h3>
-                <p className="font-sans text-xs sm:text-sm text-[#94A3B8] leading-relaxed">
+                <p className="font-sans text-xs sm:text-sm text-slate-600 dark:text-[#94A3B8] leading-relaxed">
                   Have an urgent launch deadline or want to leave a quick voice note with your current site link? Message our direct studio line for prompt triage.
                 </p>
               </div>
-              <div className="pt-6">
+              <div className="relative z-10 pt-6">
                 <a
                   href="https://wa.me/14039096447"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 font-mono text-xs font-bold text-[#008280] group-hover:text-[#16D2C8] uppercase tracking-wider transition-colors"
+                  className="inline-flex items-center gap-2 font-mono text-xs font-bold text-[#008280] hover:text-[#00706E] uppercase tracking-wider transition-colors"
                 >
                   <span>OPEN DIRECT WHATSAPP</span>
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />

@@ -229,36 +229,46 @@ export const ProcessView: React.FC<ProcessViewProps> = ({ onNavigate }) => {
           sublabel="DISCOVERY CONSULTATION"
         />
 
-        {/* Closing Process CTA */}
-        <div className="rounded-xl border border-white/10 glass-dominant p-10 sm:p-14 flex flex-col sm:flex-row items-center justify-between gap-8">
-          <div>
-            <span className="font-mono text-xs text-[#16D2C8] uppercase tracking-widest block mb-2 font-semibold">
+        {/* Closing Process CTA with Architectural Image Background */}
+        <div className="cta-image-container group rounded-xl border border-white/10 p-10 sm:p-14 flex flex-col sm:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-xl">
+          {/* Architectural Background Image */}
+          <img
+            src="https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1600&q=80"
+            alt="Unique Amaze Modern Architectural Studio"
+            className="cta-bg-image pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          />
+
+          {/* Theme-Adaptive Contrast Scrim */}
+          <div className="cta-scrim pointer-events-none absolute inset-0" />
+
+          <div className="relative z-10 max-w-xl">
+            <span className="font-mono text-xs text-[#008280] uppercase tracking-widest block mb-2 font-bold">
               READY TO COMMENCE STEP 01?
             </span>
-            <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#EBECF0] uppercase tracking-wide">
+            <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#0F172A] dark:text-[#EBECF0] uppercase tracking-wide">
               EVERY ENGAGEMENT STARTS WITH DIRECT PRINCIPAL ACCESS.
             </h3>
-            <p className="mt-2 text-sm text-[#CBD5E1] max-w-xl font-sans leading-relaxed">
+            <p className="mt-2 text-sm text-slate-600 dark:text-[#94A3B8] font-sans leading-relaxed">
               No junior account managers, no automated proposals. You partner directly with our specialist to map out your digital flagship.
             </p>
           </div>
-          <div className="flex flex-wrap gap-4 shrink-0">
+          <div className="relative z-10 flex flex-wrap gap-4 shrink-0">
             <button
               onClick={() => {
                 studioAudio.playClick(950);
                 onNavigate('planner');
               }}
-              className="rounded-lg bg-[#008280] px-6 py-3.5 font-mono text-xs font-bold text-white shadow-md hover:bg-[#009491] transition-all flex items-center gap-2 uppercase tracking-wider"
+              className="cta-image-btn group/btn relative overflow-hidden rounded-lg px-6 py-3.5 font-mono text-xs font-bold text-white shadow-md transition-all flex items-center gap-2 uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98]"
             >
-              <Sparkles className="h-4 w-4" />
-              <span>COMMENCE PROJECT PLAN</span>
+              <Sparkles className="relative z-10 h-4 w-4 text-white" />
+              <span className="relative z-10 text-white">COMMENCE PROJECT PLAN</span>
             </button>
             <button
               onClick={() => {
                 studioAudio.playClick(800);
                 onNavigate('contact');
               }}
-              className="rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 px-6 py-3.5 font-mono text-xs font-semibold text-[#EBECF0] hover:border-[#16D2C8] transition-all uppercase tracking-wider"
+              className="cta-secondary-btn rounded-lg border px-6 py-3.5 font-mono text-xs font-bold transition-all uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98]"
             >
               SCHEDULE A CALL
             </button>

@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
 import { createServer as createViteServer } from 'vite';
@@ -9,7 +10,17 @@ dotenv.config();
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
+app.use(express.json({ limit: '15mb' }));
+
+// Security headers middleware
+app.use((_req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  next();
+});
 
 // Lazy-initialization pattern to guard against missing API key during startup
 let aiClient: GoogleGenAI | null = null;
@@ -129,15 +140,83 @@ app.get('/api/health', (_req, res) => {
   });
 });
 
+// Check status of mockup files on disk
+app.get('/api/mockup-status', (_req, res) => {
+  const mockups = ['macbook_pro_mock_up.jpg', 'ipad_mock_up.jpg', 'iphone_pro_max_mock_up.jpg'];
+  const status: Record<string, boolean> = {};
+
+  for (const file of mockups) {
+    const publicPath = path.join(process.cwd(), 'public', file);
+    status[file] = fs.existsSync(publicPath);
+  }
+
+  res.json(status);
+});
+
+// Mockup image upload endpoint to directly save files into public/
+app.post('/api/upload-mockup', (req, res) => {
+  try {
+    const { fileName, base64Data } = req.body;
+
+    if (!fileName || !base64Data || typeof fileName !== 'string' || typeof base64Data !== 'string') {
+      return res.status(400).json({ error: 'Valid fileName and base64Data are required.' });
+    }
+
+    const safeName = path.basename(fileName).replace(/[^a-zA-Z0-9._-]/g, '');
+    const allowedExts = ['.jpg', '.jpeg', '.png', '.webp', '.svg', '.gif'];
+    const ext = path.extname(safeName).toLowerCase();
+    if (!allowedExts.includes(ext)) {
+      return res.status(400).json({ error: 'Invalid file extension. Only images (.jpg, .png, .webp, .svg, .gif) are allowed.' });
+    }
+
+    const cleanedBase64 = base64Data.replace(/^data:image\/\w+;base64,/, '');
+    const buffer = Buffer.from(cleanedBase64, 'base64');
+
+    if (buffer.length > 10 * 1024 * 1024) {
+      return res.status(400).json({ error: 'Payload exceeds maximum 10MB file limit.' });
+    }
+
+    const publicDir = path.join(process.cwd(), 'public');
+    if (!fs.existsSync(publicDir)) {
+      fs.mkdirSync(publicDir, { recursive: true });
+    }
+
+    const publicFilePath = path.join(publicDir, safeName);
+    fs.writeFileSync(publicFilePath, buffer);
+
+    // Also write to dist/ if present
+    const distDir = path.join(process.cwd(), 'dist');
+    if (fs.existsSync(distDir)) {
+      const distFilePath = path.join(distDir, safeName);
+      try {
+        fs.writeFileSync(distFilePath, buffer);
+      } catch (_) {}
+    }
+
+    console.log(`Saved mockup ${safeName} to ${publicFilePath} (${buffer.length} bytes)`);
+    return res.json({ success: true, fileName: safeName, url: `/${safeName}?t=${Date.now()}` });
+  } catch (err: any) {
+    console.error('Error saving mockup file:', err);
+    return res.status(500).json({ error: 'Failed to write mockup file to disk.' });
+  }
+});
+
 // Chat API endpoint supporting multi-turn conversation
 app.post('/api/chat', async (req, res) => {
   try {
     const { message, history = [], market = 'ca', model = 'gemini-3.8-flash' } = req.body;
 
-    if (!message || typeof message !== 'string') {
-      res.status(400).json({ error: 'Message is required.' });
+    if (!message || typeof message !== 'string' || message.trim().length === 0) {
+      res.status(400).json({ error: 'A valid non-empty message is required.' });
       return;
     }
+
+    if (message.length > 4000) {
+      res.status(400).json({ error: 'Message length exceeds maximum allowable 4000 characters.' });
+      return;
+    }
+
+    const sanitizedMarket = market === 'mw' ? 'mw' : 'ca';
 
     let ai: GoogleGenAI;
     try {
@@ -147,7 +226,7 @@ app.post('/api/chat', async (req, res) => {
       // Fallback response if GEMINI_API_KEY is not set yet in development
       res.json({
         reply: `Welcome to **Unique Amaze**! We engineer high-converting, intelligent digital flagships and AI-powered websites. \n\nOur flagship packages range from **${
-          market === 'mw' ? 'MWK 500,000 to MWK 5,000,000+' : 'CAD $1,200 to CAD $6,000+'
+          sanitizedMarket === 'mw' ? 'MWK 500,000 to MWK 5,000,000+' : 'CAD $1,200 to CAD $6,000+'
         }**, delivering sub-1s load speeds and custom AI integrations. \n\n*(Note: To enable live real-time Gemini AI chat completions, please ensure your \`GEMINI_API_KEY\` is set in the AI Studio Settings > Secrets panel.)*\n\nWould you like to explore our **Services**, check the **Pricing & Packages**, or try our **2-Minute AI Project Planner**?`,
         modelUsed: 'studio-fallback',
       });
@@ -155,7 +234,7 @@ app.post('/api/chat', async (req, res) => {
     }
 
     const marketContext =
-      market === 'mw'
+      sanitizedMarket === 'mw'
         ? 'Current user context: Malawi Market (pricing in MWK, TNM/Airtel network considerations, local payment methods).'
         : 'Current user context: Canadian/International Market (pricing in CAD, Interac/Stripe, Calgary/Chestermere/Alberta hub).';
 
@@ -231,7 +310,7 @@ app.post('/api/chat', async (req, res) => {
       // Fallback gracefully with contextual information from the studio knowledge base
       res.json({
         reply: `Thank you for asking about **Unique Amaze**! We provide custom high-performance website design, 24/7 AI agent integrations, and 3D spatial experiences for clients across ${
-          market === 'mw' ? 'Malawi (MWK 500k – 5M)' : 'Canada (CAD $1,200 – $6,000+)'
+          sanitizedMarket === 'mw' ? 'Malawi (MWK 500k – 5M)' : 'Canada (CAD $1,200 – $6,000+)'
         }.\n\nOur team is ready to build an intelligent digital flagship with sub-1s load times for your business. You can also explore our **Pricing** tab or test our **2-Minute AI Project Planner** right now!`,
         modelUsed: 'studio-knowledge-fallback',
       });
@@ -243,6 +322,16 @@ app.post('/api/chat', async (req, res) => {
     });
   }
 });
+
+// High-performance static image & asset caching middleware for mockups and public assets
+app.use(express.static(path.join(process.cwd(), 'public'), {
+  maxAge: '7d',
+  setHeaders: (res, filePath) => {
+    if (/\.(jpg|jpeg|png|webp|svg|gif|ico|woff2?)$/i.test(filePath)) {
+      res.setHeader('Cache-Control', 'public, max-age=604800, stale-while-revalidate=86400');
+    }
+  }
+}));
 
 // Start the Express server with Vite middleware integration
 async function startServer() {

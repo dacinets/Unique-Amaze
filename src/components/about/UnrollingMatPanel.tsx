@@ -206,10 +206,10 @@ export const UnrollingMatPanel: React.FC<UnrollingMatPanelProps> = ({ onNavigate
                   studioAudio.playClick(950);
                   onNavigate('planner');
                 }}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#008280] hover:bg-[#009491] py-3.5 text-xs font-mono font-bold text-white tracking-wider uppercase transition-all shadow-md hover:shadow-[0_0_20px_rgba(0,130,128,0.4)]"
+                className="cta-image-btn w-full inline-flex items-center justify-center gap-2 rounded-lg py-3.5 text-xs font-mono font-bold text-white tracking-wider uppercase transition-all shadow-md hover:scale-[1.01] active:scale-[0.99]"
               >
-                <span>START A PROJECT WITH US</span>
-                <ArrowRight className="h-3.5 w-3.5" />
+                <span className="relative z-10">START A PROJECT WITH US</span>
+                <ArrowRight className="relative z-10 h-3.5 w-3.5" />
               </button>
             </div>
           </div>

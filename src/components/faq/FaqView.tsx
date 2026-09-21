@@ -80,7 +80,7 @@ export const FaqView: React.FC<FaqViewProps> = ({ onNavigate }) => {
                 data-cursor="card"
                 className={`rounded-lg border transition-all duration-300 overflow-hidden ${
                   isOpen
-                    ? 'border-[#008280]/50 glass-tier-2 shadow-[0_15px_40px_rgba(0,0,0,0.5)]'
+                    ? 'border-[#008280]/50 glass-tier-2 shadow-md'
                     : 'border-white/[0.08] glass-tier-1 hover:border-white/20'
                 }`}
               >
@@ -110,13 +110,23 @@ export const FaqView: React.FC<FaqViewProps> = ({ onNavigate }) => {
           })}
         </div>
 
-        {/* Need more answers banner */}
-        <div className="mt-24 sm:mt-32 rounded-lg border border-white/10 glass-tier-1 p-10 sm:p-14 max-w-4xl flex flex-col sm:flex-row items-center justify-between gap-8">
-          <div>
-            <h3 className="font-display text-xl sm:text-2xl font-semibold text-[#EBECF0] uppercase tracking-wide">
+        {/* Need more answers banner with Architectural Image Background */}
+        <div className="cta-image-container group mt-24 sm:mt-32 rounded-xl border border-white/10 p-10 sm:p-14 max-w-4xl flex flex-col sm:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-xl">
+          {/* Architectural Background Image */}
+          <img
+            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80"
+            alt="Unique Amaze Architectural Space"
+            className="cta-bg-image pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          />
+
+          {/* Theme-Adaptive Contrast Scrim */}
+          <div className="cta-scrim pointer-events-none absolute inset-0" />
+
+          <div className="relative z-10">
+            <h3 className="font-display text-xl sm:text-2xl font-semibold text-[#0F172A] dark:text-[#EBECF0] uppercase tracking-wide">
               HAVE A QUESTION NOT COVERED HERE?
             </h3>
-            <p className="font-sans text-sm text-[#94A3B8] mt-2 leading-relaxed">
+            <p className="font-sans text-sm text-slate-600 dark:text-[#94A3B8] mt-2 leading-relaxed">
               Book a quick strategy call and speak directly with our specialist.
             </p>
           </div>
@@ -125,10 +135,10 @@ export const FaqView: React.FC<FaqViewProps> = ({ onNavigate }) => {
               studioAudio.playClick(1000);
               onNavigate('contact');
             }}
-            className="shrink-0 rounded-lg bg-[#008280] px-6 py-3.5 font-mono text-xs font-semibold text-white hover:bg-[#367588] transition-all flex items-center gap-2 uppercase tracking-wider shadow-md"
+            className="cta-image-btn group/btn relative overflow-hidden shrink-0 rounded-lg px-6 py-3.5 font-mono text-xs font-bold text-white transition-all flex items-center gap-2 uppercase tracking-wider shadow-md hover:scale-[1.02] active:scale-[0.98]"
           >
-            <span>BOOK A STRATEGY CALL</span>
-            <ArrowRight className="h-4 w-4" />
+            <span className="relative z-10 text-white">BOOK A STRATEGY CALL</span>
+            <ArrowRight className="relative z-10 h-4 w-4 text-white" />
           </button>
         </div>
       </div>

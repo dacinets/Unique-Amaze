@@ -15,21 +15,59 @@ export const PROJECTS_DATA: ProjectCard[] = [
       { label: 'Conversion Lift', value: '+142%' },
       { label: 'Mobile Score', value: '98/100' }
     ],
-    accentColor: '#008280'
+    accentColor: '#008280',
+    overview: 'Engineered as a friction-free appointment engine for in-home therapeutic massage clients in Alberta. The project prioritized speed, reassurance, and instantaneous mobile booking.',
+    approach: 'We stripped away cumbersome multi-step booking forms in favor of an intuitive, two-tap schedule workflow with integrated intake validation and SMS confirmations.',
+    engineeringStack: ['React 19', 'Next.js', 'Tailwind CSS', 'Twilio SMS Integration', 'Square Appointments API', 'Lighthouse 98+']
   },
   {
-    id: 'fire-claws',
-    title: 'Fire Claws',
-    category: 'Product Website',
-    description: 'Cinematic, tactile product storytelling for heavy-duty outdoor fire handling tools with high-contrast visual authority.',
-    image: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=900&auto=format&fit=crop',
-    liveUrl: 'https://fireclaws.ca/',
+    id: 'fatsani-music',
+    title: 'Fatsani Music',
+    category: 'Music & Interactive Digital Experience',
+    description: 'An immersive digital flagship and multi-device interactive EP experience engineered for recording artist Fatsani.',
+    image: '/macbook_pro_mock_up.jpg',
+    liveUrl: 'https://fatsanimusic.com/',
     metrics: [
-      { label: 'Direct Inquiries', value: '+210%' },
-      { label: 'Avg Session', value: '3.8m' },
-      { label: 'Load Time', value: '0.8s' }
+      { label: 'Debut Stream Retention', value: '89.2%' },
+      { label: 'Avg Listening Dwell', value: '4.8m' },
+      { label: 'Audio Engine Latency', value: '< 8ms' }
     ],
-    accentColor: '#367588'
+    accentColor: '#008280',
+    overview: 'Engineered by Unique Amaze as the official digital flagship for recording artist Fatsani’s debut EP release. Moving beyond traditional social link directories, the flagship delivers an immersive digital listening environment with interactive chapter previews, synchronized lyric presentations, and direct streaming integrations across Spotify and Apple Music.',
+    approach: 'Unique Amaze engineered a bespoke, high-performance web experience tailored to Fatsani’s artistic identity. We designed and optimized responsive multi-device layouts across MacBook Pro, iPad, and iPhone 17 Pro Max form factors, delivering instant sub-second load times, smooth touch interactions, and fluid media presentation.',
+    engineeringStack: [
+      'React 19',
+      'Next.js 15',
+      'Tailwind CSS',
+      'Web Audio API',
+      'Framer Motion',
+      'Cloudflare Edge Audio CDN',
+      'Spotify & Apple Music APIs',
+      'Zero-CLS Responsive Layouts'
+    ],
+    deviceMockups: [
+      {
+        device: 'macbook',
+        title: 'MacBook Pro Mockup',
+        subtitle: 'Desktop Viewport',
+        badge: 'Desktop Flagship',
+        description: 'Widescreen presentation engineered for desktop listeners.'
+      },
+      {
+        device: 'ipad',
+        title: 'iPad Pro Mockup',
+        subtitle: 'Tablet Viewport',
+        badge: 'Tablet Experience',
+        description: 'Touch-optimized layout designed for tablet screens.'
+      },
+      {
+        device: 'iphone',
+        title: 'iPhone 17 Pro Max Mockup',
+        subtitle: 'Mobile Viewport',
+        badge: 'Mobile Flagship',
+        description: 'Streamlined mobile interface built for smartphones.'
+      }
+    ]
   },
   {
     id: 'belle-afrique',

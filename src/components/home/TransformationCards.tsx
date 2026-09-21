@@ -40,9 +40,9 @@ export const TransformationCards: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full border-t border-white/[0.08] bg-[#050607]/85 backdrop-blur-sm py-20 sm:py-28 lg:py-32">
+    <section className="relative w-full border-t border-white/[0.08] bg-[#050607]/85 backdrop-blur-sm py-12 sm:py-14 lg:py-16">
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
-        <GsapStaggerReveal stagger={0.12} yOffset={32} className="max-w-4xl mb-14 sm:mb-20 space-y-4">
+        <GsapStaggerReveal stagger={0.12} yOffset={32} className="max-w-4xl mb-8 sm:mb-12 space-y-4">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase mb-1 font-semibold">
             <span className="h-1.5 w-1.5 rounded-full bg-[#008280] animate-pulse" />
             <span>THE TRANSFORMATION STANDARD</span>

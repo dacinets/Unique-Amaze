@@ -226,10 +226,10 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
               : 'opacity-0 translate-y-12 scale-[0.97]'
           } ${
             isHovered
-              ? 'border-[#16D2C8]/60 shadow-[0_25px_60px_rgba(0,0,0,0.85),0_0_45px_rgba(22,210,200,0.22)]'
+              ? 'border-[#16D2C8]/60 shadow-xl'
               : STAGE_ARTIFACTS[index]?.dominant
-              ? 'border-[#16D2C8]/45 shadow-[0_18px_45px_rgba(0,0,0,0.7),0_0_30px_rgba(0,130,128,0.2)]'
-              : 'border-white/[0.08] hover:border-white/20 shadow-[0_15px_35px_rgba(0,0,0,0.5)]'
+              ? 'border-[#16D2C8]/45 shadow-lg'
+              : 'border-white/[0.08] hover:border-white/20 shadow-md'
           }`}
           style={{
             transformOrigin: isPoleRight ? 'right center' : 'left center',

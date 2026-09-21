@@ -32,6 +32,7 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
 
   const categories = [
     { id: 'all', label: 'All Flagships' },
+    { id: 'music', label: 'Music & Culture' },
     { id: 'wellness', label: 'Wellness & Clinics' },
     { id: 'product', label: 'Product & Brand' },
     { id: 'community', label: 'Community & Faith' },
@@ -40,8 +41,11 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
 
   const filteredProjects = PROJECTS_DATA.filter((p) => {
     if (activeCategory === 'all') return true;
+    if (activeCategory === 'music')
+      return p.category.toLowerCase().includes('music') || p.category.toLowerCase().includes('culture');
     if (activeCategory === 'wellness') return p.category.toLowerCase().includes('wellness');
-    if (activeCategory === 'product') return p.category.toLowerCase().includes('product');
+    if (activeCategory === 'product')
+      return p.category.toLowerCase().includes('product') || p.category.toLowerCase().includes('brand');
     if (activeCategory === 'community')
       return p.category.toLowerCase().includes('church') || p.category.toLowerCase().includes('presence');
     if (activeCategory === 'lab')
@@ -92,8 +96,11 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                   setActiveCategory(c.id);
                   const firstMatching = PROJECTS_DATA.find((p) => {
                     if (c.id === 'all') return true;
+                    if (c.id === 'music')
+                      return p.category.toLowerCase().includes('music') || p.category.toLowerCase().includes('culture');
                     if (c.id === 'wellness') return p.category.toLowerCase().includes('wellness');
-                    if (c.id === 'product') return p.category.toLowerCase().includes('product');
+                    if (c.id === 'product')
+                      return p.category.toLowerCase().includes('product') || p.category.toLowerCase().includes('brand');
                     if (c.id === 'community')
                       return p.category.toLowerCase().includes('church') || p.category.toLowerCase().includes('presence');
                     if (c.id === 'lab')
@@ -166,7 +173,7 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                   return (
                     <div
                       key={project.id}
-                      className="work-expanded-card relative flex-1 rounded-xl overflow-hidden border border-[#16D2C8]/45 glass-dominant shadow-[0_25px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(0,130,128,0.25)] transition-all duration-500 ease-out flex flex-col justify-between"
+                      className="work-expanded-card relative flex-1 rounded-xl overflow-hidden border border-[#16D2C8]/45 glass-dominant shadow-2xl transition-all duration-500 ease-out flex flex-col justify-between"
                     >
                       {/* Background Image with Dark Atmospheric Gradient and Progressive Loading */}
                       <div className="absolute inset-0 z-0">
@@ -232,10 +239,10 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                               studioAudio.playClick(1100);
                               setSelectedProject(project);
                             }}
-                            className="flex items-center gap-2 rounded-md bg-[#008280] px-6 py-3.5 font-mono text-xs font-bold text-[#EBECF0] shadow-md hover:bg-[#009491] transition-all uppercase"
+                            className="cta-image-btn flex items-center gap-2 rounded-md px-6 py-3.5 font-mono text-xs font-bold text-white shadow-md transition-all uppercase hover:scale-[1.02] active:scale-[0.98]"
                           >
-                            <span>EXPLORE CASE STUDY</span>
-                            <ArrowRight className="h-4 w-4" />
+                            <span className="relative z-10">EXPLORE CASE STUDY</span>
+                            <ArrowRight className="relative z-10 h-4 w-4" />
                           </button>
 
                           {project.liveUrl && project.liveUrl.startsWith('http') && (
@@ -243,7 +250,7 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                               href={project.liveUrl}
                               target="_blank"
                               rel="noreferrer noopener"
-                              className="flex items-center gap-2 rounded-md border border-white/20 glass-smoke px-5 py-3.5 font-mono text-xs font-semibold text-[#EBECF0] hover:border-[#16D2C8] hover:text-[#16D2C8] transition-all uppercase"
+                              className="cta-secondary-btn flex items-center gap-2 rounded-md border px-5 py-3.5 font-mono text-xs font-semibold transition-all uppercase hover:scale-[1.02] active:scale-[0.98]"
                             >
                               <span>LAUNCH LIVE SITE</span>
                               <ExternalLink className="h-3.5 w-3.5" />
@@ -274,7 +281,7 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                   >
                     {/* Ghost background image on hover */}
                     <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
-                      <img src={project.image} alt="" className="h-full w-full object-cover" />
+                      <img src={project.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
                     </div>
 
                     {/* Top Index Pill */}
@@ -361,9 +368,9 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                               studioAudio.playClick(1100);
                               setSelectedProject(project);
                             }}
-                            className="flex-1 py-2.5 rounded bg-[#008280] text-[#EBECF0] font-mono text-xs font-bold text-center uppercase shadow-md hover:bg-[#009491]"
+                            className="cta-image-btn flex-1 py-2.5 rounded text-white font-mono text-xs font-bold text-center uppercase shadow-md hover:scale-[1.01] active:scale-[0.99]"
                           >
-                            EXPLORE CASE STUDY
+                            <span className="relative z-10">EXPLORE CASE STUDY</span>
                           </button>
 
                           {project.liveUrl && project.liveUrl.startsWith('http') && (
@@ -371,7 +378,7 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                               href={project.liveUrl}
                               target="_blank"
                               rel="noreferrer noopener"
-                              className="px-4 py-2.5 rounded border border-white/20 bg-[#0E1216] font-mono text-xs text-[#EBECF0] flex items-center justify-center uppercase hover:border-[#008280]"
+                              className="cta-secondary-btn px-4 py-2.5 rounded border font-mono text-xs flex items-center justify-center uppercase hover:border-[#008280]"
                             >
                               <ExternalLink className="h-3.5 w-3.5" />
                             </a>
@@ -416,7 +423,7 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                       onNavigate('contact');
                     }
                   }}
-                  className={`group relative rounded-xl border border-white/10 ${cardGlass} overflow-hidden transition-all duration-300 hover:border-[#16D2C8]/50 hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)] cursor-pointer flex flex-col justify-between`}
+                  className={`group relative rounded-xl border border-white/10 ${cardGlass} overflow-hidden transition-all duration-300 hover:border-[#16D2C8]/50 hover:shadow-xl cursor-pointer flex flex-col justify-between`}
                   style={{ perspective: '1200px' }}
                 >
                   {/* 3D Flip Container */}
@@ -534,36 +541,46 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
           sublabel="TAILORED STRATEGY"
         />
 
-        {/* Conversion Action Banner */}
-        <div className="rounded-xl border border-white/10 glass-dominant p-10 sm:p-14 flex flex-col sm:flex-row items-center justify-between gap-8">
-          <div>
-            <span className="font-mono text-xs text-[#16D2C8] uppercase tracking-widest block mb-2 font-semibold">
+        {/* Conversion Action Banner with Architectural Image Background */}
+        <div className="cta-image-container group rounded-xl border border-white/10 p-10 sm:p-14 flex flex-col sm:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-xl">
+          {/* Architectural Background Image */}
+          <img
+            src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1600&q=80"
+            alt="Unique Amaze Modern Architecture Space"
+            className="cta-bg-image pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          />
+
+          {/* Theme-Adaptive Contrast Scrim */}
+          <div className="cta-scrim pointer-events-none absolute inset-0" />
+
+          <div className="relative z-10 max-w-xl">
+            <span className="font-mono text-xs text-[#008280] uppercase tracking-widest block mb-2 font-bold">
               WANT A FLAGSHIP LIKE THESE?
             </span>
-            <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#EBECF0] uppercase tracking-wide">
+            <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#0F172A] dark:text-[#EBECF0] uppercase tracking-wide">
               LET’S ARCHITECT YOUR DIGITAL PRESENCE FROM THE GROUND UP.
             </h3>
-            <p className="mt-2 text-sm text-[#CBD5E1] max-w-xl font-sans leading-relaxed">
+            <p className="mt-2 text-sm text-slate-600 dark:text-[#94A3B8] font-sans leading-relaxed">
               Every project is individually crafted with high-intent UX, sub-second performance, and quiet conversational AI.
             </p>
           </div>
-          <div className="flex flex-wrap gap-4 shrink-0">
+          <div className="relative z-10 flex flex-wrap gap-4 shrink-0">
             <button
               onClick={() => {
                 studioAudio.playClick(950);
                 onNavigate('planner');
               }}
-              className="rounded-lg bg-[#008280] px-6 py-3.5 font-mono text-xs font-bold text-white shadow-md hover:bg-[#009491] transition-all flex items-center gap-2 uppercase tracking-wider"
+              className="cta-image-btn group/btn relative overflow-hidden rounded-lg px-6 py-3.5 font-mono text-xs font-bold text-white shadow-md transition-all flex items-center gap-2 uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98]"
             >
-              <Sparkles className="h-4 w-4" />
-              <span>PROJECT PLANNER</span>
+              <Sparkles className="relative z-10 h-4 w-4 text-white" />
+              <span className="relative z-10 text-white">PROJECT PLANNER</span>
             </button>
             <button
               onClick={() => {
                 studioAudio.playClick(800);
                 onNavigate('contact');
               }}
-              className="rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 px-6 py-3.5 font-mono text-xs font-semibold text-[#EBECF0] hover:border-[#16D2C8] transition-all uppercase tracking-wider"
+              className="cta-secondary-btn rounded-lg border px-6 py-3.5 font-mono text-xs font-bold transition-all uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98]"
             >
               SCHEDULE A CALL
             </button>

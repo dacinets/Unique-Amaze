@@ -73,9 +73,11 @@ export const ProjectOrbitGallery: React.FC<ProjectOrbitGalleryProps> = ({
       ScrollTrigger.create({
         trigger: container,
         start: 'top top',
-        end: '+=130%',
+        end: '+=80%',
         pin: true,
-        scrub: 0.6,
+        pinSpacing: true,
+        anticipatePin: 1,
+        scrub: 0.5,
         onUpdate: (self) => {
           setScrollProgress(self.progress);
         },
@@ -557,10 +559,10 @@ export const ProjectOrbitGallery: React.FC<ProjectOrbitGalleryProps> = ({
                 const orbitScale = 0.88 + Math.max(0, Math.cos(angleOffset)) * 0.22;
                 const orbitOpacity = Math.max(0.4, Math.cos(angleOffset) * 0.95 + 0.15);
 
-                // Initial Emergence Offset (Phase 1)
-                const emergenceZ = (1 - emergenceT) * -700;
-                const emergenceBlur = (1 - emergenceT) * 10;
-                const emergenceOpacity = Math.min(1, emergenceT * 1.3);
+                // Seamless initial visibility - cards are immediately present and rendered
+                const emergenceZ = 0;
+                const emergenceBlur = 0;
+                const emergenceOpacity = 1.0;
 
                 // 2D Editorial Target Coordinates (Phase 4 morph)
                 // In 2-column grid, alternate left and right columns
@@ -575,10 +577,10 @@ export const ProjectOrbitGallery: React.FC<ProjectOrbitGalleryProps> = ({
                 // Interpolate between 3D Orbit and 2D Editorial Grid
                 const finalX = orbitX * (1 - morphT) + editorialX * morphT;
                 const finalY = (morphT > 0 ? editorialY * morphT : 0);
-                const finalZ = (orbitZ + emergenceZ) * (1 - morphT) + editorialZ * morphT;
+                const finalZ = orbitZ * (1 - morphT) + editorialZ * morphT;
                 const finalRotateY = orbitRotateY * (1 - morphT) + editorialRotateY * morphT;
                 const finalScale = orbitScale * (1 - morphT) + editorialScale * morphT;
-                const finalOpacity = (orbitOpacity * emergenceOpacity) * (1 - morphT) + 1.0 * morphT;
+                const finalOpacity = orbitOpacity * (1 - morphT) + 1.0 * morphT;
 
                 const isFocused = Math.abs(angleOffset) < 0.45 && morphT < 0.5;
                 const isHovered = hoveredProjectId === project.id;

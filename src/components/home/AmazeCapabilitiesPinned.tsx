@@ -162,8 +162,10 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
       ScrollTrigger.create({
         trigger: el,
         start: 'top top',
-        end: '+=120%',
+        end: '+=80%',
         pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
         scrub: 0.5,
         onUpdate: (self) => {
           const progress = self.progress;
@@ -309,7 +311,7 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
                   studioAudio.playClick(1100);
                   onNavigate('services');
                 }}
-                className="flex items-center gap-2 rounded-lg bg-[#008280] px-6 py-3.5 font-mono text-xs font-semibold text-white shadow-lg hover:bg-[#367588] transition-all uppercase tracking-wider"
+                className="cta-image-btn flex items-center gap-2 rounded-lg px-6 py-3.5 font-mono text-xs font-bold text-white shadow-lg transition-all uppercase tracking-wider hover:scale-[1.01] active:scale-[0.99]"
               >
                 <span>EXPLORE {titleFirst} SERVICES</span>
                 <ArrowRight className="h-3.5 w-3.5" />

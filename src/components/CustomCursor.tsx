@@ -46,6 +46,15 @@ export const CustomCursor: React.FC = () => {
         } else if (cursorAttr === 'orbit' || cursorAttr === 'explore' || cursorAttr === 'lab') {
           newMode = 'explore';
           labelText = 'EXPLORE';
+        } else if (cursorAttr === 'open') {
+          newMode = 'open';
+          labelText = 'OPEN';
+        } else if (cursorAttr === 'enter') {
+          newMode = 'enter';
+          labelText = 'ENTER';
+        } else if (cursorAttr === 'close') {
+          newMode = 'close';
+          labelText = 'CLOSE';
         } else if (cursorAttr === 'drag') {
           newMode = 'drag';
           labelText = 'DRAG';
@@ -78,6 +87,15 @@ export const CustomCursor: React.FC = () => {
       if (mode === 'view') {
         ring.classList.add('h-22', 'w-22', 'border-2', 'border-[#008280]', 'bg-[#008280]/20', 'backdrop-blur-sm', 'shadow-[0_0_30px_rgba(0,130,128,0.4)]');
         dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-[#16D2C8]';
+      } else if (mode === 'enter') {
+        ring.classList.add('h-24', 'w-24', 'border-2', 'border-[#16D2C8]', 'bg-[#008280]/25', 'backdrop-blur-md', 'shadow-[0_0_35px_rgba(22,210,200,0.5)]');
+        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-2 w-2 bg-[#16D2C8] shadow-[0_0_12px_#16D2C8]';
+      } else if (mode === 'open') {
+        ring.classList.add('h-20', 'w-20', 'border-2', 'border-[#008280]', 'bg-[#050607]/80', 'backdrop-blur-md', 'shadow-[0_0_25px_rgba(0,130,128,0.4)]');
+        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-[#008280]';
+      } else if (mode === 'close') {
+        ring.classList.add('h-18', 'w-18', 'border', 'border-red-500/50', 'bg-red-500/10', 'backdrop-blur-sm');
+        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-red-400';
       } else if (mode === 'explore') {
         ring.classList.add('h-24', 'w-24', 'border-2', 'border-[#16D2C8]/90', 'bg-[#050607]/80', 'backdrop-blur-md', 'shadow-[0_0_35px_rgba(22,210,200,0.5)]');
         dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-2 w-2 bg-[#16D2C8] animate-ping';

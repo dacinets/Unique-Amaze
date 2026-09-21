@@ -90,7 +90,7 @@ export const BrandDivider: React.FC<BrandDividerProps> = ({
 
           {/* Optional Label / Technical Index Badge */}
           {label ? (
-            <div className="absolute flex items-center gap-2 px-3 py-0.5 rounded-full border border-white/10 bg-[#06080B]/90 backdrop-blur-md font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-[#94A3B8] shadow-sm">
+            <div className="brand-divider-badge absolute flex items-center gap-2 px-3 py-0.5 rounded-full border border-white/10 bg-[#06080B]/90 backdrop-blur-md font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-[#94A3B8] shadow-sm">
               <span className={`h-1.5 w-1.5 rounded-full ${getPipColor()} animate-pulse`} />
               <span className="font-semibold text-[#CBD5E1]">{label}</span>
               {sublabel && (

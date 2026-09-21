@@ -103,65 +103,75 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, currentMarket, onMar
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10 space-y-12 sm:space-y-16">
         {/* ========================================================================= */}
-        {/* FOOTER SECTION 1: ARCHITECTURAL CTA DOCK (Shade: #0E151E -> #101924)       */}
+        {/* FOOTER SECTION 1: ARCHITECTURAL CTA DOCK WITH BACKGROUND IMAGE            */}
         {/* ========================================================================= */}
-        <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-[#0E151E] via-[#101924] to-[#0D141C] p-8 sm:p-12 lg:p-14 shadow-2xl relative overflow-hidden backdrop-blur-md">
+        <div className="cta-image-container group rounded-2xl border border-white/10 p-8 sm:p-12 lg:p-14 shadow-2xl relative overflow-hidden">
+          {/* Architectural Background Image */}
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"
+            alt="Unique Amaze Modern Architecture Studio"
+            className="cta-bg-image pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          />
+
+          {/* Theme-Harmonized High Contrast Scrim Layer (Prevents font clash in Obsidian & Lunar) */}
+          <div className="cta-scrim pointer-events-none absolute inset-0" />
+
           {/* Subtle Ambient Radial Highlight inside card */}
-          <div className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-[#16D2C8]/10 blur-3xl" />
+          <div className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-[#008280]/15 blur-3xl z-1" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end relative z-10">
             {/* Left: Colossal Heading */}
             <div className="lg:col-span-8 space-y-5">
-              <div className="inline-flex items-center gap-2 font-mono text-xs text-[#16D2C8] tracking-widest uppercase font-bold">
-                <Sparkles className="h-3.5 w-3.5 text-[#16D2C8]" />
+              <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase font-bold">
+                <Sparkles className="h-3.5 w-3.5 text-[#008280]" />
                 <span>PROJECT DISPATCH &amp; COLLABORATION</span>
               </div>
 
-              <h2 className="font-display text-[clamp(2.2rem,4.8vw,4.5rem)] font-black uppercase text-[#EBECF0] tracking-[-0.04em] leading-[0.96]">
+              <h2 className="font-display text-[clamp(2.2rem,4.8vw,4.5rem)] font-black uppercase text-[#0F172A] dark:text-[#EBECF0] tracking-[-0.04em] leading-[0.96]">
                 HAVE A VISION IN MIND?{' '}
                 <span className="title-gradient-teal block sm:inline">
                   LET&apos;S TALK.
                 </span>
               </h2>
 
-              <p className="max-w-[65ch] font-sans text-sm sm:text-base text-[#94A3B8] leading-relaxed pt-3">
+              <p className="max-w-[65ch] font-sans text-sm sm:text-base text-slate-600 dark:text-[#94A3B8] leading-relaxed pt-3">
                 Whether you need a high-converting digital flagship in North America or a blazing-fast, mobile-money integrated commerce experience in Africa, we build websites that transform business outcomes.
               </p>
             </div>
 
             {/* Right: Interactive Action Dock */}
             <div className="lg:col-span-4 flex flex-col gap-4">
-              {/* Primary Magnetic CTA Button */}
+              {/* Primary Magnetic CTA Button with Image Texture */}
               <button
                 onClick={() => {
                   studioAudio.playClick(1000);
                   onNavigate('planner');
                   scrollToTop();
                 }}
-                className="group relative flex items-center justify-between w-full rounded-xl bg-[#008280] hover:bg-[#16D2C8] hover:text-[#050607] px-6 py-5 text-white font-mono text-sm uppercase tracking-wider font-bold transition-all duration-300 hover:shadow-[0_0_35px_rgba(22,210,200,0.5)] active:scale-[0.99]"
+                className="cta-image-btn group relative flex items-center justify-between w-full overflow-hidden rounded-xl px-6 py-5 text-white font-mono text-sm uppercase tracking-wider font-bold shadow-lg transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
               >
-                <div className="flex items-center gap-3">
-                  <Zap className="h-5 w-5 animate-pulse" />
-                  <span>START A PROJECT</span>
+                <div className="relative z-10 flex items-center gap-3 text-white">
+                  <Zap className="h-5 w-5" />
+                  <span className="tracking-wider">START A PROJECT</span>
                 </div>
-                <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
-                  <ArrowUpRight className="h-4 w-4" />
+                <div className="relative z-10 h-8 w-8 rounded-full bg-white/20 flex items-center justify-center transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
+                  <ArrowUpRight className="h-4 w-4 text-white" />
                 </div>
               </button>
 
               {/* Direct 1-Click Copy Email Button */}
               <button
                 onClick={handleCopyEmail}
-                className="group flex items-center justify-between w-full rounded-xl border border-white/10 bg-[#070A0F] hover:border-[#16D2C8] px-6 py-4 font-mono text-xs uppercase text-[#EBECF0] transition-all"
+                className="cta-secondary-btn group flex items-center justify-between w-full rounded-xl border px-6 py-4 font-mono text-xs uppercase transition-all"
                 title="Click to copy email address"
               >
                 <div className="flex items-center gap-3">
                   <Mail className="h-4 w-4 text-[#16D2C8]" />
-                  <span className="font-semibold text-[#EBECF0] tracking-wider">
+                  <span className="font-semibold tracking-wider">
                     HELLO@UNIQUEAMAZE.COM
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 text-[11px] text-[#94A3B8] group-hover:text-[#16D2C8]">
+                <div className="flex items-center gap-1.5 text-[11px] group-hover:text-[#16D2C8]">
                   {copiedEmail ? (
                     <>
                       <Check className="h-3.5 w-3.5 text-[#16D2C8]" />

@@ -147,11 +147,11 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, currentM
             <span>WHAT WE DO // SERVICES &amp; CARE</span>
           </div>
 
-          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-wide text-[#EBECF0] leading-[1.12] uppercase">
+          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-wide text-[#0F172A] dark:text-[#EBECF0] leading-[1.12] uppercase">
             FIVE CORE DISCIPLINES, EXECUTED WITH <span className="text-[#008280]">ARCHITECTURAL RIGOR.</span>
           </h1>
 
-          <p className="mt-8 font-sans text-base sm:text-lg text-[#94A3B8] leading-relaxed max-w-2xl">
+          <p className="mt-8 font-sans text-base sm:text-lg text-slate-600 dark:text-[#94A3B8] leading-relaxed max-w-2xl">
             Everything a modern business needs to win online — thoughtfully designed, precision built, and reliably maintained by a dedicated specialist.
           </p>
         </div>
@@ -165,10 +165,10 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, currentM
             <div
               key={p.num}
               data-cursor="card"
-              className={`relative rounded-xl border p-8 sm:p-12 lg:p-14 transition-all duration-300 ${p.glassClass} ${
+              className={`services-pillar-panel relative rounded-xl border p-8 sm:p-12 lg:p-14 transition-all duration-300 ${p.glassClass} ${
                 p.isDominant
-                  ? 'hover:border-[#16D2C8]/60 shadow-[0_25px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(0,130,128,0.25)]'
-                  : 'hover:border-[#008280]/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)]'
+                  ? 'hover:border-[#16D2C8]/60 shadow-xl'
+                  : 'hover:border-[#008280]/40 hover:shadow-lg'
               }`}
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
@@ -176,31 +176,31 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, currentM
                 <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
                   <div className="space-y-5">
                     <div className="flex items-center gap-3">
-                      <span className={`font-display text-3xl sm:text-4xl font-semibold ${p.isDominant ? 'text-[#16D2C8]' : 'text-[#008280]'}`}>
+                      <span className={`font-display text-3xl sm:text-4xl font-bold ${p.isDominant ? 'text-[#008280] dark:text-[#16D2C8]' : 'text-[#008280]'}`}>
                         {p.num}
                       </span>
-                      <span className="text-[#3A494B] font-mono">//</span>
-                      <span className="font-mono text-xs tracking-widest text-[#367588] uppercase font-medium">
+                      <span className="text-slate-400 dark:text-[#3A494B] font-mono">//</span>
+                      <span className="font-mono text-xs tracking-widest text-[#007A78] dark:text-[#367588] uppercase font-bold">
                         {p.kicker}
                       </span>
                       {p.isDominant && (
-                        <span className="ml-auto rounded-full bg-[#16D2C8]/15 border border-[#16D2C8]/40 px-2.5 py-0.5 font-mono text-[9px] font-bold text-[#16D2C8] uppercase tracking-wider">
+                        <span className="ml-auto rounded-full bg-[#008280]/15 border border-[#008280]/40 px-2.5 py-0.5 font-mono text-[9px] font-bold text-[#008280] dark:text-[#16D2C8] uppercase tracking-wider">
                           FLAGSHIP
                         </span>
                       )}
                     </div>
 
-                    <h2 className="font-display text-xl sm:text-2xl lg:text-3xl font-semibold text-[#EBECF0] uppercase tracking-wide leading-tight">
+                    <h2 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-[#0F172A] dark:text-[#EBECF0] uppercase tracking-wide leading-tight">
                       {p.title}
                     </h2>
 
-                    <p className="font-sans text-sm sm:text-base text-[#94A3B8] leading-relaxed">
+                    <p className="font-sans text-sm sm:text-base text-[#334155] dark:text-[#94A3B8] leading-relaxed font-normal">
                       {p.lead}
                     </p>
                   </div>
 
                   {/* Supporting Thumbnail Visual / Spatial Anchor */}
-                  <div className="relative overflow-hidden rounded-lg border border-white/10 aspect-[16/8] sm:aspect-[16/7] w-full bg-[#080B0E] group">
+                  <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-white/10 aspect-[16/8] sm:aspect-[16/7] w-full bg-[#080B0E] group">
                     <img
                       src={p.image}
                       alt={p.imageAlt}
@@ -208,47 +208,47 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, currentM
                       className="h-full w-full object-cover brightness-[0.62] contrast-[1.08] transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#050607] via-transparent to-transparent opacity-85" />
-                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between font-mono text-[10px] text-[#16D2C8]">
-                      <span className="tracking-wider uppercase font-semibold">{p.caption}</span>
-                      <span className="text-[#64748B] flex items-center gap-1">
-                        <Icon className="h-3 w-3 text-[#008280]" />
-                        <span>SPEC // {p.num}</span>
+                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between font-mono text-[10px] !text-white z-20">
+                      <span className="tracking-wider uppercase font-semibold !text-white">{p.caption}</span>
+                      <span className="!text-white flex items-center gap-1 font-semibold">
+                        <Icon className="h-3 w-3 text-[#16D2C8]" />
+                        <span className="!text-white">SPEC // {p.num}</span>
                       </span>
                     </div>
                   </div>
                 </div>
 
                 {/* Right Column: Key Deliverables & Architectural Specs */}
-                <div className="lg:col-span-7 rounded-xl border border-white/[0.08] bg-[#0A0D10]/85 backdrop-blur-md p-8 sm:p-10 flex flex-col justify-between shadow-inner">
+                <div className="services-deliverables-box lg:col-span-7 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-50/95 dark:bg-[#0A0D10]/85 backdrop-blur-md p-8 sm:p-10 flex flex-col justify-between shadow-sm dark:shadow-inner">
                   <div>
-                    <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/[0.06]">
-                      <span className="font-mono text-xs text-[#16D2C8] uppercase tracking-wider block font-semibold">
+                    <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-200 dark:border-white/[0.06]">
+                      <span className="font-mono text-xs text-[#007A78] dark:text-[#16D2C8] uppercase tracking-wider block font-bold">
                         DELIVERABLES &amp; CAPABILITIES:
                       </span>
-                      <span className="font-mono text-[10px] text-[#64748B]">
+                      <span className="font-mono text-[10px] text-slate-500 dark:text-[#64748B] font-semibold">
                         ENGINEERED SPECIFICATION
                       </span>
                     </div>
-                    <ul className="space-y-4 font-sans text-sm text-[#EBECF0]">
+                    <ul className="space-y-4 font-sans text-sm">
                       {p.features.map((f, fIdx) => (
                         <li key={fIdx} className="flex items-start gap-3.5 group/item">
-                          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#008280]/20 text-[#008280] border border-[#008280]/40 mt-0.5 group-hover/item:text-[#16D2C8] group-hover/item:border-[#16D2C8]">
+                          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#008280]/15 text-[#008280] border border-[#008280]/30 mt-0.5 group-hover/item:text-[#008280] group-hover/item:border-[#008280] dark:bg-[#008280]/20 dark:text-[#008280] dark:border-[#008280]/40 dark:group-hover/item:text-[#16D2C8] dark:group-hover/item:border-[#16D2C8]">
                             <Check className="h-3 w-3" />
                           </span>
-                          <span className="leading-snug text-[#EBECF0]/90 group-hover/item:text-white transition-colors">{f}</span>
+                          <span className="leading-snug text-[#0F172A] dark:text-[#EBECF0] font-medium group-hover/item:text-[#008280] dark:group-hover/item:text-white transition-colors">{f}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="mt-8 pt-5 border-t border-white/[0.06] flex items-center justify-between font-mono text-xs">
-                    <span className="text-[#64748B]">DISCIPLINE {p.num} // PRODUCTION READY</span>
+                  <div className="mt-8 pt-5 border-t border-slate-200 dark:border-white/[0.06] flex items-center justify-between font-mono text-xs">
+                    <span className="text-slate-500 dark:text-[#64748B] font-medium">DISCIPLINE {p.num} // PRODUCTION READY</span>
                     <button
                       onClick={() => {
                         studioAudio.playClick(900);
                         onNavigate('planner');
                       }}
-                      className="text-[#008280] hover:text-[#16D2C8] flex items-center gap-1 transition-colors uppercase font-semibold"
+                      className="text-[#008280] hover:text-[#005F5E] dark:hover:text-[#16D2C8] flex items-center gap-1 transition-colors uppercase font-bold"
                     >
                       <span>INCLUDE IN SCOPE</span>
                       <ArrowRight className="h-3.5 w-3.5" />
@@ -273,32 +273,32 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, currentM
       {/* Comparison: Traditional vs. Unique Amaze */}
       <section className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-[#367588] tracking-widest uppercase mb-3 font-semibold">
+          <div className="inline-flex items-center gap-2 font-mono text-xs text-[#007A78] dark:text-[#367588] tracking-widest uppercase mb-3 font-semibold">
             <span>WHY IT MATTERS // COMPARISON</span>
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-semibold text-[#EBECF0] uppercase tracking-wide">
+          <h2 className="font-display text-2xl sm:text-3xl font-semibold text-[#0F172A] dark:text-[#EBECF0] uppercase tracking-wide">
             WHY AI-POWERED SITES OUTPERFORM TRADITIONAL BROCHURES
           </h2>
         </div>
 
-        <div className="overflow-hidden rounded-xl border border-white/[0.08] glass-smoke shadow-2xl">
-          <div className="grid grid-cols-1 md:grid-cols-12 border-b border-white/10 bg-[#0E1217]/90 p-6 sm:p-8 font-mono text-xs font-bold">
-            <div className="md:col-span-3 text-[#94A3B8] uppercase">EVALUATION AREA</div>
+        <div className="services-comparison-table overflow-hidden rounded-xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-[#0E1217]/90 shadow-xl">
+          <div className="grid grid-cols-1 md:grid-cols-12 border-b border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#0E1217]/90 p-6 sm:p-8 font-mono text-xs font-bold">
+            <div className="md:col-span-3 text-slate-500 dark:text-[#94A3B8] uppercase">EVALUATION AREA</div>
             <div className="md:col-span-4 text-[#EF4444] mt-2 md:mt-0 uppercase">TRADITIONAL BROCHURE SITES</div>
             <div className="md:col-span-5 text-[#008280] mt-2 md:mt-0 uppercase">UNIQUE AMAZE INTELLIGENT EXPERIENCE</div>
           </div>
 
-          <div className="divide-y divide-white/[0.06]">
+          <div className="divide-y divide-slate-100 dark:divide-white/[0.06]">
             {comparison.map((item, i) => (
               <div key={i} className="grid grid-cols-1 md:grid-cols-12 p-6 sm:p-8 text-sm gap-6 items-center">
-                <div className="md:col-span-3 font-mono text-xs text-[#EBECF0] font-semibold uppercase">
+                <div className="md:col-span-3 font-mono text-xs text-[#0F172A] dark:text-[#EBECF0] font-semibold uppercase">
                   {item.feature}
                 </div>
-                <div className="md:col-span-4 flex items-start gap-2.5 text-[#94A3B8]">
+                <div className="md:col-span-4 flex items-start gap-2.5 text-slate-600 dark:text-[#94A3B8]">
                   <X className="h-4 w-4 text-[#EF4444] shrink-0 mt-0.5" />
                   <span>{item.traditional}</span>
                 </div>
-                <div className="md:col-span-5 flex items-start gap-2.5 text-[#EBECF0] font-medium">
+                <div className="md:col-span-5 flex items-start gap-2.5 text-[#0F172A] dark:text-[#EBECF0] font-medium">
                   <Check className="h-4 w-4 text-[#008280] shrink-0 mt-0.5" />
                   <span>{item.uniqueAmaze}</span>
                 </div>
@@ -324,10 +324,10 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, currentM
             <ShieldCheck className="h-3.5 w-3.5" />
             <span>ONGOING CARE // WE DO NOT DISAPPEAR AFTER LAUNCH</span>
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-semibold text-[#EBECF0] uppercase tracking-wide">
+          <h2 className="font-display text-2xl sm:text-3xl font-semibold text-[#0F172A] dark:text-[#EBECF0] uppercase tracking-wide">
             PROACTIVE WEBSITE CARE THAT KEEPS YOUR INVESTMENT PERFORMING
           </h2>
-          <p className="mt-5 font-sans text-sm sm:text-base text-[#94A3B8] leading-relaxed">
+          <p className="mt-5 font-sans text-sm sm:text-base text-slate-600 dark:text-[#94A3B8] leading-relaxed">
             Choose an ongoing care plan so hosting, security, updates, and search rankings are taken care of each month.
           </p>
         </div>
@@ -342,27 +342,27 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, currentM
                 data-cursor="card"
                 className={`relative rounded-xl border p-8 sm:p-12 flex flex-col justify-between transition-all ${glassType} ${
                   isRec
-                    ? 'border-[#16D2C8]/60 shadow-[0_25px_60px_rgba(0,130,128,0.28)] scale-[1.02]'
-                    : 'border-white/[0.08] hover:border-white/20'
+                    ? 'border-[#16D2C8]/60 shadow-xl scale-[1.01]'
+                    : 'border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20'
                 }`}
               >
                 {isRec && (
-                  <div className="absolute -top-3 left-6 rounded bg-[#008280] px-3.5 py-0.5 font-mono text-[10px] font-bold text-[#EBECF0] uppercase tracking-wider shadow-md">
+                  <div className="absolute -top-3 left-6 rounded bg-[#008280] px-3.5 py-0.5 font-mono text-[10px] font-bold text-white uppercase tracking-wider shadow-md">
                     ★ Dominant Choice · Recommended For Growth
                   </div>
                 )}
 
                 <div>
-                  <h3 className="font-display text-lg font-semibold text-[#EBECF0] mb-2 uppercase tracking-wide">{plan.name}</h3>
-                  <div className="font-mono text-2xl font-bold text-[#16D2C8] mb-6">
+                  <h3 className="font-display text-lg font-semibold text-[#0F172A] dark:text-[#EBECF0] mb-2 uppercase tracking-wide">{plan.name}</h3>
+                  <div className="font-mono text-2xl font-bold text-[#008280] mb-6">
                     {currentMarket === 'ca' ? plan.priceCAD : plan.priceMWK}
                   </div>
 
-                  <ul className="space-y-3 font-sans text-xs text-[#94A3B8] mb-8">
+                  <ul className="space-y-3 font-sans text-xs text-slate-600 dark:text-[#94A3B8] mb-8">
                     {plan.features.map((f, fIdx) => (
                       <li key={fIdx} className="flex items-start gap-2.5">
-                        <Check className="h-4 w-4 text-[#16D2C8] shrink-0 mt-0.5" />
-                        <span className="text-[#CBD5E1]">{f}</span>
+                        <Check className="h-4 w-4 text-[#008280] shrink-0 mt-0.5" />
+                        <span className="text-slate-800 dark:text-[#CBD5E1] font-medium">{f}</span>
                       </li>
                     ))}
                   </ul>
@@ -373,10 +373,10 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, currentM
                     studioAudio.playClick(900);
                     onNavigate('contact');
                   }}
-                  className={`w-full py-3.5 rounded-lg font-mono text-xs font-bold transition-all ${
+                  className={`w-full py-3.5 rounded-lg font-mono text-xs font-bold transition-all uppercase ${
                     isRec
-                      ? 'bg-[#008280] text-[#EBECF0] hover:bg-[#009491] shadow-[0_0_20px_rgba(0,130,128,0.35)]'
-                      : 'border border-white/20 text-[#EBECF0] hover:border-[#16D2C8] hover:text-[#16D2C8]'
+                      ? 'cta-image-btn text-white shadow-md hover:scale-[1.01] active:scale-[0.99]'
+                      : 'cta-secondary-btn border hover:scale-[1.01] active:scale-[0.99]'
                   }`}
                 >
                   SELECT {plan.name.toUpperCase()}
@@ -396,24 +396,34 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, currentM
         sublabel="INSTANT ESTIMATES"
       />
 
-      {/* Action Banner */}
+      {/* Action Banner with Architectural Image Background */}
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        <div className="rounded-xl border border-white/10 glass-dominant p-10 sm:p-14 flex flex-col sm:flex-row items-center justify-between gap-8">
-          <div>
-            <span className="font-mono text-xs text-[#16D2C8] uppercase tracking-widest block mb-2 font-semibold">
+        <div className="cta-image-container group rounded-xl border border-white/10 p-10 sm:p-14 flex flex-col sm:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-xl">
+          {/* Architectural Background Image */}
+          <img
+            src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1600&q=80"
+            alt="Unique Amaze Modern Architectural Glass"
+            className="cta-bg-image pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          />
+
+          {/* Theme-Adaptive Contrast Scrim */}
+          <div className="cta-scrim pointer-events-none absolute inset-0" />
+
+          <div className="relative z-10 max-w-xl">
+            <span className="font-mono text-xs text-[#008280] uppercase tracking-widest block mb-2 font-bold">
               READY TO PLAN YOUR PROJECT?
             </span>
-            <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#EBECF0] uppercase tracking-wide">
+            <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#0F172A] dark:text-[#EBECF0] uppercase tracking-wide">
               GET AN INSTANT ESTIMATE OR LET OUR PROJECT PLANNER GUIDE YOU.
             </h3>
           </div>
-          <div className="flex flex-wrap gap-4 shrink-0">
+          <div className="relative z-10 flex flex-wrap gap-4 shrink-0">
             <button
               onClick={() => {
                 studioAudio.playClick(950);
                 onNavigate('pricing');
               }}
-              className="rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 px-6 py-3 font-mono text-xs font-semibold text-[#EBECF0] hover:border-[#16D2C8] transition-all uppercase"
+              className="cta-secondary-btn rounded-lg border px-6 py-3 font-mono text-xs font-bold transition-all uppercase hover:scale-[1.02] active:scale-[0.98]"
             >
               INSTANT ESTIMATE
             </button>
@@ -422,10 +432,10 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, currentM
                 studioAudio.playClick(1100);
                 onNavigate('planner');
               }}
-              className="rounded-lg bg-[#008280] px-6 py-3 font-mono text-xs font-bold text-[#EBECF0] shadow-md hover:bg-[#009491] transition-all flex items-center gap-2 uppercase"
+              className="cta-image-btn group/btn relative overflow-hidden rounded-lg px-6 py-3 font-mono text-xs font-bold text-white shadow-md transition-all flex items-center gap-2 uppercase hover:scale-[1.02] active:scale-[0.98]"
             >
-              <Sparkles className="h-4 w-4" />
-              <span>START PROJECT PLANNER</span>
+              <Sparkles className="relative z-10 h-4 w-4 text-white" />
+              <span className="relative z-10 text-white">START PROJECT PLANNER</span>
             </button>
           </div>
         </div>

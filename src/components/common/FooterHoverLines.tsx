@@ -88,7 +88,10 @@ export const FooterHoverLines: React.FC = () => {
   const lineSpacing = totalHeight / (HARMONIC_STRINGS.length + 1);
 
   return (
-    <div className="relative w-full my-12 pt-6 pb-4 border-y border-white/[0.08] bg-[#07090C]/60 backdrop-blur-sm">
+    <div
+      id="harmonic-audio-interface"
+      className="relative w-full my-12 pt-6 pb-4 border-y border-slate-200 dark:border-white/[0.08] bg-slate-50/95 dark:bg-[#07090C]/80 backdrop-blur-md transition-colors duration-300"
+    >
       {/* Header Telemetry Bar */}
       <div className="flex flex-wrap items-center justify-between gap-4 px-4 sm:px-8 mb-4">
         <div className="flex items-center gap-3 font-mono text-[11px] text-[#94A3B8]">
@@ -96,34 +99,34 @@ export const FooterHoverLines: React.FC = () => {
           <span className="text-[#008280] font-bold tracking-widest uppercase">
             HOVER THE LINES
           </span>
-          <span className="text-white/20">/</span>
-          <span className="text-[#64748B]">HARMONIC AUDIO INTERACTION</span>
+          <span className="text-slate-400 dark:text-white/20">//</span>
+          <span className="text-slate-600 dark:text-[#64748B] font-semibold uppercase">HARMONIC AUDIO INTERACTION</span>
         </div>
 
         <div className="flex items-center gap-4 font-mono text-[11px]">
-          <div className="flex items-center gap-2 text-[#64748B] hidden sm:flex">
+          <div className="flex items-center gap-2 text-slate-600 dark:text-[#64748B] hidden sm:flex font-semibold">
             <Activity className="h-3.5 w-3.5 text-[#008280]" />
             <span>RESONANCE:</span>
-            <span className="text-[#008280] font-semibold">{lastFrequency}</span>
+            <span className="text-[#008280] font-bold">{lastFrequency}</span>
           </div>
 
           <button
             onClick={toggleSound}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded border text-[10px] uppercase font-semibold transition-all ${
+            className={`harmonic-audio-btn flex items-center gap-1.5 px-3 py-1.5 rounded-md border text-[10px] uppercase font-bold transition-all ${
               !isSoundMuted
-                ? 'border-[#008280]/60 bg-[#008280]/15 text-[#008280]'
-                : 'border-white/10 bg-white/5 text-[#64748B] hover:text-white'
+                ? 'border-[#008280]/60 bg-[#008280]/15 text-[#008280] shadow-sm'
+                : 'border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-[#64748B] hover:text-[#0F172A] dark:hover:text-white'
             }`}
             title="Toggle Line Sound Interaction"
           >
             {!isSoundMuted ? (
               <>
-                <Volume2 className="h-3 w-3" />
+                <Volume2 className="h-3.5 w-3.5 text-[#008280]" />
                 <span>AUDIO ACTIVE</span>
               </>
             ) : (
               <>
-                <VolumeX className="h-3 w-3" />
+                <VolumeX className="h-3.5 w-3.5" />
                 <span>AUDIO MUTED</span>
               </>
             )}
@@ -145,15 +148,29 @@ export const FooterHoverLines: React.FC = () => {
           preserveAspectRatio="none"
         >
           <defs>
+            {/* Obsidian Theme Glow */}
             <linearGradient id="lineGlowTeal" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#008280" stopOpacity="0.1" />
-              <stop offset="50%" stopColor="#16D2C8" stopOpacity="0.95" />
-              <stop offset="100%" stopColor="#008280" stopOpacity="0.1" />
+              <stop offset="0%" stopColor="#008280" stopOpacity="0.2" />
+              <stop offset="50%" stopColor="#16D2C8" stopOpacity="1" />
+              <stop offset="100%" stopColor="#008280" stopOpacity="0.2" />
             </linearGradient>
-            <linearGradient id="lineIdle" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#1E2629" stopOpacity="0.3" />
-              <stop offset="50%" stopColor="#008280" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#1E2629" stopOpacity="0.3" />
+            {/* Obsidian Theme Idle */}
+            <linearGradient id="lineIdleObsidian" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#008280" stopOpacity="0.3" />
+              <stop offset="50%" stopColor="#16D2C8" stopOpacity="0.75" />
+              <stop offset="100%" stopColor="#008280" stopOpacity="0.3" />
+            </linearGradient>
+            {/* Lunar Theme High-Contrast Idle */}
+            <linearGradient id="lineIdleLunar" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#007A78" stopOpacity="0.7" />
+              <stop offset="50%" stopColor="#005F5E" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#007A78" stopOpacity="0.7" />
+            </linearGradient>
+            {/* Lunar Theme Active Pluck */}
+            <linearGradient id="lineGlowLunar" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#005F5E" stopOpacity="0.8" />
+              <stop offset="50%" stopColor="#003E3D" stopOpacity="1" />
+              <stop offset="100%" stopColor="#005F5E" stopOpacity="0.8" />
             </linearGradient>
             <filter id="stringBloom" x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur stdDeviation="3" result="blur" />
@@ -180,33 +197,35 @@ export const FooterHoverLines: React.FC = () => {
 
             return (
               <g key={stringItem.id}>
-                {/* Background Shadow / Bloom on active */}
+                {/* Background Bloom on active string */}
                 {isHovered && (
                   <path
                     d={pathD}
                     fill="none"
                     stroke="#008280"
-                    strokeWidth="5"
+                    strokeWidth="6"
                     strokeOpacity="0.5"
                     filter="url(#stringBloom)"
                   />
                 )}
 
-                {/* Primary String Line */}
+                {/* Primary String Line with High-Contrast Adaptive Classes */}
                 <path
                   d={pathD}
                   fill="none"
-                  stroke={isHovered ? 'url(#lineGlowTeal)' : 'url(#lineIdle)'}
-                  strokeWidth={isHovered ? '2.5' : '1'}
-                  className="transition-colors duration-200"
+                  stroke={isHovered ? 'url(#lineGlowTeal)' : 'url(#lineIdleObsidian)'}
+                  strokeWidth={isHovered ? '3' : '1.75'}
+                  className={`harmonic-string transition-colors duration-200 ${
+                    isHovered ? 'active' : ''
+                  }`}
                 />
 
                 {/* Left Note Indicator */}
                 <text
                   x="20"
                   y={baseY - 4}
-                  className={`font-mono text-[9px] select-none uppercase tracking-wider transition-colors duration-200 ${
-                    isHovered ? 'fill-[#16D2C8] font-bold' : 'fill-[#64748B]'
+                  className={`harmonic-note font-mono text-[10px] select-none uppercase tracking-wider transition-colors duration-200 ${
+                    isHovered ? 'active fill-[#16D2C8] font-bold' : 'fill-[#94A3B8]'
                   }`}
                 >
                   {stringItem.note}
@@ -217,8 +236,8 @@ export const FooterHoverLines: React.FC = () => {
                   x={containerWidth - 75}
                   y={baseY - 4}
                   textAnchor="end"
-                  className={`font-mono text-[9px] select-none uppercase tracking-wider transition-colors duration-200 ${
-                    isHovered ? 'fill-[#16D2C8] font-bold' : 'fill-[#64748B]'
+                  className={`harmonic-freq font-mono text-[10px] select-none uppercase tracking-wider transition-colors duration-200 ${
+                    isHovered ? 'active fill-[#16D2C8] font-bold' : 'fill-[#008280]'
                   }`}
                 >
                   {stringItem.freq.toFixed(0)} HZ
@@ -231,7 +250,7 @@ export const FooterHoverLines: React.FC = () => {
         {/* Floating Mouse Cursor Particle on Line Hover */}
         {mousePos && (
           <div
-            className="pointer-events-none absolute h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#008280] bg-[#008280]/20 blur-[1px] transition-transform duration-75"
+            className="pointer-events-none absolute h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#008280] bg-[#008280]/25 blur-[1px] transition-transform duration-75"
             style={{
               left: `${mousePos.x}px`,
               top: `${mousePos.y}px`,
@@ -241,9 +260,9 @@ export const FooterHoverLines: React.FC = () => {
       </div>
 
       {/* Footer Sub-Rail with Instructions */}
-      <div className="flex items-center justify-between px-4 sm:px-8 mt-2 font-mono text-[10px] text-[#64748B]">
-        <span>SWEEP CURSOR ACROSS HARMONIC STRINGS</span>
-        <span className="hidden sm:inline">PENTATONIC AUDIO SYNTHESIZER V4</span>
+      <div className="flex items-center justify-between px-4 sm:px-8 mt-2 font-mono text-[10px] text-slate-500 dark:text-[#64748B]">
+        <span className="font-semibold">SWEEP CURSOR ACROSS HARMONIC STRINGS</span>
+        <span className="hidden sm:inline font-semibold">PENTATONIC AUDIO SYNTHESIZER V4</span>
       </div>
     </div>
   );

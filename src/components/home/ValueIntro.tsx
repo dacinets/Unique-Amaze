@@ -33,7 +33,7 @@ export const ValueIntro: React.FC<ValueIntroProps> = ({ onNavigate, currentMarke
       ];
 
   return (
-    <section className="relative w-full border-t border-white/[0.08] bg-[#050607]/80 backdrop-blur-sm py-20 sm:py-28 lg:py-32">
+    <section className="relative w-full border-t border-white/[0.08] bg-[#050607]/80 backdrop-blur-sm py-12 sm:py-14 lg:py-16">
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Left Column: Editorial Headline & Narrative with GSAP Staggered Reveal */}

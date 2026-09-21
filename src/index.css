@@ -3,18 +3,16 @@
 @theme {
   --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: 'Archivo', 'Poppins', sans-serif;
+  --font-display: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'Space Grotesk', monospace;
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
 }
 
 @layer base {
   :root {
-    --font-display: 'Archivo', 'Poppins', sans-serif;
+    --font-display: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'Space Grotesk', monospace;
-    --font-serif: 'Cormorant Garamond', Georgia, serif;
 
     --color-teal: #008280;
     --color-teal-dim: #006B69;
@@ -108,61 +106,57 @@
   code, kbd, samp, pre, .font-mono {
     font-family: var(--font-mono);
   }
-
-  .font-serif {
-    font-family: var(--font-serif);
-  }
 }
 
-/* Custom Glassmorphism Tiers & Tinted Varieties (Obsidian Lumina Design Spec) */
+/* Custom Glassmorphism Tiers & Tinted Varieties (Disciplined Shadow Depth Spec) */
 .glass-tier-1 {
   background: linear-gradient(150deg, rgba(18, 22, 28, 0.72) 0%, rgba(10, 13, 17, 0.88) 100%);
   backdrop-filter: blur(20px) saturate(120%);
   -webkit-backdrop-filter: blur(20px) saturate(120%);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14), inset 0 0 20px -10px rgba(255, 255, 255, 0.04), 0 14px 36px -10px rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 12px 28px -10px rgba(0, 0, 0, 0.35);
 }
 
 .glass-tier-2 {
   background: linear-gradient(155deg, rgba(14, 34, 40, 0.82) 0%, rgba(8, 18, 22, 0.94) 100%);
   backdrop-filter: blur(28px) saturate(130%);
   -webkit-backdrop-filter: blur(28px) saturate(130%);
-  border: 1px solid rgba(0, 130, 128, 0.42);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 0 28px -8px rgba(0, 130, 128, 0.25), 0 20px 48px -12px rgba(0, 0, 0, 0.75), 0 0 35px -10px rgba(0, 130, 128, 0.22);
+  border: 1px solid rgba(0, 130, 128, 0.35);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14), 0 14px 32px -10px rgba(0, 0, 0, 0.38);
 }
 
 /* ========================================================================= */
 /* SPECIFIC BRAND-HARMONIZED GLASS TINTS (Smoke, Teal, Slate, Violet, Amber) */
 /* ========================================================================= */
 
-/* 1. SMOKE: Refined warm obsidian charcoal with brushed-silver specular rim */
+/* 1. SMOKE: Refined warm obsidian charcoal matching the comparison table */
 .glass-smoke {
   background: linear-gradient(150deg, rgba(22, 27, 34, 0.68) 0%, rgba(11, 14, 18, 0.88) 100%);
   backdrop-filter: blur(20px) saturate(120%);
   -webkit-backdrop-filter: blur(20px) saturate(120%);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14), inset 0 0 20px -8px rgba(255, 255, 255, 0.05), 0 16px 40px -10px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 14px 32px -10px rgba(0, 0, 0, 0.35);
   transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-smoke:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 0 24px -6px rgba(255, 255, 255, 0.08), 0 22px 50px -12px rgba(0, 0, 0, 0.75);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.16), 0 18px 36px -10px rgba(0, 0, 0, 0.45);
 }
 
-/* 2. TEAL: Deep sea pine and obsidian cyan aura with luminous highlight */
+/* 2. TEAL: Deep sea pine and obsidian cyan aura with calibrated subtle shadow */
 .glass-teal {
   background: linear-gradient(150deg, rgba(8, 52, 56, 0.44) 0%, rgba(4, 24, 27, 0.88) 100%);
   backdrop-filter: blur(22px) saturate(130%);
   -webkit-backdrop-filter: blur(22px) saturate(130%);
-  border: 1px solid rgba(0, 130, 128, 0.38);
-  box-shadow: inset 0 1px 0 0 rgba(22, 210, 200, 0.35), inset 0 0 30px -8px rgba(0, 130, 128, 0.22), 0 18px 44px -10px rgba(0, 0, 0, 0.68), 0 0 32px -10px rgba(0, 130, 128, 0.25);
+  border: 1px solid rgba(0, 130, 128, 0.3);
+  box-shadow: inset 0 1px 0 0 rgba(22, 210, 200, 0.2), 0 14px 32px -10px rgba(0, 0, 0, 0.38);
   transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-teal:hover {
-  border-color: rgba(22, 210, 200, 0.6);
-  box-shadow: inset 0 1px 0 0 rgba(22, 210, 200, 0.5), inset 0 0 36px -6px rgba(0, 130, 128, 0.35), 0 24px 54px -12px rgba(0, 0, 0, 0.78), 0 0 45px -8px rgba(22, 210, 200, 0.32);
+  border-color: rgba(22, 210, 200, 0.5);
+  box-shadow: inset 0 1px 0 0 rgba(22, 210, 200, 0.3), 0 18px 38px -10px rgba(0, 0, 0, 0.46);
 }
 
 /* 3. SLATE: Steel-blue dusk atmospheric tint with calm architectural sheen */
@@ -170,29 +164,31 @@
   background: linear-gradient(150deg, rgba(22, 44, 72, 0.4) 0%, rgba(9, 20, 36, 0.86) 100%);
   backdrop-filter: blur(22px) saturate(125%);
   -webkit-backdrop-filter: blur(22px) saturate(125%);
-  border: 1px solid rgba(54, 117, 136, 0.38);
-  box-shadow: inset 0 1px 0 0 rgba(148, 190, 235, 0.28), inset 0 0 28px -8px rgba(54, 117, 136, 0.2), 0 18px 44px -10px rgba(0, 0, 0, 0.68), 0 0 32px -10px rgba(45, 95, 140, 0.22);
+  border: 1px solid rgba(54, 117, 136, 0.3);
+  box-shadow: inset 0 1px 0 0 rgba(148, 190, 235, 0.2), 0 14px 32px -10px rgba(0, 0, 0, 0.38);
   transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-slate:hover {
-  border-color: rgba(96, 165, 250, 0.55);
-  box-shadow: inset 0 1px 0 0 rgba(191, 219, 254, 0.4), inset 0 0 36px -6px rgba(54, 117, 136, 0.32), 0 24px 54px -12px rgba(0, 0, 0, 0.78), 0 0 40px -8px rgba(54, 117, 136, 0.3);
+  border-color: rgba(96, 165, 250, 0.45);
+  box-shadow: inset 0 1px 0 0 rgba(191, 219, 254, 0.28), 0 18px 38px -10px rgba(0, 0, 0, 0.46);
 }
 
-/* 4. VIOLET: Sophisticated deep imperial twilight amethyst/violet glow */
-.glass-violet {
-  background: linear-gradient(150deg, rgba(48, 30, 80, 0.4) 0%, rgba(18, 12, 36, 0.88) 100%);
+/* 4. CYAN / PINE: Sophisticated deep architectural obsidian cyan aura */
+.glass-violet,
+.glass-cyan {
+  background: linear-gradient(150deg, rgba(8, 36, 42, 0.44) 0%, rgba(4, 18, 22, 0.88) 100%);
   backdrop-filter: blur(22px) saturate(125%);
   -webkit-backdrop-filter: blur(22px) saturate(125%);
-  border: 1px solid rgba(139, 92, 246, 0.32);
-  box-shadow: inset 0 1px 0 0 rgba(196, 168, 255, 0.3), inset 0 0 28px -8px rgba(139, 92, 246, 0.22), 0 18px 44px -10px rgba(0, 0, 0, 0.68), 0 0 32px -10px rgba(124, 58, 237, 0.22);
+  border: 1px solid rgba(0, 130, 128, 0.28);
+  box-shadow: inset 0 1px 0 0 rgba(22, 210, 200, 0.2), 0 14px 32px -10px rgba(0, 0, 0, 0.38);
   transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-violet:hover {
-  border-color: rgba(167, 139, 250, 0.58);
-  box-shadow: inset 0 1px 0 0 rgba(221, 214, 254, 0.45), inset 0 0 36px -6px rgba(139, 92, 246, 0.32), 0 24px 54px -12px rgba(0, 0, 0, 0.78), 0 0 42px -8px rgba(139, 92, 246, 0.3);
+.glass-violet:hover,
+.glass-cyan:hover {
+  border-color: rgba(22, 210, 200, 0.45);
+  box-shadow: inset 0 1px 0 0 rgba(22, 210, 200, 0.3), 0 18px 38px -10px rgba(0, 0, 0, 0.46);
 }
 
 /* 5. AMBER: Rich warm bronze / gold editorial accent tint */
@@ -200,14 +196,14 @@
   background: linear-gradient(150deg, rgba(58, 36, 16, 0.42) 0%, rgba(24, 15, 7, 0.88) 100%);
   backdrop-filter: blur(22px) saturate(125%);
   -webkit-backdrop-filter: blur(22px) saturate(125%);
-  border: 1px solid rgba(217, 119, 6, 0.34);
-  box-shadow: inset 0 1px 0 0 rgba(252, 211, 77, 0.3), inset 0 0 28px -8px rgba(217, 119, 6, 0.2), 0 18px 44px -10px rgba(0, 0, 0, 0.68), 0 0 32px -10px rgba(217, 119, 6, 0.22);
+  border: 1px solid rgba(217, 119, 6, 0.28);
+  box-shadow: inset 0 1px 0 0 rgba(252, 211, 77, 0.2), 0 14px 32px -10px rgba(0, 0, 0, 0.38);
   transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-amber:hover {
-  border-color: rgba(251, 191, 36, 0.58);
-  box-shadow: inset 0 1px 0 0 rgba(254, 243, 199, 0.45), inset 0 0 36px -6px rgba(217, 119, 6, 0.32), 0 24px 54px -12px rgba(0, 0, 0, 0.78), 0 0 42px -8px rgba(217, 119, 6, 0.3);
+  border-color: rgba(251, 191, 36, 0.45);
+  box-shadow: inset 0 1px 0 0 rgba(254, 243, 199, 0.3), 0 18px 38px -10px rgba(0, 0, 0, 0.46);
 }
 
 .glass-graphite {
@@ -215,23 +211,23 @@
   backdrop-filter: blur(24px) saturate(115%);
   -webkit-backdrop-filter: blur(24px) saturate(115%);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 16px 42px -12px rgba(0, 0, 0, 0.65);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 14px 32px -10px rgba(0, 0, 0, 0.38);
 }
 
-/* Featured / Dominant Glass Panel (Used selectively for 1-2 key flagship panels per section) */
+/* Featured / Dominant Glass Panel: Calibrated to refined, restrained shadow depth */
 .glass-dominant {
   position: relative;
   background: linear-gradient(155deg, rgba(14, 46, 52, 0.55) 0%, rgba(7, 20, 24, 0.9) 100%);
   backdrop-filter: blur(28px) saturate(135%);
   -webkit-backdrop-filter: blur(28px) saturate(135%);
-  border: 1px solid rgba(22, 210, 200, 0.45);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.28), inset 0 0 35px -8px rgba(22, 210, 200, 0.25), 0 24px 60px -15px rgba(0, 0, 0, 0.8), 0 0 45px -10px rgba(0, 130, 128, 0.32);
+  border: 1px solid rgba(22, 210, 200, 0.38);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.16), 0 16px 36px -10px rgba(0, 0, 0, 0.42);
   transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-dominant:hover {
-  border-color: rgba(22, 210, 200, 0.7);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.38), inset 0 0 45px -6px rgba(22, 210, 200, 0.35), 0 28px 70px -15px rgba(0, 0, 0, 0.85), 0 0 60px -10px rgba(22, 210, 200, 0.38);
+  border-color: rgba(22, 210, 200, 0.55);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.24), 0 20px 42px -10px rgba(0, 0, 0, 0.5);
 }
 
 .glass-dominant::before {
@@ -632,11 +628,11 @@ html[data-theme="lunar"] body,
   color: #334155;
 }
 
-/* Dark-mode off-white text becomes high-contrast slate-900 on light backgrounds */
-[data-theme="lunar"] .text-\[\#EBECF0\],
-[data-theme="lunar"] .text-\[\#F3F7F8\],
-[data-theme="lunar"] .text-slate-100,
-[data-theme="lunar"] .text-slate-200 {
+/* Dark-mode off-white text becomes high-contrast slate-900 on light backgrounds (except on deep teal buttons/elements) */
+[data-theme="lunar"] .text-\[\#EBECF0\]:not(.bg-\[\#008280\]):not(.bg-\[\#008280\] *):not(button.bg-\[\#008280\]):not(button.bg-\[\#008280\] *):not(a.bg-\[\#008280\]):not(a.bg-\[\#008280\] *):not(.cta-image-btn):not(.cta-image-btn *):not(.work-expanded-card *),
+[data-theme="lunar"] .text-\[\#F3F7F8\]:not(.bg-\[\#008280\]):not(.bg-\[\#008280\] *):not(button.bg-\[\#008280\]):not(button.bg-\[\#008280\] *):not(a.bg-\[\#008280\]):not(a.bg-\[\#008280\] *):not(.cta-image-btn):not(.cta-image-btn *):not(.work-expanded-card *),
+[data-theme="lunar"] .text-slate-100:not(.bg-\[\#008280\]):not(.bg-\[\#008280\] *):not(button.bg-\[\#008280\]):not(button.bg-\[\#008280\] *):not(a.bg-\[\#008280\]):not(a.bg-\[\#008280\] *):not(.cta-image-btn):not(.cta-image-btn *):not(.work-expanded-card *),
+[data-theme="lunar"] .text-slate-200:not(.bg-\[\#008280\]):not(.bg-\[\#008280\] *):not(button.bg-\[\#008280\]):not(button.bg-\[\#008280\] *):not(a.bg-\[\#008280\]):not(a.bg-\[\#008280\] *):not(.cta-image-btn):not(.cta-image-btn *):not(.work-expanded-card *) {
   color: #0F172A !important;
 }
 
@@ -755,12 +751,24 @@ html[data-theme="lunar"] body,
 [data-theme="lunar"] .bg-\[\#0B0F15\],
 [data-theme="lunar"] .bg-\[\#0C1014\],
 [data-theme="lunar"] .bg-\[\#0C1117\],
+[data-theme="lunar"] .bg-\[\#0C1217\],
 [data-theme="lunar"] .bg-\[\#0C121A\],
 [data-theme="lunar"] .bg-\[\#0D1115\],
 [data-theme="lunar"] .bg-\[\#0D1214\],
 [data-theme="lunar"] .bg-\[\#0E1216\],
 [data-theme="lunar"] .bg-\[\#0E1217\],
 [data-theme="lunar"] .bg-\[\#06090E\],
+[data-theme="lunar"] .bg-\[\#090D12\],
+[data-theme="lunar"] .bg-\[\#090E13\],
+[data-theme="lunar"] .bg-\[\#06080A\],
+[data-theme="lunar"] .bg-\[\#06090D\],
+[data-theme="lunar"] .bg-\[\#05070A\],
+[data-theme="lunar"] .bg-\[\#080B0F\],
+[data-theme="lunar"] .bg-\[\#080D10\],
+[data-theme="lunar"] .bg-\[\#08151A\],
+[data-theme="lunar"] .bg-\[\#0A0E14\],
+[data-theme="lunar"] .bg-\[\#0E151A\],
+[data-theme="lunar"] .bg-\[\#0e232b\],
 [data-theme="lunar"] .bg-\[\#10161A\],
 [data-theme="lunar"] .bg-\[\#13191B\] {
   background-color: #FFFFFF !important;
@@ -815,6 +823,64 @@ html[data-theme="lunar"] body,
 [data-theme="lunar"] .bg-\[\#0F181D\],
 [data-theme="lunar"] .bg-\[\#040608\] {
   background-color: #F1F5F9 !important;
+}
+
+/* Sub-card & container fills for lunar theme */
+[data-theme="lunar"] .bg-white\/\[0\.01\] {
+  background-color: rgba(241, 245, 249, 0.4) !important;
+}
+[data-theme="lunar"] .bg-white\/\[0\.02\],
+[data-theme="lunar"] .bg-white\/\[0\.03\],
+[data-theme="lunar"] .bg-white\/5 {
+  background-color: #F8FAFC !important;
+}
+[data-theme="lunar"] .bg-white\/10 {
+  background-color: #F1F5F9 !important;
+}
+
+/* Modal dark render viewports map to crisp architectural stages */
+[data-theme="lunar"] .bg-black\/40 {
+  background-color: #F8FAFC !important;
+}
+[data-theme="lunar"] .bg-black\/60 {
+  background-color: #F1F5F9 !important;
+}
+
+/* Gradient overrides for horizontal accordion and cards in Lunar mode */
+[data-theme="lunar"] .from-\[\#0C1217\] {
+  --tw-gradient-from: #FFFFFF var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(255, 255, 255, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+[data-theme="lunar"] .via-\[\#090E13\] {
+  --tw-gradient-to: rgba(248, 250, 252, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), #F8FAFC var(--tw-gradient-via-position), var(--tw-gradient-to) !important;
+}
+[data-theme="lunar"] .to-\[\#070A0D\] {
+  --tw-gradient-to: #F1F5F9 var(--tw-gradient-to-position) !important;
+}
+
+[data-theme="lunar"] .pricing-accordion-collapsed {
+  background-color: #F8FAFC !important;
+}
+[data-theme="lunar"] .pricing-accordion-collapsed:hover {
+  background-color: #F1F5F9 !important;
+}
+[data-theme="lunar"] .pricing-accordion-expanded {
+  background: #FFFFFF !important;
+  box-shadow: inset 0 3px 0 0 #008280 !important;
+}
+
+[data-theme="lunar"] .pricing-secondary-btn {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+}
+
+[data-theme="lunar"] .pricing-secondary-btn:hover {
+  background-color: #E2E8F0 !important;
+  color: #007A78 !important;
+  border-color: #007A78 !important;
 }
 
 /* Pricing Radio Circle */
@@ -949,9 +1015,10 @@ html[data-theme="lunar"] body,
   border: 1px solid #E2E8F0 !important;
 }
 
-[data-theme="lunar"] .glass-violet {
-  background: #FAF5FF !important;
-  border: 1px solid #E9D5FF !important;
+[data-theme="lunar"] .glass-violet,
+[data-theme="lunar"] .glass-cyan {
+  background: #F8FAFC !important;
+  border: 1px solid #E2E8F0 !important;
 }
 
 [data-theme="lunar"] .glass-amber {
@@ -972,6 +1039,9 @@ html[data-theme="lunar"] body,
 [data-theme="lunar"] .border-white\/10,
 [data-theme="lunar"] .border-white\/15,
 [data-theme="lunar"] .border-white\/20,
+[data-theme="lunar"] .border-white\/\[0\.02\],
+[data-theme="lunar"] .border-white\/\[0\.03\],
+[data-theme="lunar"] .border-white\/\[0\.05\],
 [data-theme="lunar"] .border-white\/\[0\.06\],
 [data-theme="lunar"] .border-white\/\[0\.07\],
 [data-theme="lunar"] .border-white\/\[0\.08\],
@@ -1002,6 +1072,55 @@ html[data-theme="lunar"] body,
   background-color: #F1F5F9 !important;
   border-bottom-color: #CBD5E1 !important;
   color: #475569 !important;
+}
+
+/* Harmonic Audio Synthesizer Interface in Lunar Mode */
+[data-theme="lunar"] #harmonic-audio-interface {
+  background-color: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05) !important;
+}
+
+[data-theme="lunar"] #harmonic-audio-interface .harmonic-string {
+  stroke: url(#lineIdleLunar) !important;
+  stroke-width: 2 !important;
+}
+
+[data-theme="lunar"] #harmonic-audio-interface .harmonic-string.active {
+  stroke: url(#lineGlowLunar) !important;
+  stroke-width: 3.5 !important;
+}
+
+[data-theme="lunar"] #harmonic-audio-interface .harmonic-note {
+  fill: #0F172A !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="lunar"] #harmonic-audio-interface .harmonic-note.active {
+  fill: #007A78 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="lunar"] #harmonic-audio-interface .harmonic-freq {
+  fill: #007A78 !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="lunar"] #harmonic-audio-interface .harmonic-freq.active {
+  fill: #004D4C !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="lunar"] #harmonic-audio-interface .text-\[\#64748B\],
+[data-theme="lunar"] #harmonic-audio-interface .text-\[\#94A3B8\] {
+  color: #334155 !important;
+}
+
+[data-theme="lunar"] #harmonic-audio-interface .harmonic-audio-btn {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #007A78 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06) !important;
 }
 
 [data-theme="lunar"] #mobile-nav-drawer {
@@ -1146,6 +1265,195 @@ html[data-theme="lunar"] body,
   border-color: rgba(0, 122, 120, 0.5) !important;
 }
 
+/* ========================================================================= */
+/* 8. CTA IMAGE BACKGROUND & THEME-AWARE CONTRAST SCRIM SPEC                 */
+/* ========================================================================= */
+.cta-image-container {
+  position: relative;
+  overflow: hidden;
+}
 
+.cta-image-container .cta-bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: luminosity;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+}
 
+.cta-image-container:hover .cta-bg-image {
+  transform: scale(1.04);
+  opacity: 0.42;
+}
 
+.cta-image-container .cta-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(7, 10, 15, 0.94) 0%, rgba(11, 15, 21, 0.88) 50%, rgba(8, 12, 18, 0.94) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+[data-theme="lunar"] .cta-image-container {
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04) !important;
+}
+
+[data-theme="lunar"] .cta-image-container .cta-bg-image {
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+}
+
+[data-theme="lunar"] .cta-image-container:hover .cta-bg-image {
+  opacity: 0.24;
+}
+
+[data-theme="lunar"] .cta-image-container .cta-scrim {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(248, 250, 252, 0.94) 50%, rgba(241, 245, 249, 0.97) 100%) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Explicit typographic contrast inside CTA image containers in Lunar mode */
+[data-theme="lunar"] .cta-image-container h1,
+[data-theme="lunar"] .cta-image-container h2,
+[data-theme="lunar"] .cta-image-container h3,
+[data-theme="lunar"] .cta-image-container h4,
+[data-theme="lunar"] .cta-image-container .font-display {
+  color: #0F172A !important;
+}
+
+[data-theme="lunar"] .cta-image-container p,
+[data-theme="lunar"] .cta-image-container .font-sans {
+  color: #334155 !important;
+}
+
+/* Primary CTA Button with Atmospheric Micro-texture (guaranteed white text on both themes) */
+.cta-btn-textured,
+button.bg-\[\#008280\] {
+  position: relative;
+  overflow: hidden;
+  background: #008280 !important;
+  color: #FFFFFF !important;
+}
+
+.cta-btn-textured *,
+button.bg-\[\#008280\] * {
+  color: #FFFFFF !important;
+}
+
+/* Universal CTA with Image Background - replaces solid color with image background in both Obsidian and Lunar */
+.cta-image-btn {
+  position: relative;
+  overflow: hidden;
+  background-color: #008280 !important;
+  background-image: linear-gradient(135deg, rgba(0, 130, 128, 0.82) 0%, rgba(13, 135, 130, 0.88) 100%), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 15px rgba(0, 130, 128, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-image-btn:hover {
+  background-image: linear-gradient(135deg, rgba(0, 112, 110, 0.80) 0%, rgba(22, 210, 200, 0.45) 100%), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80') !important;
+  box-shadow: 0 6px 20px rgba(0, 130, 128, 0.45);
+}
+
+.cta-image-btn,
+.cta-image-btn * {
+  color: #FFFFFF !important;
+}
+
+/* Lunar Theme: CTA Image Background explicitly replaces solid color with calibrated contrast image */
+[data-theme="lunar"] .cta-image-btn {
+  background-color: #007A78 !important;
+  background-image: linear-gradient(135deg, rgba(0, 122, 120, 0.88) 0%, rgba(0, 95, 93, 0.92) 100%), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 16px rgba(0, 122, 120, 0.32) !important;
+}
+
+[data-theme="lunar"] .cta-image-btn:hover {
+  background-image: linear-gradient(135deg, rgba(0, 95, 93, 0.85) 0%, rgba(0, 122, 120, 0.95) 100%), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80') !important;
+  box-shadow: 0 6px 22px rgba(0, 122, 120, 0.42) !important;
+}
+
+[data-theme="lunar"] .cta-image-btn,
+[data-theme="lunar"] .cta-image-btn * {
+  color: #FFFFFF !important;
+}
+
+/* Secondary CTA Button */
+.cta-secondary-btn {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(14, 18, 22, 0.85);
+  color: #EBECF0 !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-secondary-btn:hover {
+  border-color: #008280 !important;
+  color: #16D2C8 !important;
+  background-color: rgba(20, 26, 32, 0.95);
+}
+
+[data-theme="lunar"] .cta-secondary-btn {
+  border-color: #CBD5E1 !important;
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08) !important;
+}
+
+[data-theme="lunar"] .cta-secondary-btn * {
+  color: inherit !important;
+}
+
+[data-theme="lunar"] .cta-secondary-btn:hover {
+  background-color: #F8FAFC !important;
+  border-color: #007A78 !important;
+  color: #007A78 !important;
+}
+
+[data-theme="lunar"] .cta-btn-textured,
+[data-theme="lunar"] button.bg-\[\#008280\] {
+  background: #007A78 !important;
+  background-image: linear-gradient(135deg, rgba(0, 122, 120, 0.88) 0%, rgba(0, 95, 93, 0.92) 100%), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(0, 122, 120, 0.3) !important;
+}
+
+[data-theme="lunar"] .cta-btn-textured *,
+[data-theme="lunar"] button.bg-\[\#008280\] * {
+  color: #FFFFFF !important;
+}
+
+[data-theme="lunar"] .cta-image-container button.border-white\/20,
+[data-theme="lunar"] .cta-image-container button.border-white\/15,
+[data-theme="lunar"] .cta-image-container a.border-white\/20 {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+}
+
+[data-theme="lunar"] .cta-image-container button.border-white\/20:hover,
+[data-theme="lunar"] .cta-image-container button.border-white\/15:hover,
+[data-theme="lunar"] .cta-image-container a.border-white\/20:hover {
+  background-color: #F8FAFC !important;
+  border-color: #007A78 !important;
+  color: #007A78 !important;
+}

@@ -71,14 +71,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
   const featuredProjects = currentMarket === 'mw'
     ? [
         PROJECTS_DATA.find((p) => p.id === 'belle-afrique') || PROJECTS_DATA[2],
+        PROJECTS_DATA.find((p) => p.id === 'fatsani-music') || PROJECTS_DATA[1],
         PROJECTS_DATA.find((p) => p.id === 'chestermere-massage') || PROJECTS_DATA[0],
-        PROJECTS_DATA.find((p) => p.id === 'fire-claws') || PROJECTS_DATA[1],
         PROJECTS_DATA.find((p) => p.id === 'elvc-church') || PROJECTS_DATA[3],
         PROJECTS_DATA[4] || PROJECTS_DATA[0],
       ]
     : [
         PROJECTS_DATA.find((p) => p.id === 'chestermere-massage') || PROJECTS_DATA[0],
-        PROJECTS_DATA.find((p) => p.id === 'fire-claws') || PROJECTS_DATA[1],
+        PROJECTS_DATA.find((p) => p.id === 'fatsani-music') || PROJECTS_DATA[1],
         PROJECTS_DATA.find((p) => p.id === 'belle-afrique') || PROJECTS_DATA[2],
         PROJECTS_DATA.find((p) => p.id === 'elvc-church') || PROJECTS_DATA[3],
         PROJECTS_DATA[4] || PROJECTS_DATA[0],
@@ -114,13 +114,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <BrandDivider
         variant="teal"
         width="container"
-        spacing="sm"
+        spacing="none"
+        className="py-3 sm:py-4"
         label="STUDIO CAPABILITIES"
         sublabel="ARCHITECTURE & AI"
       />
 
       {/* 3. Pinned Scrollytelling Section: Capabilities Stack */}
-      <div id="section-capabilities" className="relative z-10">
+      <div className="relative z-10">
         <AmazeCapabilitiesPinned
           currentMarket={currentMarket}
           onNavigate={onNavigate}
@@ -136,7 +137,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <BrandDivider
         variant="gradient"
         width="container"
-        spacing="sm"
+        spacing="none"
+        className="py-3 sm:py-4"
         label="THE TRANSFORMATION"
         sublabel="BEFORE & AFTER"
       />
@@ -150,13 +152,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <BrandDivider
         variant="teal"
         width="container"
-        spacing="sm"
+        spacing="none"
+        className="py-3 sm:py-4"
         label="EDITORIAL COMPOSITION"
         sublabel="TACTILE CRAFT"
       />
 
       {/* 6. CinematicGrid: Asymmetrical Editorial Framing for Imagery & Typography */}
-      <div id="section-cinematic-grid" className="relative z-10">
+      <div className="relative z-10">
         <CinematicGrid
           onNavigate={onNavigate}
           currentMarket={currentMarket}
@@ -167,13 +170,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <BrandDivider
         variant="cyan"
         width="container"
-        spacing="sm"
+        spacing="none"
+        className="py-3 sm:py-4"
         label="SELECTED CLIENT WORK"
         sublabel="LIVE ARCHITECTURE"
       />
 
       {/* 7. Signature Amaze Orbit 3D / Editorial Project Gallery */}
-      <div id="section-showcase" className="relative z-10">
+      <div className="relative z-10">
         <ProjectOrbitGallery
           projects={featuredProjects}
           currentMarket={currentMarket}
@@ -187,54 +191,70 @@ export const HomeView: React.FC<HomeViewProps> = ({
         variant="teal"
         width="container"
         spacing="none"
-        className="pb-4"
+        className="py-3 sm:py-4"
         label="PROJECT INITIATION"
         sublabel="START YOUR FLAGSHIP"
       />
 
-      {/* 7. Closing Call to Action Banner with Disciplined Spacing & Fluid Typography */}
+      {/* 7. Closing Call to Action Banner with Architectural Image Background */}
       <section
         id="section-cta"
-        className="relative z-10 w-full border-t border-white/[0.08] bg-[#0A0D10]/90 backdrop-blur-md py-18 sm:py-22 lg:py-26"
+        className="cta-image-container group relative z-10 w-full border-t border-white/[0.08] py-12 sm:py-16 lg:py-20 overflow-hidden"
       >
-        <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8 text-center">
+        {/* Architectural Background Image */}
+        <img
+          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80"
+          alt="Unique Amaze Modern Architecture"
+          loading="lazy"
+          decoding="async"
+          className="cta-bg-image pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+        />
+
+        {/* Theme-Adaptive Contrast Scrim Layer */}
+        <div className="cta-scrim pointer-events-none absolute inset-0" />
+
+        <div className="relative z-10 mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8 text-center">
           <GsapStaggerReveal stagger={0.12} yOffset={32} className="space-y-6 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase font-semibold">
-              <Sparkles className="h-3.5 w-3.5" />
+              <Sparkles className="h-3.5 w-3.5 text-[#008280]" />
               <span>LET’S BUILD SOMETHING EXTRAORDINARY</span>
             </div>
 
-            <h2 className="font-display text-[clamp(1.9rem,4vw,3.5rem)] font-black tracking-[-0.035em] text-[#EBECF0] leading-[1.04] uppercase text-center">
+            <h2 className="font-display text-[clamp(1.9rem,4vw,3.5rem)] font-black tracking-[-0.035em] text-[#0F172A] dark:text-[#EBECF0] leading-[1.04] uppercase text-center">
               Ready to step into the future of business websites?
             </h2>
 
-            <p className="font-sans text-sm sm:text-base md:text-lg text-[#94A3B8] max-w-[60ch] mx-auto leading-relaxed">
+            <p className="font-sans text-sm sm:text-base md:text-lg text-slate-600 dark:text-[#94A3B8] max-w-[60ch] mx-auto leading-relaxed">
               {currentMarket === 'mw'
                 ? 'Book a consultation for your Malawian business or launch our 2-minute interactive planner with instant MWK estimates.'
                 : 'Book a consultation for your Canadian practice or launch our 2-minute interactive planner with instant CAD $ estimates.'}
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-4">
+              {/* Primary CTA with Textured Image Background */}
               <button
                 onClick={() => {
                   studioAudio.playClick(1100);
                   onNavigate('contact');
                 }}
-                className="flex items-center gap-2.5 rounded-lg bg-[#008280] px-8 py-4 font-mono text-xs font-semibold text-white shadow-lg hover:bg-[#367588] transition-all uppercase tracking-wider"
+                className="cta-image-btn group/btn flex items-center gap-2.5 rounded-lg px-8 py-4 font-mono text-xs font-bold text-white shadow-lg transition-all uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98]"
               >
-                <span>BOOK A FREE STRATEGY CALL</span>
-                <ArrowRight className="h-4 w-4" />
+                <span className="relative z-10 flex items-center gap-2 text-white">
+                  <span>BOOK A FREE STRATEGY CALL</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                </span>
               </button>
 
+              {/* Secondary CTA with Subtle Backdrop */}
               <button
                 onClick={() => {
                   studioAudio.playClick(900);
                   onNavigate('planner');
                 }}
-                className="flex items-center gap-2 rounded-lg border border-[#008280]/50 bg-[#008280]/10 px-8 py-4 font-mono text-xs font-semibold text-[#EBECF0] hover:border-[#008280] hover:bg-[#008280]/20 transition-all uppercase tracking-wider"
+                className="cta-secondary-btn flex items-center gap-2 rounded-lg border px-8 py-4 font-mono text-xs font-bold transition-all uppercase tracking-wider hover:scale-[1.01]"
               >
                 <Sparkles className="h-4 w-4 text-[#008280]" />
-                <span>LAUNCH PROJECT PLANNER</span>
+                <span className="relative z-10">LAUNCH PROJECT PLANNER</span>
               </button>
             </div>
           </GsapStaggerReveal>

@@ -25,6 +25,7 @@ import { ChatBox } from './components/chat/ChatBox';
 export default function App() {
   const [currentRoute, setCurrentRoute] = useState<PageRoute>('home');
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentMarket, setCurrentMarket] = useState<MarketType>(() => {
     try {
       const saved = localStorage.getItem('unique_amaze_market');
@@ -71,10 +72,14 @@ export default function App() {
     if (currentTheme === 'lunar') {
       document.documentElement.classList.add('theme-lunar');
       document.documentElement.classList.remove('theme-obsidian');
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
     } else {
       document.documentElement.setAttribute('data-theme', 'obsidian');
       document.documentElement.classList.add('theme-obsidian');
       document.documentElement.classList.remove('theme-lunar');
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
     }
   }, [currentTheme]);
 
@@ -83,6 +88,7 @@ export default function App() {
   };
 
   const handleNavigate = (route: PageRoute) => {
+    setIsMenuOpen(false);
     if (route === currentRoute) {
       scrollEngine.scrollTo(0, { immediate: false });
       return;
@@ -167,11 +173,22 @@ export default function App() {
         currentMarket={currentMarket}
         onNavigate={handleNavigate}
         onMarketChange={handleMarketChange}
+        currentTheme={currentTheme}
+        onToggleTheme={handleToggleTheme}
         onOpenChat={() => setIsChatOpen(true)}
+        isMenuOpen={isMenuOpen}
+        onMenuToggle={setIsMenuOpen}
       />
 
-      {/* Primary Multi-Page Route Viewport with Seamless Fade Page Transitions */}
-      <main id="unique-amaze-viewport" className="relative z-10 min-h-[calc(100vh-300px)]">
+      {/* Primary Multi-Page Route Viewport with Seamless Fade Transitions and Dynamic Depth Transform */}
+      <main
+        id="unique-amaze-viewport"
+        className={`relative z-10 min-h-[calc(100vh-300px)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center will-change-transform ${
+          isMenuOpen
+            ? 'scale-[0.985] -translate-y-1.5 blur-[3px] opacity-60 brightness-75 contrast-95 pointer-events-none'
+            : 'scale-100 translate-y-0 blur-0 opacity-100 brightness-100 contrast-100'
+        }`}
+      >
         <AnimatePresence
           mode="wait"
           initial={false}

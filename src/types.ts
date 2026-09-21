@@ -5,6 +5,14 @@ export type PageRoute = 'home' | 'services' | 'work' | 'process' | 'pricing' | '
 export type MarketType = 'ca' | 'mw';
 export type StudioTheme = 'obsidian' | 'lunar';
 
+export interface DeviceMockupItem {
+  device: 'macbook' | 'ipad' | 'iphone';
+  title: string;
+  subtitle: string;
+  badge: string;
+  description: string;
+}
+
 export interface ProjectCard {
   id: string;
   title: string;
@@ -16,6 +24,14 @@ export interface ProjectCard {
   ctaText?: string;
   metrics?: { label: string; value: string }[];
   accentColor?: string;
+  overview?: string;
+  approach?: string;
+  engineeringStack?: string[];
+  clientQuote?: {
+    text: string;
+    author: string;
+  };
+  deviceMockups?: DeviceMockupItem[];
 }
 
 export interface IndustryItem {

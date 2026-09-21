@@ -51,7 +51,7 @@ export const KineticShiftStatement: React.FC = () => {
     <section
       id="section-shift"
       ref={sectionRef}
-      className="relative w-full border-t border-white/[0.08] bg-[#07090C] py-20 sm:py-24 lg:py-28 overflow-hidden"
+      className="relative w-full border-t border-white/[0.08] bg-[#07090C] py-10 sm:py-12 lg:py-14 overflow-hidden"
     >
       {/* Subtle background glow & draft grid */}
       <div className="pointer-events-none absolute inset-0 radial-mesh-teal opacity-30" />

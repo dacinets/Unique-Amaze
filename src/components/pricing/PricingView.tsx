@@ -3,6 +3,7 @@ import { PageRoute, MarketType } from '../../types';
 import { PRICING_PACKAGES } from '../../data/uniqueAmazeData';
 import { studioAudio } from '../../utils/audio';
 import { BrandDivider } from '../common/BrandDivider';
+import { PricingAccordionComparison } from './PricingAccordionComparison';
 import { Check, Sparkles, ArrowRight, Calculator, Sliders, DollarSign, Calendar, Zap } from 'lucide-react';
 
 interface PricingViewProps {
@@ -180,73 +181,13 @@ export const PricingView: React.FC<PricingViewProps> = ({
         </div>
       </div>
 
-      {/* Package Cards Grid */}
+      {/* Package Horizontal Accordion & Comparison Suite */}
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
-          {PRICING_PACKAGES.map((pkg, idx) => {
-            const cardGlass = pkg.isFeatured
-              ? 'glass-dominant border-[#16D2C8]/60 shadow-[0_25px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(0,130,128,0.25)] scale-[1.02]'
-              : idx === 0
-              ? 'glass-smoke border-white/10'
-              : idx === 2
-              ? 'glass-violet border-white/10'
-              : 'glass-slate border-white/10';
-
-            return (
-              <div
-                key={pkg.id}
-                data-cursor="card"
-                className={`relative rounded-xl border p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 ${cardGlass}`}
-              >
-                {pkg.isFeatured && (
-                  <div className="absolute -top-3 left-6 rounded-md bg-[#008280] px-3.5 py-0.5 font-mono text-[10px] font-bold text-[#EBECF0] uppercase tracking-wider shadow-md">
-                    ★ Dominant Choice · Most Popular
-                  </div>
-                )}
-
-                <div>
-                  <div className="font-mono text-xs tracking-widest text-[#16D2C8] uppercase mb-2 font-semibold">
-                    {pkg.eyebrow}
-                  </div>
-                  <h3 className="font-display text-xl sm:text-2xl font-semibold text-[#EBECF0] mb-3 uppercase tracking-wide">
-                    {pkg.name}
-                  </h3>
-
-                  <div className="font-mono text-2xl sm:text-3xl font-bold text-[#EBECF0] mb-5 tracking-tight">
-                    {currentMarket === 'ca' ? pkg.priceCA : pkg.priceMW}
-                  </div>
-
-                  <p className="font-sans text-xs sm:text-sm text-[#CBD5E1] leading-relaxed mb-6 border-b border-white/[0.08] pb-5">
-                    {pkg.bestFor}
-                  </p>
-
-                  <ul className="space-y-3.5 font-sans text-xs text-[#CBD5E1] mb-8">
-                    {pkg.features.map((f, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-3">
-                        <Check className="h-4 w-4 text-[#16D2C8] shrink-0 mt-0.5" />
-                        <span className="text-[#EBECF0]">{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <button
-                  onClick={() => {
-                    studioAudio.playClick(1000);
-                    onNavigate('contact');
-                  }}
-                  className={`w-full py-3.5 rounded-lg font-mono text-xs font-semibold tracking-wider transition-all uppercase ${
-                    pkg.isFeatured
-                      ? 'bg-[#008280] text-white hover:bg-[#009491] shadow-[0_0_20px_rgba(0,130,128,0.35)]'
-                      : 'border border-white/20 text-[#EBECF0] hover:border-[#16D2C8] hover:text-[#16D2C8]'
-                  }`}
-                >
-                  {pkg.isCustom ? 'REQUEST CUSTOM QUOTE' : `CHOOSE ${pkg.name.toUpperCase()}`}
-                </button>
-              </div>
-            );
-          })}
-        </div>
+        <PricingAccordionComparison
+          packages={PRICING_PACKAGES}
+          currentMarket={currentMarket}
+          onNavigate={onNavigate}
+        />
       </div>
 
       {/* Subtle Horizontal Divider: Packages to Estimate Engine */}
@@ -415,9 +356,9 @@ export const PricingView: React.FC<PricingViewProps> = ({
                     studioAudio.playClick(1100);
                     onNavigate('planner');
                   }}
-                  className="w-full flex items-center justify-center gap-2 rounded-lg bg-[#008280] py-4 font-mono text-xs font-semibold text-white shadow-lg hover:bg-[#367588] transition-all uppercase tracking-wider"
+                  className="cta-image-btn w-full flex items-center justify-center gap-2 rounded-lg py-4 font-mono text-xs font-bold text-white shadow-lg transition-all uppercase tracking-wider hover:scale-[1.01] active:scale-[0.99]"
                 >
-                  <Sparkles className="h-4 w-4" />
+                  <Sparkles className="h-4 w-4 text-white" />
                   <span>TAKE THIS TO AI PROJECT PLANNER</span>
                 </button>
 

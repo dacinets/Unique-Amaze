@@ -109,14 +109,14 @@ export const CinematicGrid: React.FC<CinematicGridProps> = ({
   return (
     <section
       id="section-cinematic-grid"
-      className="relative z-10 w-full border-t border-white/[0.08] bg-[#06080B]/90 backdrop-blur-md py-20 sm:py-28 lg:py-32 overflow-hidden"
+      className="relative z-10 w-full border-t border-white/[0.08] bg-[#06080B]/90 backdrop-blur-md py-12 sm:py-14 lg:py-16 overflow-hidden"
     >
       {/* Subtle Background Radial Ambient Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-br from-[#008280]/15 via-[#16D2C8]/5 to-transparent rounded-full blur-[140px] pointer-events-none" />
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header with Editorial Rigor */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14 sm:mb-20">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-8 sm:mb-12">
           <GsapStaggerReveal stagger={0.12} yOffset={24} className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase font-semibold">
               <Compass className="h-3.5 w-3.5 text-[#16D2C8]" />
@@ -404,10 +404,10 @@ export const CinematicGrid: React.FC<CinematicGridProps> = ({
                     studioAudio.playClick(950);
                     onNavigate('process');
                   }}
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#008280] hover:bg-[#009491] px-5 py-3 font-mono text-xs font-bold text-white shadow-md transition-all uppercase tracking-wider"
+                  className="cta-image-btn inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 font-mono text-xs font-bold text-white shadow-md transition-all uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  <span>EXPLORE OUR PROCESS</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
+                  <span className="relative z-10">EXPLORE OUR PROCESS</span>
+                  <ArrowRight className="relative z-10 h-3.5 w-3.5" />
                 </button>
               </div>
             </div>
