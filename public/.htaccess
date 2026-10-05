@@ -1,0 +1,119 @@
+# ============================================================================
+# Unique Amaze — Production Apache .htaccess Configuration
+# Optimized for Bluehost Shared / cPanel (Apache 2.4+ with mod_rewrite & PHP 8)
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# 1. Server Security & Directory Indexing
+# ----------------------------------------------------------------------------
+Options -Indexes -MultiViews
+ServerSignature Off
+
+# Block access to hidden files and sensitive project files
+<FilesMatch "^\.|\.(env|log|sql|bak|backup|map|git|ini|sh|yaml|yml|config\.php)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ----------------------------------------------------------------------------
+# 2. Modern HTTP Security Headers
+# ----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    # Prevent MIME-sniffing
+    Header set X-Content-Type-Options "nosniff"
+
+    # Frame and Clickjacking Protection
+    Header set X-Frame-Options "SAMEORIGIN"
+
+    # Referrer Policy
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Permissions Policy (disable unneeded browser sensors)
+    Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+    # HTTP Strict Transport Security (HSTS) - 1 year with subdomains
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+
+    # Content Security Policy (Tested with Google Fonts, Unsplash, React, Three.js)
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://images.unsplash.com https://*.unsplash.com; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://images.unsplash.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 3. Compression (Gzip / Deflate & Brotli)
+# ----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript application/json image/svg+xml
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 4. Caching & Performance Optimization
+# ----------------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+
+    # Static build assets (Vite hashed bundles - immutable cache)
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+
+    # Dynamic entry points & API: never cache
+    ExpiresByType text/html "access plus 0 seconds"
+    ExpiresByType application/json "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Long-lived cache for immutable Vite hashed assets
+    <FilesMatch "\.(js|css|woff2|woff|webp|jpg|png|svg)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # Disable caching on HTML entry point and PHP APIs
+    <FilesMatch "\.(html|php)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 5. URL Rewriting, HTTPS Redirects & React Router Fallback
+# ----------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Enforce HTTPS redirect
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Map friendly clean API routes directly to PHP scripts
+    RewriteRule ^api/chat/?$ api/gemini.php [QSA,L]
+    RewriteRule ^api/contact/?$ api/contact.php [QSA,L]
+    RewriteRule ^api/planner/?$ api/planner.php [QSA,L]
+    RewriteRule ^api/health/?$ api/health.php [QSA,L]
+    RewriteRule ^api/csrf/?$ api/csrf.php [QSA,L]
+
+    # Never rewrite requests to actual files, directories, or the api/ folder
+    RewriteCond %{REQUEST_URI} ^/api/ [NC,OR]
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # React Router SPA fallback: route all marketing URLs to index.html
+    RewriteRule ^ index.html [L]
+</IfModule>

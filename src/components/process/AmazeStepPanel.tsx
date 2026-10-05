@@ -44,7 +44,7 @@ const STAGE_ARTIFACTS = [
     image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=70',
     alt: 'High-performance TypeScript code architecture and precision optimization',
     label: 'ENGINEERED ZERO-FRICTION CORE',
-    glass: 'glass-teal',
+    glass: 'glass-slate',
     dominant: false,
   },
   {
@@ -151,12 +151,12 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
       >
         {/* Top Finial Sphere (Acorn / Truck) */}
         <div className="relative -top-3 flex items-center justify-center">
-          <div className="h-4 w-4 rounded-full bg-gradient-to-br from-white via-[#16D2C8] to-[#008280] border border-[#16D2C8] shadow-[0_0_12px_#16D2C8]" />
-          <span className="absolute -inset-1 rounded-full bg-[#16D2C8]/30 animate-ping" />
+          <div className="h-4 w-4 rounded-full bg-gradient-to-br from-white via-slate-300 to-slate-600 border border-white/40 shadow-[0_0_12px_rgba(255,255,255,0.2)]" />
+          <span className="absolute -inset-1 rounded-full bg-white/20 animate-ping" />
         </div>
 
         {/* Mast Beam with dual titanium/cyan glow */}
-        <div className="relative w-[3px] sm:w-[4px] h-full bg-gradient-to-b from-white/20 via-[#16D2C8] to-white/20 rounded-full shadow-[0_0_14px_rgba(22,210,200,0.45)]">
+        <div className="relative w-[3px] sm:w-[4px] h-full bg-gradient-to-b from-white/20 via-slate-400 to-white/20 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.15)]">
           {/* Halyard Rigging Wire */}
           <div
             className={`absolute top-0 bottom-0 w-[1px] bg-white/20 ${
@@ -166,20 +166,20 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
         </div>
 
         {/* Base Ground Stanchion / Cleat */}
-        <div className="relative -bottom-2 h-3 w-6 rounded-sm bg-[#090D10] border border-[#16D2C8]/50 shadow-md" />
+        <div className="relative -bottom-2 h-3 w-6 rounded-sm bg-[#090D10] border border-white/20 shadow-md" />
 
         {/* Mast Node Pin (Attachment Pivot) */}
         <div className="absolute top-5 flex items-center justify-center">
           <div className="relative flex h-5 w-5 items-center justify-center">
             <span
-              className={`absolute inline-flex h-full w-full rounded-full bg-[#16D2C8] transition-opacity duration-700 ${
+              className={`absolute inline-flex h-full w-full rounded-full bg-white/40 transition-opacity duration-700 ${
                 isRevealed ? 'animate-ping opacity-60' : 'opacity-0'
               }`}
             />
             <span
               className={`relative inline-flex h-4 w-4 rounded-full border-2 transition-all duration-500 ${
                 isRevealed
-                  ? 'bg-[#050607] border-[#16D2C8] shadow-[0_0_16px_#16D2C8]'
+                  ? 'bg-[#050607] border-white/60 shadow-[0_0_12px_rgba(255,255,255,0.2)]'
                   : 'bg-[#0E1217] border-white/20'
               }`}
             />
@@ -195,7 +195,7 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
             : '-left-[24px] sm:-left-[42px]'
         } ${
           isRevealed
-            ? 'w-[24px] sm:w-[42px] bg-gradient-to-r from-[#16D2C8] to-[#16D2C8]/60 shadow-[0_0_8px_#16D2C8]'
+            ? 'w-[24px] sm:w-[42px] bg-gradient-to-r from-white/40 to-white/10 shadow-[0_0_8px_rgba(255,255,255,0.15)]'
             : 'w-0 bg-white/10'
         }`}
       />
@@ -226,9 +226,9 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
               : 'opacity-0 translate-y-12 scale-[0.97]'
           } ${
             isHovered
-              ? 'border-[#16D2C8]/60 shadow-xl'
+              ? 'border-white/40 shadow-xl'
               : STAGE_ARTIFACTS[index]?.dominant
-              ? 'border-[#16D2C8]/45 shadow-lg'
+              ? 'border-white/25 shadow-lg'
               : 'border-white/[0.08] hover:border-white/20 shadow-md'
           }`}
           style={{
@@ -251,7 +251,7 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
           <span
             className={`h-2.5 w-2.5 rounded-full border-2 transition-all duration-300 ${
               isHovered
-                ? 'border-[#16D2C8] bg-[#050607] shadow-[0_0_8px_#16D2C8]'
+                ? 'border-white/60 bg-[#050607] shadow-[0_0_8px_rgba(255,255,255,0.2)]'
                 : 'border-white/30 bg-[#0E1217]'
             }`}
           />
@@ -261,7 +261,7 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
           <span
             className={`h-2.5 w-2.5 rounded-full border-2 transition-all duration-300 ${
               isHovered
-                ? 'border-[#16D2C8] bg-[#050607] shadow-[0_0_8px_#16D2C8]'
+                ? 'border-white/60 bg-[#050607] shadow-[0_0_8px_rgba(255,255,255,0.2)]'
                 : 'border-white/30 bg-[#0E1217]'
             }`}
           />
@@ -290,24 +290,10 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
             isPoleRight ? 'left-0' : 'right-0'
           } ${
             isHovered
-              ? 'bg-gradient-to-b from-transparent via-[#16D2C8] to-transparent opacity-80 shadow-[0_0_12px_#16D2C8]'
+              ? 'bg-gradient-to-b from-transparent via-slate-300 to-transparent opacity-80 shadow-[0_0_12px_rgba(255,255,255,0.3)]'
               : 'opacity-0'
           }`}
         />
-
-        {/* Wind Status HUD Indicator on Hover */}
-        <div
-          className={`pointer-events-none absolute top-4 flex items-center gap-2 font-mono text-[10px] tracking-wider uppercase transition-all duration-500 z-20 ${
-            isPoleRight ? 'left-6' : 'right-6'
-          } ${
-            isHovered
-              ? 'opacity-100 translate-y-0 text-[#16D2C8]'
-              : 'opacity-0 -translate-y-2 text-white/40'
-          }`}
-        >
-          <Wind className="h-3 w-3 animate-pulse text-[#16D2C8]" />
-          <span>WIND VECTOR: {isPoleRight ? '318°' : '042°'} // FLUTTERING</span>
-        </div>
 
         {/* Monumental Sculptural Background Monogram */}
         <div
@@ -338,13 +324,13 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
           {/* Left Column: Stage Identifier, Summary & Description */}
           <div className="lg:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs font-bold text-[#16D2C8] tracking-widest uppercase bg-[#16D2C8]/10 px-2.5 py-1 rounded border border-[#16D2C8]/30">
-                STEP // {step.stepNum}
+              <span className="font-mono text-xs font-bold text-white tracking-widest uppercase bg-white/10 px-2.5 py-1 rounded border border-white/20">
+                Step {step.stepNum}
               </span>
-              <span className="text-[#3A494B]">|</span>
-              <span className="font-display text-lg font-semibold text-[#16D2C8] uppercase tracking-wide flex items-center gap-1.5">
+              <span className="text-zinc-600">|</span>
+              <span className="font-display text-lg font-semibold text-white uppercase tracking-wide flex items-center gap-1.5">
                 <span>{step.word}</span>
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#16D2C8] animate-pulse" />
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
               </span>
             </div>
 
@@ -367,7 +353,7 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
                   hoverZoom={true}
                   className="w-full"
                 />
-                <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between font-mono text-[9px] text-[#16D2C8] z-20 pointer-events-none">
+                <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between font-mono text-[9px] text-zinc-300 z-20 pointer-events-none">
                   <span className="tracking-widest uppercase font-semibold">{STAGE_ARTIFACTS[index].label}</span>
                   <span className="text-[#94A3B8] font-mono">SPEC 0{index + 1}</span>
                 </div>
@@ -375,20 +361,20 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
             )}
 
             <div className="pt-1 flex items-center gap-2 text-xs font-mono text-[#94A3B8]">
-              <Compass className="h-3.5 w-3.5 text-[#16D2C8]" />
-              <span>PHASE {step.stepNum} OF {totalSteps.toString().padStart(2, '0')} // ARCHITECTURAL RAIL</span>
+              <Compass className="h-3.5 w-3.5 text-zinc-400" />
+              <span>Phase {step.stepNum} of {totalSteps.toString().padStart(2, '0')}</span>
             </div>
           </div>
 
           {/* Right Column: Key Deliverables Card */}
           <div className="lg:col-span-7 glass-smoke rounded-xl border border-white/10 p-7 sm:p-9 space-y-5 shadow-inner">
             <div className="flex items-center justify-between">
-              <div className="font-mono text-xs text-[#16D2C8] uppercase tracking-wider font-semibold flex items-center gap-2">
-                <Sparkles className="h-3.5 w-3.5" />
-                <span>KEY DELIVERABLES & ARTIFACTS:</span>
+              <div className="font-mono text-xs text-zinc-300 uppercase tracking-wider font-semibold flex items-center gap-2">
+                <Sparkles className="h-3.5 w-3.5 text-zinc-400" />
+                <span>KEY DELIVERABLES &amp; ARTIFACTS:</span>
               </div>
               <span className="font-mono text-[10px] text-[#CBD5E1] font-semibold tracking-wider">
-                VERIFIED EXCELLENCE
+                PROVEN STANDARD
               </span>
             </div>
 
@@ -398,7 +384,7 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
                   key={dIdx}
                   className="flex items-start gap-3 transition-transform duration-300 hover:translate-x-1"
                 >
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#16D2C8]/15 text-[#16D2C8] border border-[#16D2C8]/30 mt-0.5">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 mt-0.5">
                     <Check className="h-3 w-3" />
                   </span>
                   <span className="leading-snug">{d}</span>
@@ -431,22 +417,21 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
         >
           <div className={`flex flex-col gap-1.5 ${isPoleRight ? 'items-start' : 'items-end'}`}>
             {/* Top Micro-Header for Stage Context */}
-            <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-[#16D2C8]/80">
-              <span className="inline-block h-1 w-1 rounded-full bg-[#16D2C8] animate-ping" />
+            <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-zinc-400">
+              <span className="inline-block h-1 w-1 rounded-full bg-emerald-400" />
               <span>THE A.M.A.Z.E. METHOD™</span>
             </div>
 
-            {/* Futuristic HUD Letterplate Badge */}
+            {/* Letterplate Badge */}
             <div
               className={`flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 rounded-full border backdrop-blur-md transition-all duration-500 ${
                 isHovered
-                  ? 'bg-[#050607]/90 border-[#16D2C8] shadow-[0_0_25px_rgba(22,210,200,0.45)]'
-                  : 'bg-[#090D10]/80 border-white/10 shadow-lg'
+                  ? 'bg-[#050607]/90 border-white/20 shadow-md'
+                  : 'bg-[#090D10]/80 border-white/10 shadow-sm'
               }`}
             >
               {AMAZE_LETTERS.map((item, lIdx) => {
                 const isCurrentStepLetter = lIdx === index;
-                // Delay each letter stagger on scroll reveal
                 const staggerDelay = isRevealed ? `${lIdx * 90 + 150}ms` : '0ms';
 
                 return (
@@ -459,7 +444,7 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
                           : 'opacity-0 translate-y-3 scale-75'
                       } ${
                         isCurrentStepLetter
-                          ? 'text-[#16D2C8] font-black scale-110 drop-shadow-[0_0_10px_#16D2C8]'
+                          ? 'text-white font-black scale-110'
                           : 'text-white/40 hover:text-white/80'
                       }`}
                       style={{
@@ -470,7 +455,7 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
                     >
                       {/* Active Letter Halo / Glow Pill */}
                       {isCurrentStepLetter && (
-                        <span className="absolute -inset-1 rounded-md bg-[#16D2C8]/20 border border-[#16D2C8]/40 animate-pulse pointer-events-none" />
+                        <span className="absolute -inset-1 rounded-md bg-white/10 border border-white/20 pointer-events-none" />
                       )}
                       <span className="relative z-10 px-0.5">{item.char}</span>
                     </div>
@@ -482,7 +467,7 @@ export const AmazeStepPanel: React.FC<AmazeStepPanelProps> = ({
                           isRevealed ? 'opacity-100' : 'opacity-0'
                         } ${
                           isCurrentStepLetter || lIdx === index - 1
-                            ? 'text-[#16D2C8]'
+                            ? 'text-zinc-400'
                             : 'text-white/20'
                         }`}
                         style={{ transitionDelay: staggerDelay }}

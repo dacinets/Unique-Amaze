@@ -32,7 +32,7 @@ const COMPARISON_SPECS: Record<string, ComparisonMeta> = {
     tierNumber: '01',
     pagesScope: '1–3 Pages (Focused Launch)',
     turnaround: '1–2 Weeks',
-    speedSla: '95+ Score // Sub-1.2s Load',
+    speedSla: '95+ Score · Sub-1.2s Load',
     aiLevel: 'Smart Contact Form & Direct WhatsApp',
     designFinish: 'Clean, Modern Architecture',
     supportSla: '14-Day Warranty & Launch Guide'
@@ -41,7 +41,7 @@ const COMPARISON_SPECS: Record<string, ComparisonMeta> = {
     tierNumber: '02',
     pagesScope: '6–8 Pages (Complete Presence)',
     turnaround: '2–4 Weeks',
-    speedSla: '98+ Score // Sub-1.0s Load',
+    speedSla: '98+ Score · Sub-1.0s Load',
     aiLevel: 'Booking Engine + Google SEO Sync',
     designFinish: 'Tailored Brand Identity & Smooth Transitions',
     supportSla: '30-Day Priority Support & Video Training'
@@ -50,7 +50,7 @@ const COMPARISON_SPECS: Record<string, ComparisonMeta> = {
     tierNumber: '03',
     pagesScope: '8–15 Pages (Multi-Page Flagship)',
     turnaround: '4–6 Weeks',
-    speedSla: '99+ Score // Sub-0.8s Load',
+    speedSla: '99+ Score · Sub-0.8s Load',
     aiLevel: '24/7 AI Client Concierge & CRM Sync',
     designFinish: 'Spatial Shaders & Micro-Interactions',
     supportSla: '60-Day Dedicated Support & CRO Audit'
@@ -95,12 +95,12 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
       {/* Top Controls: Mode Switcher & Quick Context */}
       <div className="flex flex-wrap items-center justify-between gap-4 p-2 rounded-xl bg-[#090D12] border border-white/10">
         <div className="flex items-center gap-2">
-          <span className="font-mono text-xs uppercase tracking-wider text-[#008280] font-bold px-2.5 py-1 bg-[#008280]/10 rounded border border-[#008280]/25 flex items-center gap-1.5">
-            <Sparkles className="h-3.5 w-3.5" />
+          <span className="font-mono text-xs uppercase tracking-wider text-zinc-300 font-bold px-2.5 py-1 bg-white/5 rounded border border-white/10 flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
             <span>PACKAGE COMPARISON</span>
           </span>
           <span className="hidden sm:inline font-mono text-xs text-[#94A3B8]">
-            INTERACTIVE COMPARISON SUITE:
+            Interactive Comparison Suite:
           </span>
         </div>
 
@@ -113,7 +113,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
             }}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg transition-all uppercase font-semibold ${
               viewMode === 'accordion'
-                ? 'bg-[#008280] text-white shadow-[0_0_16px_rgba(0,130,128,0.35)]'
+                ? 'bg-white/10 text-white border border-white/20 shadow-sm'
                 : 'text-[#94A3B8] hover:text-[#EBECF0] hover:bg-white/5'
             }`}
           >
@@ -128,7 +128,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
             }}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg transition-all uppercase font-semibold ${
               viewMode === 'matrix'
-                ? 'bg-[#008280] text-white shadow-[0_0_16px_rgba(0,130,128,0.35)]'
+                ? 'bg-white/10 text-white border border-white/20 shadow-sm'
                 : 'text-[#94A3B8] hover:text-[#EBECF0] hover:bg-white/5'
             }`}
           >
@@ -171,11 +171,11 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                       <div className="space-y-4">
                         <div className="flex flex-wrap items-center justify-between gap-3">
                           <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs font-bold text-[#16D2C8] tracking-widest uppercase">
-                              {spec.tierNumber} // {pkg.eyebrow}
+                            <span className="font-mono text-xs font-bold text-zinc-300 tracking-widest uppercase">
+                              {spec.tierNumber} · {pkg.eyebrow}
                             </span>
                             {pkg.isFeatured && (
-                              <span className="px-2.5 py-0.5 rounded bg-[#008280] font-mono text-[10px] font-bold text-white uppercase tracking-wider shadow-sm">
+                              <span className="px-2.5 py-0.5 rounded bg-zinc-800 border border-white/20 font-mono text-[10px] font-bold text-white uppercase tracking-wider shadow-sm">
                                 ★ DOMINANT CHOICE
                               </span>
                             )}
@@ -200,7 +200,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                             <span className="block font-mono text-[10px] uppercase tracking-widest text-[#94A3B8]">
                               INVESTMENT LEVEL
                             </span>
-                            <div className="font-mono text-2xl sm:text-3xl font-bold text-[#16D2C8] tracking-tight">
+                            <div className="font-mono text-2xl sm:text-3xl font-bold text-white tracking-tight">
                               {priceDisplay}
                             </div>
                           </div>
@@ -210,7 +210,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 font-mono text-xs">
                           <div className="p-3 rounded-lg border border-white/10 bg-white/[0.02]">
                             <span className="text-[10px] uppercase text-[#94A3B8] flex items-center gap-1 mb-1">
-                              <Layers className="h-3 w-3 text-[#16D2C8]" />
+                              <Layers className="h-3 w-3 text-zinc-400" />
                               <span>Pages &amp; Scope</span>
                             </span>
                             <span className="font-semibold text-white block text-[11px] sm:text-xs">
@@ -220,7 +220,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
 
                           <div className="p-3 rounded-lg border border-white/10 bg-white/[0.02]">
                             <span className="text-[10px] uppercase text-[#94A3B8] flex items-center gap-1 mb-1">
-                              <Clock className="h-3 w-3 text-[#16D2C8]" />
+                              <Clock className="h-3 w-3 text-zinc-400" />
                               <span>Turnaround</span>
                             </span>
                             <span className="font-semibold text-white block text-[11px] sm:text-xs">
@@ -230,7 +230,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
 
                           <div className="p-3 rounded-lg border border-white/10 bg-white/[0.02]">
                             <span className="text-[10px] uppercase text-[#94A3B8] flex items-center gap-1 mb-1">
-                              <Zap className="h-3 w-3 text-[#16D2C8]" />
+                              <Zap className="h-3 w-3 text-zinc-400" />
                               <span>Speed SLA</span>
                             </span>
                             <span className="font-semibold text-white block text-[11px] sm:text-xs">
@@ -240,7 +240,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
 
                           <div className="p-3 rounded-lg border border-white/10 bg-white/[0.02]">
                             <span className="text-[10px] uppercase text-[#94A3B8] flex items-center gap-1 mb-1">
-                              <Bot className="h-3 w-3 text-[#16D2C8]" />
+                              <Bot className="h-3 w-3 text-zinc-400" />
                               <span>Automation &amp; AI</span>
                             </span>
                             <span className="font-semibold text-white block text-[11px] sm:text-xs">
@@ -260,7 +260,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                                 key={fIdx}
                                 className="flex items-start gap-2.5 p-2 rounded-md bg-white/[0.02] border border-white/5"
                               >
-                                <Check className="h-3.5 w-3.5 text-[#16D2C8] shrink-0 mt-0.5" />
+                                <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0 mt-0.5" />
                                 <span className="text-[#CBD5E1] leading-relaxed">{feature}</span>
                               </div>
                             ))}
@@ -271,7 +271,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                       {/* Bottom Action Footer */}
                       <div className="pt-6 border-t border-white/10 mt-6 flex flex-wrap items-center justify-between gap-4">
                         <div className="font-mono text-xs text-[#94A3B8] flex items-center gap-2">
-                          <ShieldCheck className="h-4 w-4 text-[#16D2C8]" />
+                          <ShieldCheck className="h-4 w-4 text-zinc-400" />
                           <span>{spec.supportSla}</span>
                         </div>
 
@@ -283,7 +283,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                           }}
                           className={`px-6 py-3.5 rounded-lg font-mono text-xs font-bold tracking-wider uppercase transition-all flex items-center gap-2 hover:scale-[1.01] active:scale-[0.99] ${
                             pkg.isFeatured
-                              ? 'bg-[#008280] hover:bg-[#009b98] text-white shadow-[0_0_20px_rgba(0,130,128,0.4)]'
+                              ? 'cta-image-btn text-white shadow-lg'
                               : 'bg-white/10 hover:bg-white/15 text-white border border-white/20 pricing-secondary-btn'
                           }`}
                         >
@@ -299,11 +299,11 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                     <div className="w-full h-full p-4 flex flex-col justify-between items-center text-center relative group">
                       {/* Top Numeral & Indicator */}
                       <div className="space-y-1">
-                        <span className="font-mono text-xs font-bold text-[#94A3B8] group-hover:text-[#16D2C8] transition-colors">
+                        <span className="font-mono text-xs font-bold text-[#94A3B8] group-hover:text-white transition-colors">
                           {spec.tierNumber}
                         </span>
                         {pkg.isFeatured && (
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#008280] mx-auto animate-pulse" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mx-auto" />
                         )}
                       </div>
 
@@ -320,7 +320,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                         </div>
 
                         <div
-                          className="mt-6 font-mono text-xs text-[#16D2C8] font-bold whitespace-nowrap"
+                          className="mt-6 font-mono text-xs text-zinc-300 font-bold whitespace-nowrap"
                           style={{
                             writingMode: 'vertical-rl',
                             transform: 'rotate(180deg)'
@@ -332,7 +332,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
 
                       {/* Bottom Expand Prompt */}
                       <div className="pt-2">
-                        <div className="p-2 rounded-full bg-white/5 group-hover:bg-[#008280]/20 group-hover:text-[#16D2C8] text-[#94A3B8] transition-all">
+                        <div className="p-2 rounded-full bg-white/5 group-hover:bg-white/10 group-hover:text-white text-[#94A3B8] transition-all">
                           <ChevronRight className="h-4 w-4" />
                         </div>
                       </div>
@@ -355,7 +355,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                   key={pkg.id}
                   className={`rounded-xl border transition-all overflow-hidden ${
                     isExpanded
-                      ? 'border-[#008280] bg-[#0C1217] shadow-xl'
+                      ? 'border-white/20 bg-[#0C1217] shadow-xl'
                       : 'border-white/10 bg-[#070A0D]'
                   }`}
                 >
@@ -366,11 +366,11 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                   >
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-[#16D2C8] font-bold">
-                          {spec.tierNumber} // {pkg.eyebrow}
+                        <span className="font-mono text-[10px] text-zinc-400 font-bold">
+                          {spec.tierNumber} · {pkg.eyebrow}
                         </span>
                         {pkg.isFeatured && (
-                          <span className="px-1.5 py-0.5 rounded bg-[#008280] text-[9px] font-mono font-bold text-white">
+                          <span className="px-1.5 py-0.5 rounded bg-white/15 text-[9px] font-mono font-bold text-white">
                             ★ POPULAR
                           </span>
                         )}
@@ -378,7 +378,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                       <h4 className="font-display text-lg font-bold text-white uppercase">
                         {pkg.name}
                       </h4>
-                      <span className="font-mono text-xs text-[#16D2C8] font-bold block">
+                      <span className="font-mono text-xs text-white font-bold block">
                         {priceDisplay}
                       </span>
                     </div>
@@ -386,7 +386,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                     <div
                       className={`p-2 rounded-full transition-transform ${
                         isExpanded
-                          ? 'bg-[#008280] text-white rotate-90'
+                          ? 'bg-white/10 text-white rotate-90'
                           : 'bg-white/5 text-[#94A3B8]'
                       }`}
                     >
@@ -418,7 +418,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                         </span>
                         {pkg.features.map((f, idx) => (
                           <div key={idx} className="flex items-start gap-2 text-xs text-[#CBD5E1]">
-                            <Check className="h-3 w-3 text-[#16D2C8] shrink-0 mt-0.5" />
+                            <Check className="h-3 w-3 text-emerald-400 shrink-0 mt-0.5" />
                             <span>{f}</span>
                           </div>
                         ))}
@@ -429,7 +429,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                           studioAudio.playClick(1000);
                           onNavigate('contact');
                         }}
-                        className="w-full py-3 rounded-lg font-mono text-xs font-bold text-white uppercase bg-[#008280] shadow-md tracking-wider mt-2"
+                        className="w-full py-3 rounded-lg font-mono text-xs font-bold text-white uppercase cta-image-btn shadow-md tracking-wider mt-2"
                       >
                         {pkg.isCustom ? 'REQUEST CUSTOM QUOTE' : `SELECT ${pkg.name.toUpperCase()}`}
                       </button>
@@ -454,18 +454,18 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                     <th
                       key={pkg.id}
                       className={`p-4 sm:p-5 font-mono text-xs uppercase tracking-wider ${
-                        pkg.isFeatured ? 'bg-[#008280]/15 text-[#16D2C8]' : 'text-white'
+                        pkg.isFeatured ? 'bg-white/5 text-white' : 'text-white'
                       }`}
                     >
                       <div className="flex items-center gap-1.5 mb-1">
                         <span className="font-bold">{pkg.name}</span>
                         {pkg.isFeatured && (
-                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#008280] text-white">
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-white/20 text-white">
                             ★
                           </span>
                         )}
                       </div>
-                      <div className="font-bold text-sm text-[#16D2C8]">
+                      <div className="font-bold text-sm text-white">
                         {currentMarket === 'ca' ? pkg.priceCA : pkg.priceMW}
                       </div>
                     </th>
@@ -504,7 +504,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                 <tr className="bg-white/[0.01]">
                   <td className="p-4 text-[#94A3B8] uppercase">Speed SLA &amp; Score</td>
                   {packages.map((pkg) => (
-                    <td key={pkg.id} className="p-4 text-[#16D2C8] font-semibold">
+                    <td key={pkg.id} className="p-4 text-zinc-200 font-semibold">
                       {COMPARISON_SPECS[pkg.id]?.speedSla}
                     </td>
                   ))}
@@ -548,7 +548,7 @@ export const PricingAccordionComparison: React.FC<PricingAccordionComparisonProp
                         }}
                         className={`w-full py-2.5 rounded font-mono text-xs font-bold uppercase tracking-wider transition-all ${
                           pkg.isFeatured
-                            ? 'bg-[#008280] text-white hover:bg-[#009b98] shadow-md'
+                            ? 'cta-image-btn text-white shadow-md'
                             : 'bg-white/10 text-white hover:bg-white/20 pricing-secondary-btn'
                         }`}
                       >

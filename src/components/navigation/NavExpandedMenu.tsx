@@ -66,7 +66,7 @@ export const NavExpandedMenu: React.FC<NavExpandedMenuProps> = ({
       number: '03',
       label: 'A.M.A.Z.E.™',
       shortLabel: 'A.M.A.Z.E.',
-      ambientTone: 'rgba(22, 210, 200, 0.14)', // Luminous AI / neural cyan
+      ambientTone: 'rgba(148, 163, 184, 0.12)', // Slate architectural tone
     },
     {
       id: 'pricing',
@@ -177,7 +177,7 @@ export const NavExpandedMenu: React.FC<NavExpandedMenuProps> = ({
                 aria-label="Return to Studio Homepage"
                 title="Return to Studio Homepage"
               >
-                <div className="relative h-10 w-10 overflow-hidden rounded-lg border border-white/10 bg-[#0C1014] p-1 shadow-sm group-hover:border-[#008280] transition-colors">
+                <div className="relative h-10 w-10 overflow-hidden rounded-lg border border-white/10 bg-[#0C1014] p-1 shadow-sm group-hover:border-white/30 transition-colors">
                   <img
                     src={LOGO_DATA_URI}
                     alt="Unique Amaze Logo"
@@ -187,65 +187,28 @@ export const NavExpandedMenu: React.FC<NavExpandedMenuProps> = ({
                 <div>
                   <div className="flex items-center gap-1.5 font-display text-base sm:text-lg font-bold tracking-tight text-white">
                     <span>UNIQUE</span>
-                    <span className="text-[#008280] font-black">AMAZE</span>
+                    <span className="text-white font-black">AMAZE</span>
                   </div>
-                  <div className="font-mono text-[9px] tracking-widest text-[#94A3B8] uppercase">
-                    NAVIGATION ROOM // SYSTEM 02
+                  <div className="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">
+                    Bespoke Web Studio
                   </div>
                 </div>
               </button>
 
-              {/* Center Navigation Breadcrumb */}
-              <div className="hidden md:flex items-center gap-2 font-mono text-[11px] tracking-[0.25em] text-[#008280] uppercase">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#16D2C8] animate-pulse" />
-                <span>SPATIAL EXPLORER</span>
-              </div>
-
-              {/* Right Controls: Market Switcher, Theme & Close Trigger */}
-              <div className="flex items-center gap-4 lg:gap-6">
-                {/* Market Switcher */}
-                <div className="flex items-center gap-1 font-mono text-xs">
-                  <button
-                    onClick={() => {
-                      studioAudio.playClick(900);
-                      onMarketChange('ca');
-                    }}
-                    className={`px-1.5 py-0.5 rounded transition-colors ${
-                      currentMarket === 'ca'
-                        ? 'text-[#008280] font-bold underline underline-offset-4 decoration-[#008280]'
-                        : 'text-[#64748B] hover:text-white'
-                    }`}
-                  >
-                    CAD
-                  </button>
-                  <span className="text-white/20">/</span>
-                  <button
-                    onClick={() => {
-                      studioAudio.playClick(900);
-                      onMarketChange('mw');
-                    }}
-                    className={`px-1.5 py-0.5 rounded transition-colors ${
-                      currentMarket === 'mw'
-                        ? 'text-[#008280] font-bold underline underline-offset-4 decoration-[#008280]'
-                        : 'text-[#64748B] hover:text-white'
-                    }`}
-                  >
-                    MWK
-                  </button>
-                </div>
-
+              {/* Right Controls: Theme & Close Trigger */}
+              <div className="flex items-center gap-3 sm:gap-4 lg:gap-6">
                 {/* Theme Toggle */}
                 {onToggleTheme && (
                   <button
                     onClick={onToggleTheme}
-                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-[#94A3B8] hover:text-white hover:border-[#008280] transition-colors focus:outline-none"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-300 hover:text-white hover:border-white/25 transition-colors focus:outline-none cursor-pointer"
                     title={`Switch to ${currentTheme === 'lunar' ? 'Obsidian Dark' : 'Lunar Light'} theme`}
                     aria-label="Toggle visual theme"
                   >
                     {currentTheme === 'lunar' ? (
                       <Sun className="h-4 w-4 text-[#D97706]" />
                     ) : (
-                      <Moon className="h-4 w-4 text-[#16D2C8]" />
+                      <Moon className="h-4 w-4 text-zinc-300" />
                     )}
                   </button>
                 )}
@@ -258,10 +221,10 @@ export const NavExpandedMenu: React.FC<NavExpandedMenuProps> = ({
                   }}
                   data-cursor="close"
                   aria-label="Close navigation menu"
-                  className="group flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 font-mono text-xs font-bold text-white hover:border-[#008280] hover:bg-[#008280]/20 hover:text-[#5EEAD4] transition-all focus:outline-none"
+                  className="group flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 font-mono text-xs font-bold text-white hover:border-white/30 hover:bg-white/15 transition-all focus:outline-none cursor-pointer"
                 >
                   <span className="tracking-widest uppercase text-[11px]">CLOSE</span>
-                  <X className="h-4 w-4 transition-transform group-hover:rotate-90 text-[#008280] group-hover:text-[#5EEAD4]" />
+                  <X className="h-4 w-4 transition-transform group-hover:rotate-90 text-zinc-300 group-hover:text-white" />
                 </button>
               </div>
             </div>
@@ -309,9 +272,9 @@ export const NavExpandedMenu: React.FC<NavExpandedMenuProps> = ({
                         <span
                           className={`font-mono text-sm sm:text-base md:text-lg font-bold transition-all duration-300 ${
                             isHovered
-                              ? 'text-[#008280] scale-110'
+                              ? 'text-white scale-110'
                               : isActive
-                              ? 'text-[#16D2C8]'
+                              ? 'text-zinc-300'
                               : 'text-white/40'
                           }`}
                         >
@@ -335,15 +298,15 @@ export const NavExpandedMenu: React.FC<NavExpandedMenuProps> = ({
 
                           {/* Current Route Indicator Tag */}
                           {isActive && (
-                            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#008280]/40 bg-[#008280]/15 px-2.5 py-0.5 font-mono text-[9px] font-bold text-[#5EEAD4] uppercase tracking-wider">
-                              <span className="h-1.5 w-1.5 rounded-full bg-[#008280]" />
+                            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 font-mono text-[9px] font-bold text-white uppercase tracking-wider">
+                              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                               <span>ACTIVE</span>
                             </span>
                           )}
 
                           {/* Hover Arrow Micro-interaction */}
                           <ArrowUpRight
-                            className={`h-6 w-6 sm:h-8 sm:w-8 text-[#008280] transition-all duration-300 ${
+                            className={`h-6 w-6 sm:h-8 sm:w-8 text-white transition-all duration-300 ${
                               isHovered
                                 ? 'opacity-100 translate-x-1 -translate-y-1'
                                 : 'opacity-0 -translate-x-2 translate-y-2'
@@ -355,7 +318,7 @@ export const NavExpandedMenu: React.FC<NavExpandedMenuProps> = ({
                         {isHovered && (
                           <motion.div
                             layoutId="nav-hover-line"
-                            className="absolute -bottom-1 left-0 right-12 h-px bg-gradient-to-r from-[#008280] via-[#16D2C8]/60 to-transparent"
+                            className="absolute -bottom-1 left-0 right-12 h-px bg-gradient-to-r from-white via-zinc-400 to-transparent"
                             transition={{ duration: 0.3 }}
                           />
                         )}

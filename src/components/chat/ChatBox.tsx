@@ -199,27 +199,24 @@ export const ChatBox: React.FC<ChatBoxProps> = ({
         <button
           id="chat-toggle-open-btn"
           onClick={() => setIsOpen(true)}
-          className="group relative flex items-center gap-3 rounded-full border border-[#16D2C8]/30 bg-[#0B0F12]/90 px-5 py-3.5 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:border-[#16D2C8] hover:bg-[#10161A] hover:scale-105 active:scale-95"
+          className="group relative flex items-center gap-3 rounded-full border border-white/15 bg-[#0B0F12]/95 px-5 py-3 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:border-white/40 hover:bg-[#12171C] hover:scale-105 active:scale-95"
           aria-label="Open Unique Amaze AI Chat"
         >
-          {/* Animated turquoise ambient pulse */}
-          <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#16D2C8]/30 to-[#367588]/30 opacity-70 blur-md transition-opacity group-hover:opacity-100" />
-
           {/* Sparkle Icon & Pulse Beacon */}
-          <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#16D2C8]/10 text-[#16D2C8] border border-[#16D2C8]/40">
-            <Bot className="h-5 w-5 transition-transform group-hover:rotate-6" />
-            <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#16D2C8] opacity-75" />
-              <span className="relative inline-flex h-3 w-3 rounded-full bg-[#16D2C8]" />
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white border border-white/20">
+            <Bot className="h-4 w-4 transition-transform group-hover:rotate-6" />
+            <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
             </span>
           </div>
 
           <div className="relative text-left">
-            <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#16D2C8]">
-              <Sparkles className="h-3 w-3" />
+            <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-zinc-300">
+              <Sparkles className="h-3 w-3 text-zinc-400" />
               <span>SAGE AI</span>
             </div>
-            <div className="text-xs font-medium text-slate-200">
+            <div className="text-xs font-medium text-slate-300">
               Studio Concierge
             </div>
           </div>
@@ -236,15 +233,12 @@ export const ChatBox: React.FC<ChatBoxProps> = ({
               : 'w-[94vw] sm:w-[420px] md:w-[460px] h-[600px] max-h-[85vh]'
           }`}
         >
-          {/* Ambient Top Glow Strip */}
-          <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#16D2C8] via-[#367588] to-[#16D2C8]" />
-
           {/* Chat Header */}
           <div className="flex items-center justify-between border-b border-white/10 bg-[#0B0F13]/80 px-4 py-3.5 backdrop-blur-md">
             <div className="flex items-center gap-3">
-              <div className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-[#16D2C8]/40 bg-[#16D2C8]/10 text-[#16D2C8]">
+              <div className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-white/20 bg-white/10 text-white">
                 <Bot className="h-5 w-5" />
-                <span className="absolute bottom-0 right-0 h-2 w-2 rounded-full bg-[#16D2C8]" />
+                <span className="absolute bottom-0 right-0 h-2 w-2 rounded-full bg-emerald-400" />
               </div>
 
               <div>
@@ -252,7 +246,7 @@ export const ChatBox: React.FC<ChatBoxProps> = ({
                   <h3 className="text-sm font-semibold tracking-wide text-white">
                     SAGE AI Concierge
                   </h3>
-                  <span className="rounded border border-[#16D2C8]/30 bg-[#16D2C8]/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase text-[#16D2C8]">
+                  <span className="rounded border border-white/20 bg-white/5 px-1.5 py-0.5 text-[9px] font-semibold uppercase text-zinc-300">
                     Studio Advisor
                   </span>
                 </div>
@@ -310,7 +304,7 @@ export const ChatBox: React.FC<ChatBoxProps> = ({
           {/* Model Subheader Selector Pill */}
           <div className="flex items-center justify-between border-b border-white/5 bg-[#090C0F] px-4 py-1.5 text-[11px] text-slate-400">
             <div className="flex items-center gap-1.5">
-              <Cpu className="h-3 w-3 text-[#16D2C8]" />
+              <Cpu className="h-3 w-3 text-zinc-400" />
               <span>Model:</span>
               <select
                 id="chat-model-selector"
@@ -344,7 +338,7 @@ export const ChatBox: React.FC<ChatBoxProps> = ({
                 }`}
               >
                 {msg.role === 'model' && (
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-[#16D2C8]/30 bg-[#16D2C8]/10 text-[#16D2C8]">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/5 text-zinc-300">
                     <Bot className="h-4 w-4" />
                   </div>
                 )}
@@ -352,7 +346,7 @@ export const ChatBox: React.FC<ChatBoxProps> = ({
                 <div
                   className={`relative max-w-[85%] rounded-2xl p-3.5 shadow-sm transition-all ${
                     msg.role === 'user'
-                      ? 'rounded-tr-sm bg-gradient-to-br from-[#16D2C8] to-[#0E837D] text-[#050607] font-medium'
+                      ? 'rounded-tr-sm bg-white text-black font-medium'
                       : 'rounded-tl-sm border border-white/10 bg-[#0E1317]/90 text-slate-200'
                   }`}
                 >
@@ -364,7 +358,7 @@ export const ChatBox: React.FC<ChatBoxProps> = ({
                   {/* Message Meta / Copy Toolbar */}
                   <div
                     className={`mt-2 flex items-center justify-between text-[10px] ${
-                      msg.role === 'user' ? 'text-[#050607]/70' : 'text-slate-400'
+                      msg.role === 'user' ? 'text-zinc-600' : 'text-slate-400'
                     }`}
                   >
                     <span>{msg.timestamp}</span>
@@ -403,15 +397,15 @@ export const ChatBox: React.FC<ChatBoxProps> = ({
             {/* Typing / Loading Indicator */}
             {isLoading && (
               <div className="flex items-center gap-3 text-sm">
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-[#16D2C8]/30 bg-[#16D2C8]/10 text-[#16D2C8]">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/20 bg-white/5 text-zinc-300">
                   <Bot className="h-4 w-4 animate-spin" />
                 </div>
                 <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-sm border border-white/10 bg-[#0E1317] px-4 py-3 text-slate-400">
-                  <span className="text-xs">Amaze AI is crafting an answer</span>
+                  <span className="text-xs">Unique Amaze AI is answering</span>
                   <div className="flex gap-1 ml-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#16D2C8] animate-bounce" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#16D2C8] animate-bounce [animation-delay:0.2s]" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#16D2C8] animate-bounce [animation-delay:0.4s]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-zinc-300 animate-bounce" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-zinc-300 animate-bounce [animation-delay:0.2s]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-zinc-300 animate-bounce [animation-delay:0.4s]" />
                   </div>
                 </div>
               </div>
@@ -432,7 +426,7 @@ export const ChatBox: React.FC<ChatBoxProps> = ({
                     key={idx}
                     onClick={() => handleSendMessage(q)}
                     disabled={isLoading}
-                    className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-slate-300 transition-all hover:border-[#16D2C8]/40 hover:bg-[#16D2C8]/10 hover:text-[#16D2C8] active:scale-95 disabled:opacity-50"
+                    className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-slate-300 transition-all hover:border-white/30 hover:bg-white/10 hover:text-white active:scale-95 disabled:opacity-50"
                   >
                     {q}
                   </button>
@@ -448,19 +442,19 @@ export const ChatBox: React.FC<ChatBoxProps> = ({
               <div className="flex gap-2">
                 <button
                   onClick={() => onNavigate('pricing')}
-                  className="hover:text-[#16D2C8] transition-colors flex items-center gap-1"
+                  className="hover:text-white transition-colors flex items-center gap-1"
                 >
                   Packages <ArrowRight className="h-2.5 w-2.5" />
                 </button>
                 <button
                   onClick={() => onNavigate('planner')}
-                  className="hover:text-[#16D2C8] transition-colors flex items-center gap-1"
+                  className="hover:text-white transition-colors flex items-center gap-1"
                 >
                   AI Planner <ArrowRight className="h-2.5 w-2.5" />
                 </button>
                 <button
                   onClick={() => onNavigate('contact')}
-                  className="hover:text-[#16D2C8] transition-colors flex items-center gap-1"
+                  className="hover:text-white transition-colors flex items-center gap-1"
                 >
                   Book Call <ArrowRight className="h-2.5 w-2.5" />
                 </button>
@@ -486,14 +480,14 @@ export const ChatBox: React.FC<ChatBoxProps> = ({
                 placeholder="Ask about Unique Amaze services, pricing, AI agents..."
                 rows={1}
                 disabled={isLoading}
-                className="max-h-28 min-h-[44px] flex-1 resize-none rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 outline-none transition-colors focus:border-[#16D2C8] focus:bg-white/10 focus:ring-1 focus:ring-[#16D2C8]/30 disabled:opacity-50"
+                className="max-h-28 min-h-[44px] flex-1 resize-none rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 outline-none transition-colors focus:border-white/40 focus:bg-white/10 focus:ring-1 focus:ring-white/20 disabled:opacity-50"
               />
 
               <button
                 type="submit"
                 id="chat-send-submit-btn"
                 disabled={!inputText.trim() || isLoading}
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-r from-[#16D2C8] to-[#0E837D] text-[#050607] font-semibold transition-all hover:brightness-110 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-black font-semibold transition-all hover:bg-zinc-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40"
                 aria-label="Send message"
               >
                 <Send className="h-4 w-4" />

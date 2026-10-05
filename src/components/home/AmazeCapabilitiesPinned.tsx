@@ -78,7 +78,7 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
         { label: 'CONVERSION LIFT', value: '+140%' },
       ],
       visualType: 'websites',
-      badge: 'ARCHITECTURAL WEB ENGINE',
+      badge: 'Web Engineering',
       glass: 'glass-dominant',
     },
     {
@@ -95,7 +95,7 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
         { label: 'MANUAL ENTRY', value: '0 hrs' },
       ],
       visualType: 'ai',
-      badge: 'GEMINI 2.5 NEURAL DISPATCH',
+      badge: 'AI & Automation',
       glass: 'glass-violet',
     },
     {
@@ -112,7 +112,7 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
         { label: 'ACCELERATION', value: 'GPU Native' },
       ],
       visualType: '3d',
-      badge: 'THREE.JS + HARDWARE ACCEL',
+      badge: '3D & Motion',
       glass: 'glass-slate',
     },
     {
@@ -129,7 +129,7 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
         { label: 'DESIGN SYSTEM', value: '100% Bespoke' },
       ],
       visualType: 'branding',
-      badge: 'BESPOKE DESIGN MATHEMATICS',
+      badge: 'Visual Systems',
       glass: 'glass-smoke',
     },
     {
@@ -148,25 +148,22 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
         { label: 'UPTIME SLA', value: '99.98%' },
       ],
       visualType: 'products',
-      badge: currentMarket === 'mw' ? 'AIRTEL & MPAMBA INTEGRATED' : 'STRIPE + INTERAC NATIVE',
-      glass: 'glass-teal',
+      badge: currentMarket === 'mw' ? 'Mobile Money Rails' : 'Integrated Commerce',
+      glass: 'glass-slate',
     },
   ];
 
-  // GSAP ScrollTrigger timeline to scrub through the 5 services (Desktop only)
+  // GSAP ScrollTrigger timeline to scrub through the 5 services smoothly as user scrolls
   useEffect(() => {
     const el = containerRef.current;
-    if (!el || isMobile) return;
+    if (!el) return;
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: el,
-        start: 'top top',
-        end: '+=80%',
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-        scrub: 0.5,
+        start: 'top 65%',
+        end: 'bottom 25%',
+        scrub: 0.4,
         onUpdate: (self) => {
           const progress = self.progress;
           setScrollProgress(progress);
@@ -184,7 +181,7 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
     }, el);
 
     return () => ctx.revert();
-  }, [services.length, isMobile]);
+  }, [services.length]);
 
   // Gentle GSAP staggered slide-up and fade transition for active scene elements
   useEffect(() => {
@@ -217,68 +214,62 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
     <section
       id="section-capabilities"
       ref={containerRef}
-      className="relative w-full bg-[#050709] border-t border-white/[0.08]"
+      className="relative w-full bg-[#050709] border-t border-white/[0.08] py-10 sm:py-12 lg:py-14"
     >
-      {/* Pinned Viewport Container */}
-      <div
-        className={`${
-          isMobile
-            ? 'relative w-full flex flex-col justify-start px-4 sm:px-6 py-12 sm:py-16'
-            : 'h-screen w-full flex flex-col justify-between overflow-hidden px-4 sm:px-6 lg:px-8 py-6 sm:py-8'
-        }`}
-      >
-        {/* Ambient Subtle Radial Mesh */}
-        <div className="pointer-events-none absolute inset-0 radial-mesh-teal opacity-30 z-0" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#00828006_1px,transparent_1px),linear-gradient(to_bottom,#00828006_1px,transparent_1px)] bg-[size:48px_48px]" />
+      {/* Ambient Subtle Radial Mesh */}
+      <div className="pointer-events-none absolute inset-0 radial-mesh-slate opacity-25 z-0" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:48px_48px]" />
 
+      {/* Content Container */}
+      <div className="relative w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         {/* TOP SECTION STATUS BAR */}
-        <div className="mx-auto max-w-[1240px] w-full relative z-10 flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-white/[0.08]">
+        <div className="w-full relative z-10 flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-white/[0.08]">
           <div className="flex items-center gap-3 font-mono text-xs">
-            <span className="flex h-2 w-2 rounded-full bg-[#008280] animate-ping" />
-            <span className="text-[#008280] font-bold tracking-widest uppercase">
-              STUDIO CAPABILITIES // INTERACTIVE JOURNEY
+            <span className="flex h-2 w-2 rounded-full bg-emerald-400" />
+            <span className="text-zinc-300 font-bold tracking-widest uppercase">
+              Studio Capabilities
             </span>
             <span className="text-white/20 hidden sm:inline">•</span>
-            <span className="text-[#94A3B8] hidden sm:inline">
-              SCROLL DRIVEN SCENIC REVEAL
+            <span className="text-zinc-400 hidden sm:inline">
+              Core Disciplines &amp; Delivery Standards
             </span>
           </div>
 
           <div className="flex items-center gap-3 font-mono text-xs">
-            <span className="text-[#64748B]">SCENE:</span>
-            <span className="text-[#16D2C8] font-bold">
+            <span className="text-zinc-500">Discipline:</span>
+            <span className="text-white font-bold">
               {activeService.step} / 05
             </span>
             <div className="h-1.5 w-28 rounded-full bg-white/10 overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-[#008280] to-[#16D2C8] transition-all duration-150"
+                className="h-full bg-zinc-400 transition-all duration-150"
                 style={{ width: `${Math.round(scrollProgress * 100)}%` }}
               />
             </div>
-            <span className="text-[#94A3B8] font-semibold">
+            <span className="text-zinc-400 font-semibold">
               {Math.round(scrollProgress * 100)}%
             </span>
           </div>
         </div>
 
         {/* MAIN SPLIT VIEWPORT */}
-        <div className="mx-auto max-w-[1240px] w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center my-auto">
+        <div className="w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* LEFT: Pinned Narrative Statement & Active Service Details */}
           <div ref={narrativeRef} className="lg:col-span-6 space-y-7 will-change-transform">
             <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#008280]/40 bg-[#008280]/10 px-3.5 py-1.5 font-mono text-xs text-[#008280] font-semibold tracking-wider uppercase">
-                <Sparkles className="h-3 w-3" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 font-mono text-xs text-zinc-300 font-semibold tracking-wider uppercase">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 <span>{activeService.category}</span>
               </div>
 
               <h2 className="font-display text-[clamp(1.75rem,3.4vw,3.2rem)] font-black uppercase text-[#EBECF0] tracking-[-0.03em] leading-[1.08]">
                 {titleFirst}{' '}
-                <span className="title-gradient-teal">
+                <span className="text-zinc-400">
                   {titleRest}
                 </span>
               </h2>
 
-              <p className="font-mono text-xs text-[#16D2C8] tracking-wide uppercase pt-1 font-semibold">
+              <p className="font-mono text-xs text-zinc-300 tracking-wide uppercase pt-1 font-semibold">
                 {activeService.subtitle}
               </p>
             </div>
@@ -292,7 +283,7 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
               {activeService.metrics.map((metric, i) => (
                 <div
                   key={i}
-                  className="rounded-lg border border-white/10 glass-smoke p-4 sm:p-5 transition-colors hover:border-[#16D2C8]/40"
+                  className="rounded-lg border border-white/10 glass-smoke p-4 sm:p-5 transition-colors hover:border-white/20"
                 >
                   <div className="font-mono text-[10px] text-[#94A3B8] uppercase tracking-wider font-semibold">
                     {metric.label}
@@ -317,8 +308,8 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
 
-              <div className="flex items-center gap-2 font-mono text-[11px] text-[#94A3B8]">
-                <ShieldCheck className="h-3.5 w-3.5 text-[#16D2C8]" />
+              <div className="flex items-center gap-2 font-mono text-[11px] text-zinc-400">
+                <ShieldCheck className="h-3.5 w-3.5 text-zinc-400" />
                 <span>{activeService.badge}</span>
               </div>
             </div>
@@ -330,13 +321,13 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
               ref={visualCardRef}
               className={`relative w-full max-w-[580px] aspect-square rounded-2xl border ${activeService.glass} overflow-hidden p-6 sm:p-7 shadow-2xl flex flex-col justify-between will-change-transform`}
             >
-              {/* Corner Telemetry Readout */}
-              <div className="flex items-center justify-between font-mono text-[10px] text-[#94A3B8] pb-3 border-b border-white/[0.08] relative z-20">
+              {/* Corner Readout */}
+              <div className="flex items-center justify-between font-mono text-[10px] text-zinc-400 pb-3 border-b border-white/[0.08] relative z-20">
                 <div className="flex items-center gap-2">
-                  <Activity className="h-3.5 w-3.5 text-[#16D2C8]" />
-                  <span className="font-semibold tracking-wider">ENVIRONMENT TELEMETRY</span>
+                  <Activity className="h-3.5 w-3.5 text-zinc-400" />
+                  <span className="font-semibold tracking-wider">SYSTEM ACTIVE</span>
                 </div>
-                <div className="text-[#16D2C8] font-bold tracking-wider">STATE // 0{activeIndex + 1} ACTIVE</div>
+                <div className="text-white font-bold tracking-wider">STAGE 0{activeIndex + 1} OF 05</div>
               </div>
 
               {/* DYNAMIC VISUAL STATE RENDERING */}
@@ -344,23 +335,23 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
                 {/* 1. Website Design Visual: Interface Wireframe Fragments */}
                 {activeService.visualType === 'websites' && (
                   <div className="relative w-full h-full flex items-center justify-center">
-                    <div className="relative w-[340px] rounded-xl border border-[#008280]/60 bg-[#0B0F14] p-4 shadow-[0_0_40px_rgba(0,130,128,0.25)] space-y-3 transform -rotate-3 transition-transform duration-500">
+                    <div className="relative w-[340px] rounded-xl border border-white/20 bg-[#0B0F14] p-4 shadow-xl space-y-3 transform -rotate-3 transition-transform duration-500">
                       <div className="flex items-center justify-between pb-2 border-b border-white/10">
                         <div className="flex gap-1.5">
                           <span className="h-2 w-2 rounded-full bg-red-500/80" />
                           <span className="h-2 w-2 rounded-full bg-yellow-500/80" />
                           <span className="h-2 w-2 rounded-full bg-green-500/80" />
                         </div>
-                        <span className="font-mono text-[9px] text-[#008280]">https://uniqueamaze.com</span>
+                        <span className="font-mono text-[9px] text-zinc-400">https://uniqueamaze.com</span>
                       </div>
-                      <div className="h-16 w-full rounded-md bg-gradient-to-r from-[#008280]/20 to-[#16D2C8]/10 border border-white/5 flex items-center justify-center font-mono text-xs text-[#EBECF0] font-bold">
-                        HERO APEX // CONVERT 2X
+                      <div className="h-16 w-full rounded-md bg-white/5 border border-white/10 flex items-center justify-center font-mono text-xs text-white font-bold">
+                        High-Converting Web Architecture
                       </div>
                       <div className="grid grid-cols-2 gap-2">
-                        <div className="h-12 rounded bg-white/5 border border-white/5 p-2 font-mono text-[9px] text-[#94A3B8]">
+                        <div className="h-12 rounded bg-white/5 border border-white/5 p-2 font-mono text-[9px] text-zinc-400">
                           2-TAP BOOKING
                         </div>
-                        <div className="h-12 rounded bg-[#008280]/20 border border-[#008280]/40 p-2 font-mono text-[9px] text-[#16D2C8] font-bold">
+                        <div className="h-12 rounded bg-white/10 border border-white/15 p-2 font-mono text-[9px] text-white font-bold">
                           100% LIGHTHOUSE
                         </div>
                       </div>
@@ -372,19 +363,19 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
                 {activeService.visualType === 'ai' && (
                   <div className="relative w-full h-full flex flex-col items-center justify-center">
                     <svg className="w-64 h-64" viewBox="0 0 200 200">
-                      <circle cx="100" cy="100" r="80" stroke="#008280" strokeWidth="1" strokeDasharray="4 4" fill="none" opacity="0.4" className="animate-spin-slow" />
-                      <circle cx="100" cy="100" r="50" stroke="#16D2C8" strokeWidth="1.5" fill="none" opacity="0.6" />
-                      <circle cx="100" cy="100" r="12" fill="#008280" className="animate-pulse" />
-                      <line x1="100" y1="100" x2="30" y2="50" stroke="#16D2C8" strokeWidth="1.5" />
-                      <line x1="100" y1="100" x2="170" y2="60" stroke="#16D2C8" strokeWidth="1.5" />
-                      <line x1="100" y1="100" x2="150" y2="160" stroke="#16D2C8" strokeWidth="1.5" />
-                      <line x1="100" y1="100" x2="40" y2="150" stroke="#16D2C8" strokeWidth="1.5" />
-                      <circle cx="30" cy="50" r="6" fill="#16D2C8" />
-                      <circle cx="170" cy="60" r="6" fill="#16D2C8" />
-                      <circle cx="150" cy="160" r="6" fill="#16D2C8" />
-                      <circle cx="40" cy="150" r="6" fill="#16D2C8" />
+                      <circle cx="100" cy="100" r="80" stroke="rgba(255,255,255,0.15)" strokeWidth="1" strokeDasharray="4 4" fill="none" opacity="0.6" className="animate-spin-slow" />
+                      <circle cx="100" cy="100" r="50" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" fill="none" opacity="0.8" />
+                      <circle cx="100" cy="100" r="12" fill="#FFFFFF" className="animate-pulse" />
+                      <line x1="100" y1="100" x2="30" y2="50" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
+                      <line x1="100" y1="100" x2="170" y2="60" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
+                      <line x1="100" y1="100" x2="150" y2="160" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
+                      <line x1="100" y1="100" x2="40" y2="150" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
+                      <circle cx="30" cy="50" r="6" fill="#FFFFFF" />
+                      <circle cx="170" cy="60" r="6" fill="#FFFFFF" />
+                      <circle cx="150" cy="160" r="6" fill="#FFFFFF" />
+                      <circle cx="40" cy="150" r="6" fill="#FFFFFF" />
                     </svg>
-                    <div className="font-mono text-[10px] text-[#16D2C8] tracking-widest uppercase mt-2">
+                    <div className="font-mono text-[10px] text-zinc-300 tracking-widest uppercase mt-2">
                       AUTONOMOUS SAGE INTAKE ENGINE
                     </div>
                   </div>
@@ -394,15 +385,15 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
                 {activeService.visualType === '3d' && (
                   <div className="relative w-full h-full flex items-center justify-center" style={{ perspective: '800px' }}>
                     <div
-                      className="relative w-44 h-44 border-2 border-[#16D2C8] rounded-xl flex items-center justify-center shadow-[0_0_50px_rgba(22,210,200,0.35)]"
+                      className="relative w-44 h-44 border border-white/30 rounded-xl flex items-center justify-center shadow-2xl"
                       style={{
                         transform: `rotateX(45deg) rotateZ(${scrollProgress * 360}deg)`,
                         transformStyle: 'preserve-3d',
                         transition: 'transform 0.1s linear',
                       }}
                     >
-                      <div className="w-28 h-28 border border-[#008280] rounded-lg rotate-45" />
-                      <div className="absolute inset-0 flex items-center justify-center font-mono text-[10px] text-[#EBECF0] font-bold">
+                      <div className="w-28 h-28 border border-white/20 rounded-lg rotate-45" />
+                      <div className="absolute inset-0 flex items-center justify-center font-mono text-[10px] text-white font-bold">
                         THREE.JS GLSL
                       </div>
                     </div>
@@ -412,10 +403,10 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
                 {/* 4. Branding Visual: Typographic Fragments & Golden Ratio Caliper */}
                 {activeService.visualType === 'branding' && (
                   <div className="relative w-full h-full flex flex-col items-center justify-center space-y-4">
-                    <div className="font-display text-5xl font-black tracking-[-0.04em] text-[#EBECF0] border-b-2 border-[#008280] pb-2">
-                      Aa <span className="text-[#008280]">φ 1.618</span>
+                    <div className="font-display text-5xl font-black tracking-[-0.04em] text-white border-b-2 border-white/20 pb-2">
+                      Aa <span className="text-zinc-400">φ 1.618</span>
                     </div>
-                    <div className="font-mono text-[11px] text-[#94A3B8] text-center max-w-[280px]">
+                    <div className="font-mono text-[11px] text-zinc-400 text-center max-w-[280px]">
                       OPTICAL BASELINE 8PX GRID &bull; WCAG 2.1 AAA CONTRAST &bull; ZERO TEMPLATES
                     </div>
                   </div>
@@ -425,15 +416,15 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
                 {activeService.visualType === 'products' && (
                   <div className="relative w-full h-full flex flex-col items-center justify-center space-y-3">
                     <div className="w-[300px] rounded-xl border border-white/10 bg-[#0B0F14] p-4 shadow-xl space-y-2">
-                      <div className="flex items-center justify-between font-mono text-[10px] text-[#64748B]">
+                      <div className="flex items-center justify-between font-mono text-[10px] text-zinc-400">
                         <span>SETTLEMENT ENGINE</span>
-                        <span className="text-green-400 font-bold">ACTIVE</span>
+                        <span className="text-emerald-400 font-bold">ACTIVE</span>
                       </div>
-                      <div className="font-display text-2xl font-bold text-[#EBECF0]">
+                      <div className="font-display text-2xl font-bold text-white">
                         {currentMarket === 'mw' ? 'MWK 450,000' : 'CAD $1,850.00'}
                       </div>
-                      <div className="flex items-center gap-2 font-mono text-[10px] text-[#16D2C8]">
-                        <CreditCard className="h-3 w-3" />
+                      <div className="flex items-center gap-2 font-mono text-[10px] text-zinc-300">
+                        <CreditCard className="h-3 w-3 text-zinc-400" />
                         <span>
                           {currentMarket === 'mw'
                             ? 'AIRTEL MONEY & TNM MPAMBA'
@@ -457,13 +448,13 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
                       }}
                       className={`h-2 rounded-full transition-all ${
                         activeIndex === i
-                          ? 'w-6 bg-[#008280]'
+                          ? 'w-6 bg-white'
                           : 'w-2 bg-white/20 hover:bg-white/40'
                       }`}
                     />
                   ))}
                 </div>
-                <span className="font-mono text-[10px] text-[#64748B]">
+                <span className="font-mono text-[10px] text-zinc-400">
                   UNIQUE AMAZE CHOREOGRAPHY
                 </span>
               </div>
@@ -472,14 +463,14 @@ export const AmazeCapabilitiesPinned: React.FC<AmazeCapabilitiesPinnedProps> = (
         </div>
 
         {/* BOTTOM METADATA RAIL */}
-        <div className="mx-auto max-w-[1240px] w-full relative z-10 flex items-center justify-between pt-3 border-t border-white/[0.08] font-mono text-[11px] text-[#64748B]">
-          <div className="flex items-center gap-2 text-[#16D2C8]">
+        <div className="w-full relative z-10 flex items-center justify-between pt-4 border-t border-white/[0.08] font-mono text-[11px] text-zinc-400">
+          <div className="flex items-center gap-2 text-zinc-400">
             <Compass className="h-3.5 w-3.5" />
-            <span>CONTINUOUS CINEMATIC SCROLLING &bull; STAGE 0{activeIndex + 1} OF 05</span>
+            <span>STAGE 0{activeIndex + 1} OF 05</span>
           </div>
           <button
             onClick={() => onNavigate('planner')}
-            className="flex items-center gap-1.5 text-[#EBECF0] hover:text-[#008280] transition-colors uppercase font-bold"
+            className="flex items-center gap-1.5 text-zinc-300 hover:text-white transition-colors uppercase font-bold"
           >
             <span>LAUNCH AI ESTIMATOR</span>
             <ArrowRight className="h-3 w-3" />

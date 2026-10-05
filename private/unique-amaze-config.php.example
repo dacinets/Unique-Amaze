@@ -1,0 +1,76 @@
+<?php
+/**
+ * Unique Amaze — Production Server Configuration (Bluehost / cPanel)
+ *
+ * CRITICAL SECURITY INSTRUCTION:
+ * Place this file OUTSIDE your web root (public_html), for example at:
+ *   /home/YOUR_CPANEL_USERNAME/private/unique-amaze-config.php
+ *
+ * Ensure file permissions are set to 0600 or 0640 (readable only by your web user).
+ * Never commit this file with real credentials to source control or public folders.
+ */
+
+declare(strict_types=1);
+
+return [
+    // ------------------------------------------------------------------------
+    // Database Configuration (cPanel MySQL / MariaDB)
+    // ------------------------------------------------------------------------
+    'db' => [
+        'host'     => '127.0.0.1',             // Usually localhost or 127.0.0.1 on Bluehost
+        'port'     => 3306,
+        'database' => 'YOUR_CPANEL_USER_uniqueamaze',
+        'username' => 'YOUR_CPANEL_USER_dbuser',
+        'password' => 'YOUR_STRONG_DATABASE_PASSWORD_HERE',
+        'charset'  => 'utf8mb4',
+    ],
+
+    // ------------------------------------------------------------------------
+    // Google Gemini AI API Configuration
+    // ------------------------------------------------------------------------
+    'gemini' => [
+        'api_key'       => 'YOUR_GEMINI_API_KEY_HERE',
+        'model'         => 'gemini-2.5-flash',
+        'timeout_sec'   => 15,
+        'max_prompt_len'=> 1000,
+        'rate_limit_10m'=> 15,                  // Max 15 requests per 10 minutes per IP
+        'daily_limit'   => 50,                  // Max 50 requests per day per IP
+    ],
+
+    // ------------------------------------------------------------------------
+    // Authenticated SMTP Configuration (Bluehost cPanel Email or SendGrid / Postmark)
+    // ------------------------------------------------------------------------
+    'smtp' => [
+        'host'       => 'mail.uniqueamaze.com',  // or smtp.bluehost.com / smtp.sendgrid.net
+        'port'       => 465,                     // 465 (SSL/TLS) or 587 (STARTTLS)
+        'encryption' => 'ssl',                   // 'ssl' or 'tls'
+        'username'   => 'hello@uniqueamaze.com',
+        'password'   => 'YOUR_AUTHENTICATED_EMAIL_PASSWORD_HERE',
+        'from_email' => 'hello@uniqueamaze.com',
+        'from_name'  => 'Unique Amaze Web Studio',
+        'notify_to'  => 'hello@uniqueamaze.com', // Studio notification recipient
+    ],
+
+    // ------------------------------------------------------------------------
+    // Studio & Application Metadata
+    // ------------------------------------------------------------------------
+    'app' => [
+        'name'        => 'Unique Amaze',
+        'url'         => 'https://uniqueamaze.com',
+        'environment' => 'production',          // 'production' or 'development'
+        'hash_salt'   => 'CHANGE_THIS_TO_A_RANDOM_64_CHAR_HEX_STRING_FOR_IP_HASHING',
+        'allowed_origins' => [
+            'https://uniqueamaze.com',
+            'https://www.uniqueamaze.com',
+        ],
+    ],
+
+    // ------------------------------------------------------------------------
+    // Rate Limiting & Honeypot
+    // ------------------------------------------------------------------------
+    'security' => [
+        'contact_rate_limit_per_hour' => 5,
+        'planner_rate_limit_per_hour' => 5,
+        'honeypot_field'              => 'website_url',
+    ],
+];

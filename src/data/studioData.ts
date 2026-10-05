@@ -3,7 +3,7 @@ import { Project, StudioLocation, AwardItem, DisciplineItem } from '../types';
 export const PROJECTS: Project[] = [
   {
     id: 'aura-neural',
-    coordinate: '01 // SPATIAL AI',
+    coordinate: '01 · SPATIAL AI',
     title: 'AURA NEURAL ARCHITECTURE',
     client: 'KRONOS MOBILITY GROUP',
     year: '2026',
@@ -26,11 +26,11 @@ export const PROJECTS: Project[] = [
     disciplines: ['Spatial Computing', 'GLSL Shaders', 'Neural Telemetry', 'Interaction Design'],
     award: 'Awwwards Site of the Year Nominee',
     featured: true,
-    accentColor: '#008280'
+    accentColor: '#367588'
   },
   {
     id: 'synapse-exchange',
-    coordinate: '02 // QUANTUM TERMINAL',
+    coordinate: '02 · QUANTUM TERMINAL',
     title: 'SYNAPSE HIGH-FREQUENCY TERMINAL',
     client: 'AETHER DIGITAL ASSETS',
     year: '2026',
@@ -57,7 +57,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'chronos-horology',
-    coordinate: '03 // GENERATIVE HOROLOGY',
+    coordinate: '03 · GENERATIVE HOROLOGY',
     title: 'CHRONOS HAUTE HORLOGERIE',
     client: 'VACHERON & MAISON GENEVA',
     year: '2025',
@@ -80,11 +80,11 @@ export const PROJECTS: Project[] = [
     disciplines: ['Raymarching', 'PBR Material Engineering', 'Luxury Brand Systems', 'Kinetic Animation'],
     award: 'D&AD Yellow Pencil in Digital Craft',
     featured: true,
-    accentColor: '#008280'
+    accentColor: '#367588'
   },
   {
     id: 'exo-biome',
-    coordinate: '04 // PHYSICAL COMPUTING',
+    coordinate: '04 · PHYSICAL COMPUTING',
     title: 'EXO-BIOME ENVIRONMENTAL MATRIX',
     client: 'TOKYO BIOCENTRIC PAVILION',
     year: '2025',
@@ -110,7 +110,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'void-monolith',
-    coordinate: '05 // BRAND ARCHITECTURE',
+    coordinate: '05 · BRAND ARCHITECTURE',
     title: 'VOID MONOLITH IDENTITY & SYSTEM',
     client: 'ATELIER NOIR PARIS',
     year: '2025',
@@ -132,11 +132,11 @@ export const PROJECTS: Project[] = [
     disciplines: ['Brand Strategy', 'Custom Typography', 'Editorial Direction', 'Creative Engineering'],
     award: 'Awwwards Studio of the Month',
     featured: false,
-    accentColor: '#008280'
+    accentColor: '#367588'
   },
   {
     id: 'spectra-engine',
-    coordinate: '06 // GENERATIVE AI',
+    coordinate: '06 · GENERATIVE AI',
     title: 'SPECTRA LATENT SOUNDSYNTH',
     client: 'NEXUS SOUND LABS BERLIN',
     year: '2026',

@@ -130,18 +130,18 @@ export const PricingView: React.FC<PricingViewProps> = ({
   }, [currentMarket, pages, complexityIdx, motionIdx, selectedChips]);
 
   return (
-    <div className="relative w-full py-20 sm:py-28 lg:py-32">
+    <div className="relative w-full pt-8 sm:pt-12 lg:pt-14 pb-20 sm:pb-28 lg:pb-32">
       {/* Header */}
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 mb-20 sm:mb-28">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase mb-4 font-semibold">
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 tracking-widest uppercase mb-4 font-semibold">
               <DollarSign className="h-3.5 w-3.5" />
-              <span>TRANSPARENT VALUE // DUAL-REGION PRICING</span>
+              <span>Dual-Region Pricing</span>
             </div>
 
             <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-wide text-[#EBECF0] leading-[1.12] uppercase">
-              PREMIUM WEBSITES, PRICED FOR <span className="text-[#008280]">YOUR MARKET.</span>
+              Premium Websites, Priced for <span className="text-zinc-400">Your Market.</span>
             </h1>
 
             <p className="mt-6 font-sans text-base sm:text-lg text-[#94A3B8] leading-relaxed max-w-2xl">
@@ -158,7 +158,7 @@ export const PricingView: React.FC<PricingViewProps> = ({
               }}
               className={`rounded-md px-4 py-2 transition-all uppercase ${
                 currentMarket === 'ca'
-                  ? 'bg-[#008280] text-white font-semibold shadow-md'
+                  ? 'bg-white/10 text-white font-semibold border border-white/20 shadow-sm'
                   : 'text-[#94A3B8] hover:text-[#EBECF0]'
               }`}
             >
@@ -171,7 +171,7 @@ export const PricingView: React.FC<PricingViewProps> = ({
               }}
               className={`rounded-md px-4 py-2 transition-all uppercase ${
                 currentMarket === 'mw'
-                  ? 'bg-[#367588] text-white font-semibold shadow-md'
+                  ? 'bg-white/10 text-white font-semibold border border-white/20 shadow-sm'
                   : 'text-[#94A3B8] hover:text-[#EBECF0]'
               }`}
             >
@@ -192,19 +192,17 @@ export const PricingView: React.FC<PricingViewProps> = ({
 
       {/* Subtle Horizontal Divider: Packages to Estimate Engine */}
       <BrandDivider
-        variant="teal"
+        variant="minimal"
         width="container"
         spacing="xl"
-        label="ESTIMATE ENGINE"
-        sublabel="DYNAMIC CALCULATOR"
       />
 
       {/* 30-Second Instant Estimate Tool */}
       <section className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase mb-3 font-semibold">
-            <Calculator className="h-3.5 w-3.5 text-[#16D2C8]" />
-            <span>INSTANT ESTIMATE // REAL-TIME CALCULATOR</span>
+          <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 tracking-widest uppercase mb-3 font-semibold">
+            <Calculator className="h-3.5 w-3.5 text-zinc-400" />
+            <span>Instant Project Estimate</span>
           </div>
           <h2 className="font-display text-2xl sm:text-3xl font-semibold text-[#EBECF0] uppercase tracking-wide">
             BUILD YOUR PROJECT ESTIMATE IN 30 SECONDS
@@ -222,7 +220,7 @@ export const PricingView: React.FC<PricingViewProps> = ({
               <div className="space-y-3">
                 <div className="flex justify-between items-center text-sm font-mono">
                   <span className="text-[#EBECF0] font-semibold">Number of Pages</span>
-                  <span className="text-[#16D2C8] font-bold text-base">{pages} Pages</span>
+                  <span className="text-white font-bold text-base">{pages} Pages</span>
                 </div>
                 <input
                   type="range"
@@ -233,7 +231,7 @@ export const PricingView: React.FC<PricingViewProps> = ({
                     studioAudio.playClick(700);
                     setPages(Number(e.target.value));
                   }}
-                  className="w-full h-2 rounded-lg bg-white/10 accent-[#008280] cursor-pointer"
+                  className="w-full h-2 rounded-lg bg-white/10 accent-emerald-400 cursor-pointer"
                 />
                 <div className="flex justify-between text-[10px] font-mono text-[#94A3B8]">
                   <span>1 Page (Landing)</span>
@@ -246,7 +244,7 @@ export const PricingView: React.FC<PricingViewProps> = ({
               <div className="space-y-3">
                 <div className="flex justify-between items-center text-sm font-mono">
                   <span className="text-[#EBECF0] font-semibold">Design Finish Level</span>
-                  <span className="text-[#16D2C8] font-bold">{complexityNames[complexityIdx]}</span>
+                  <span className="text-white font-bold">{complexityNames[complexityIdx]}</span>
                 </div>
                 <input
                   type="range"
@@ -257,7 +255,7 @@ export const PricingView: React.FC<PricingViewProps> = ({
                     studioAudio.playClick(750);
                     setComplexityIdx(Number(e.target.value));
                   }}
-                  className="w-full h-2 rounded-lg bg-white/10 accent-[#367588] cursor-pointer"
+                  className="w-full h-2 rounded-lg bg-white/10 accent-emerald-400 cursor-pointer"
                 />
               </div>
 
@@ -265,7 +263,7 @@ export const PricingView: React.FC<PricingViewProps> = ({
               <div className="space-y-3">
                 <div className="flex justify-between items-center text-sm font-mono">
                   <span className="text-[#EBECF0] font-semibold">Motion &amp; 3D Visuals</span>
-                  <span className="text-[#16D2C8] font-bold">{motionNames[motionIdx]}</span>
+                  <span className="text-white font-bold">{motionNames[motionIdx]}</span>
                 </div>
                 <input
                   type="range"
@@ -276,7 +274,7 @@ export const PricingView: React.FC<PricingViewProps> = ({
                     studioAudio.playClick(800);
                     setMotionIdx(Number(e.target.value));
                   }}
-                  className="w-full h-2 rounded-lg bg-white/10 accent-[#008280] cursor-pointer"
+                  className="w-full h-2 rounded-lg bg-white/10 accent-emerald-400 cursor-pointer"
                 />
               </div>
 
@@ -294,13 +292,13 @@ export const PricingView: React.FC<PricingViewProps> = ({
                         onClick={() => toggleChip(chip.id)}
                         className={`rounded-lg px-4 py-2 text-xs font-mono transition-all flex items-center gap-2 ${
                           isSelected
-                            ? 'bg-[#008280]/30 border border-[#16D2C8] text-[#EBECF0] shadow-sm'
+                            ? 'bg-white/10 border border-white/30 text-white shadow-sm'
                             : 'border border-white/10 glass-smoke text-[#CBD5E1] hover:border-white/20'
                         }`}
                       >
                         <span
                           className={`h-2 w-2 rounded-full ${
-                            isSelected ? 'bg-[#16D2C8]' : 'bg-[#1E2629]'
+                            isSelected ? 'bg-emerald-400' : 'bg-white/20'
                           }`}
                         />
                         <span>{chip.label}</span>
@@ -317,7 +315,7 @@ export const PricingView: React.FC<PricingViewProps> = ({
                 <span className="font-mono text-[10px] uppercase tracking-widest text-[#94A3B8] font-semibold">
                   ESTIMATED INVESTMENT RANGE ({currentMarket === 'ca' ? 'CAD' : 'MWK'})
                 </span>
-                <div className="font-display text-3xl sm:text-4xl font-bold text-[#16D2C8] mt-1 tracking-tight">
+                <div className="font-display text-3xl sm:text-4xl font-bold text-white mt-1 tracking-tight">
                   {estimateResult.rangeFormatted}
                 </div>
               </div>
@@ -338,8 +336,8 @@ export const PricingView: React.FC<PricingViewProps> = ({
               </div>
 
               {/* Recommended Package Box */}
-              <div className="rounded-xl border border-[#16D2C8]/30 glass-teal p-5 space-y-1.5">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[#16D2C8] font-semibold">
+              <div className="rounded-xl border border-white/20 glass-smoke p-5 space-y-1.5">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-300 font-semibold">
                   RECOMMENDED PACKAGE
                 </span>
                 <div className="font-display text-lg font-semibold text-[#EBECF0] uppercase tracking-wide">

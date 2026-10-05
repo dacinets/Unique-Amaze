@@ -30,18 +30,18 @@ export const FaqView: React.FC<FaqViewProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="relative w-full py-20 sm:py-28 lg:py-32">
+    <div className="relative w-full pt-8 sm:pt-12 lg:pt-14 pb-20 sm:pb-28 lg:pb-32">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="max-w-3xl mb-20 sm:mb-28">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase mb-4 font-semibold">
-            <HelpCircle className="h-3.5 w-3.5" />
-            <span>COMMON QUESTIONS // NO SECRETS</span>
+        <div className="max-w-3xl mb-16 sm:mb-20">
+          <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 tracking-widest uppercase mb-4 font-semibold">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            <span>Frequently Asked Questions</span>
           </div>
 
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-wide text-[#EBECF0] leading-[1.12] uppercase">
-            EVERYTHING YOU MIGHT WANT TO KNOW{' '}
-            <span className="text-[#008280] block sm:inline">BEFORE WE TALK.</span>
+            Everything you might want to know{' '}
+            <span className="text-zinc-400 block sm:inline">before we begin.</span>
           </h1>
 
           <p className="mt-6 font-sans text-base sm:text-lg text-[#94A3B8] leading-relaxed max-w-2xl">
@@ -50,7 +50,7 @@ export const FaqView: React.FC<FaqViewProps> = ({ onNavigate }) => {
         </div>
 
         {/* Category Tabs */}
-        <div className="flex flex-wrap gap-3.5 mb-12">
+        <div className="flex flex-wrap gap-2.5 mb-10">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -59,9 +59,9 @@ export const FaqView: React.FC<FaqViewProps> = ({ onNavigate }) => {
                 setActiveTab(tab.id);
                 setOpenIdx(null);
               }}
-              className={`rounded-lg px-5 py-2.5 font-mono text-xs transition-all uppercase tracking-wider ${
+              className={`rounded-lg px-4 py-2 font-mono text-xs transition-all uppercase tracking-wider ${
                 activeTab === tab.id
-                  ? 'bg-[#008280] text-white font-semibold shadow-md'
+                  ? 'bg-white/10 text-white font-semibold border border-white/20 shadow-sm'
                   : 'border border-white/10 bg-[#0E1217] text-[#94A3B8] hover:border-white/20 hover:text-[#EBECF0]'
               }`}
             >
@@ -71,7 +71,7 @@ export const FaqView: React.FC<FaqViewProps> = ({ onNavigate }) => {
         </div>
 
         {/* Accordion List */}
-        <div className="max-w-4xl space-y-6">
+        <div className="max-w-4xl space-y-4">
           {filteredFaqs.map((faq, i) => {
             const isOpen = openIdx === i;
             return (
@@ -80,20 +80,20 @@ export const FaqView: React.FC<FaqViewProps> = ({ onNavigate }) => {
                 data-cursor="card"
                 className={`rounded-lg border transition-all duration-300 overflow-hidden ${
                   isOpen
-                    ? 'border-[#008280]/50 glass-tier-2 shadow-md'
+                    ? 'border-white/20 glass-tier-2 shadow-md'
                     : 'border-white/[0.08] glass-tier-1 hover:border-white/20'
                 }`}
               >
                 <button
                   onClick={() => toggleAccordion(i)}
-                  className="w-full p-7 sm:p-8 text-left flex items-center justify-between gap-4"
+                  className="w-full p-6 sm:p-7 text-left flex items-center justify-between gap-4"
                 >
                   <span className="font-display text-base sm:text-lg font-semibold text-[#EBECF0] uppercase tracking-wide">
                     {faq.q}
                   </span>
                   <div
-                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-[#0A0D10] text-[#008280] transition-transform duration-300 ${
-                      isOpen ? 'rotate-180 bg-[#008280] text-white' : ''
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-[#0A0D10] text-zinc-400 transition-transform duration-300 ${
+                      isOpen ? 'rotate-180 bg-white/10 text-white' : ''
                     }`}
                   >
                     <ChevronDown className="h-4 w-4" />
@@ -101,7 +101,7 @@ export const FaqView: React.FC<FaqViewProps> = ({ onNavigate }) => {
                 </button>
 
                 {isOpen && (
-                  <div className="px-7 pb-7 sm:px-8 sm:pb-8 font-sans text-sm sm:text-base text-[#94A3B8] leading-relaxed border-t border-white/[0.06] pt-5 animate-in fade-in duration-200">
+                  <div className="px-6 pb-6 sm:px-7 sm:pb-7 font-sans text-sm sm:text-base text-[#94A3B8] leading-relaxed border-t border-white/[0.06] pt-4 animate-in fade-in duration-200">
                     {faq.a}
                   </div>
                 )}

@@ -58,28 +58,23 @@ export const ProcessView: React.FC<ProcessViewProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="relative w-full py-20 sm:py-28 lg:py-32">
+    <div className="relative w-full pt-8 sm:pt-12 lg:pt-14 pb-20 sm:pb-28 lg:pb-32">
       {/* Page Header */}
-      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 mb-20 sm:mb-28">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 mb-16 sm:mb-24">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase mb-4">
-            <Activity className="h-3.5 w-3.5" />
-            <span>OUR PROVEN FRAMEWORK</span>
+          <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 tracking-widest uppercase mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            <span>Our Proven Framework</span>
           </div>
 
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-wide text-[#EBECF0] leading-[1.12] uppercase">
             THE A.M.A.Z.E. METHOD™ <br />
-            <span className="text-[#008280]">FROM FIRST PRINCIPLE TO DEPLOYED EXCELLENCE.</span>
+            <span className="text-zinc-400">FROM FIRST PRINCIPLE TO DEPLOYED EXCELLENCE.</span>
           </h1>
 
           <p className="mt-6 font-sans text-base sm:text-lg text-[#94A3B8] leading-relaxed max-w-2xl">
             Every project follows a disciplined 5-step methodology designed to eliminate ambiguity, shape the right customer journey, and launch with precision.
           </p>
-
-          <div className="mt-6 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-[#16D2C8]/30 bg-[#16D2C8]/10 text-xs font-mono text-[#16D2C8]">
-            <Wind className="h-3.5 w-3.5 animate-pulse" />
-            <span>INTERACTIVE AERODYNAMICS // SCROLL TO REVEAL LETTERS & HOVER TO BILLOW IN THE WIND</span>
-          </div>
         </div>
       </div>
 
@@ -104,18 +99,16 @@ export const ProcessView: React.FC<ProcessViewProps> = ({ onNavigate }) => {
 
       {/* Subtle Horizontal Divider: 5-Step Rail to Industry Architectures */}
       <BrandDivider
-        variant="teal"
+        variant="minimal"
         width="container"
         spacing="xl"
-        label="INDUSTRY PLAYBOOKS"
-        sublabel="TAILORED ARCHITECTURES"
       />
 
       {/* 10 Industries Interactive Selector */}
       <section className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase mb-3 font-semibold">
-            <span>WHO WE HELP // TAILORED ARCHITECTURES</span>
+          <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 tracking-widest uppercase mb-3 font-semibold">
+            <span>Tailored Industry Architectures</span>
           </div>
           <h2 className="font-display text-2xl sm:text-3xl font-semibold text-[#EBECF0] uppercase tracking-wide">
             BUILT FOR BUSINESSES THAT BENEFIT MOST FROM A COMPELLING PRESENCE
@@ -139,7 +132,7 @@ export const ProcessView: React.FC<ProcessViewProps> = ({ onNavigate }) => {
                   }}
                   className={`flex items-center justify-between rounded-xl px-4.5 py-3.5 text-left font-sans text-sm transition-all ${
                     isSelected
-                      ? 'bg-[#008280]/25 text-[#EBECF0] border border-[#16D2C8]/60 font-semibold shadow-[0_4px_20px_rgba(0,130,128,0.25)]'
+                      ? 'bg-white/10 text-white border border-white/20 font-semibold shadow-sm'
                       : 'border border-white/[0.07] glass-smoke text-[#94A3B8] hover:border-white/20 hover:text-[#EBECF0]'
                   }`}
                 >
@@ -148,7 +141,7 @@ export const ProcessView: React.FC<ProcessViewProps> = ({ onNavigate }) => {
                     <span className="truncate">{ind.name}</span>
                   </span>
                   <ArrowRight
-                    className={`h-4 w-4 text-[#16D2C8] transition-transform shrink-0 ${
+                    className={`h-4 w-4 text-white transition-transform shrink-0 ${
                       isSelected ? 'translate-x-1 opacity-100' : 'opacity-0'
                     }`}
                   />
@@ -172,7 +165,7 @@ export const ProcessView: React.FC<ProcessViewProps> = ({ onNavigate }) => {
 
               <div className="md:col-span-7 p-6 sm:p-10 flex flex-col justify-between space-y-6">
                 <div>
-                  <div className="flex items-center gap-2 font-mono text-xs text-[#008280] mb-2 font-semibold">
+                  <div className="flex items-center gap-2 font-mono text-xs text-zinc-400 mb-2 font-semibold">
                     <span>{selectedIndustry.emoji}</span>
                     <span className="uppercase tracking-widest">{selectedIndustry.name}</span>
                   </div>
@@ -191,14 +184,14 @@ export const ProcessView: React.FC<ProcessViewProps> = ({ onNavigate }) => {
                     </span>
                     {selectedIndustry.outcomes.map((o, oIdx) => (
                       <div key={oIdx} className="flex items-center gap-2 text-sm text-[#EBECF0]">
-                        <Check className="h-4 w-4 text-[#008280]" />
+                        <Check className="h-4 w-4 text-emerald-400" />
                         <span>{o}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="rounded-lg border border-[#008280]/30 bg-[#008280]/10 p-4 font-mono text-xs text-[#EBECF0]">
-                    <span className="text-[#008280] font-bold block mb-1">SMART FEATURE IDEA:</span>
+                  <div className="rounded-lg border border-white/10 bg-white/5 p-4 font-mono text-xs text-[#EBECF0]">
+                    <span className="text-zinc-300 font-bold block mb-1">SMART FEATURE IDEA:</span>
                     <span>{selectedIndustry.smart}</span>
                   </div>
                 </div>
@@ -209,7 +202,7 @@ export const ProcessView: React.FC<ProcessViewProps> = ({ onNavigate }) => {
                       studioAudio.playClick(1100);
                       onNavigate('planner');
                     }}
-                    className="flex items-center gap-2 font-mono text-xs text-[#008280] hover:text-[#367588] font-bold uppercase"
+                    className="flex items-center gap-2 font-mono text-xs text-zinc-300 hover:text-white font-bold uppercase transition-colors"
                   >
                     <span>LAUNCH IN PROJECT PLANNER</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -222,11 +215,9 @@ export const ProcessView: React.FC<ProcessViewProps> = ({ onNavigate }) => {
 
         {/* Subtle Horizontal Divider: Industries to Conversion Banner */}
         <BrandDivider
-          variant="gradient"
+          variant="minimal"
           width="container"
           spacing="xl"
-          label="THE NEXT STEP"
-          sublabel="DISCOVERY CONSULTATION"
         />
 
         {/* Closing Process CTA with Architectural Image Background */}
@@ -242,8 +233,8 @@ export const ProcessView: React.FC<ProcessViewProps> = ({ onNavigate }) => {
           <div className="cta-scrim pointer-events-none absolute inset-0" />
 
           <div className="relative z-10 max-w-xl">
-            <span className="font-mono text-xs text-[#008280] uppercase tracking-widest block mb-2 font-bold">
-              READY TO COMMENCE STEP 01?
+            <span className="font-mono text-xs text-zinc-400 uppercase tracking-widest block mb-2 font-semibold">
+              Ready to commence Step 01?
             </span>
             <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#0F172A] dark:text-[#EBECF0] uppercase tracking-wide">
               EVERY ENGAGEMENT STARTS WITH DIRECT PRINCIPAL ACCESS.

@@ -17,13 +17,13 @@ export const NavBottomStrip: React.FC<NavBottomStripProps> = ({
       {/* Studio Location & Availability */}
       <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-center md:text-left">
         <div className="flex items-center gap-1.5 text-white">
-          <MapPin className="h-3.5 w-3.5 text-[#008280]" />
-          <span className="tracking-wider uppercase font-medium">CHESTERMERE / CALGARY / ALBERTA</span>
+          <MapPin className="h-3.5 w-3.5 text-zinc-400" />
+          <span className="tracking-wider uppercase font-medium">Chestermere / Calgary, Alberta</span>
         </div>
         <span className="hidden sm:inline text-white/20">•</span>
-        <div className="flex items-center gap-1.5 text-[#5EEAD4]">
-          <Globe className="h-3.5 w-3.5" />
-          <span className="tracking-wider uppercase text-[11px]">AVAILABLE FOR SELECT GLOBAL PROJECTS</span>
+        <div className="flex items-center gap-1.5 text-zinc-300">
+          <Globe className="h-3.5 w-3.5 text-zinc-400" />
+          <span className="tracking-wider uppercase text-[11px]">Available for select global projects</span>
         </div>
       </div>
 

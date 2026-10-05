@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ProjectCard, PageRoute } from '../../types';
 import { studioAudio } from '../../utils/audio';
-import { ProgressiveImage } from '../common/ProgressiveImage';
 import { FatsaniDeviceShowcase } from './FatsaniDeviceShowcase';
-import { X, ExternalLink, ArrowRight, CheckCircle, Sparkles } from 'lucide-react';
+import {
+  X,
+  ExternalLink,
+  ArrowRight,
+  TrendingUp,
+  Sparkles,
+  Layers,
+  Cpu,
+  CheckCircle2,
+} from 'lucide-react';
 
 interface CaseStudyModalProps {
   project: ProjectCard;
@@ -11,14 +20,53 @@ interface CaseStudyModalProps {
   onNavigate: (route: PageRoute) => void;
 }
 
-export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ project, onClose, onNavigate }) => {
+export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
+  project,
+  onClose,
+  onNavigate,
+}) => {
   const isFatsani = project.id === 'fatsani-music';
-  const defaultStack = ['React 19', 'Next.js', 'Tailwind CSS', 'WebGL 3D', 'Lighthouse 95+', 'Automated Intake'];
-  const techStack = project.engineeringStack || defaultStack;
+  const defaultStack = [
+    'React 19',
+    'Next.js 15',
+    'Tailwind CSS',
+    'TypeScript',
+    'Lighthouse 95+',
+    'Sub-Second Global CDN',
+  ];
+  const techStack = project.engineeringStack && project.engineeringStack.length > 0
+    ? project.engineeringStack
+    : defaultStack;
 
-  return (
+  // Lock body scroll while modal is mounted
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
+  // Handle Escape key to close modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        studioAudio.playClick(600);
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-8 backdrop-blur-xl bg-black/80 animate-in fade-in duration-200"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Case Study: ${project.title}`}
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-5 lg:p-8 bg-slate-950/80 backdrop-blur-md"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           studioAudio.playClick(600);
@@ -26,47 +74,72 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ project, onClose
         }
       }}
     >
-      <div className="relative max-h-[94vh] w-full max-w-5xl overflow-y-auto rounded-xl border border-[#16D2C8]/40 glass-dominant shadow-[0_25px_70px_rgba(0,0,0,0.85),0_0_50px_rgba(0,130,128,0.25)] p-5 sm:p-8 lg:p-10 text-[#EBECF0]">
-        {/* Close Button */}
+      {/* Modal Surface Window: Solid high-contrast background to eliminate double-blur bugs */}
+      <div className="case-study-modal-dialog relative max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-slate-700/80 bg-slate-900 text-slate-100 shadow-[0_25px_80px_rgba(0,0,0,0.9)] p-5 sm:p-8 lg:p-10 select-text">
+        {/* Sticky/Fixed Top Close Button */}
         <button
           onClick={() => {
             studioAudio.playClick(600);
             onClose();
           }}
-          className="absolute top-5 right-5 rounded-lg border border-white/15 glass-smoke p-2 text-[#CBD5E1] hover:text-[#EBECF0] hover:border-[#16D2C8] transition-colors z-20"
+          className="absolute top-4 right-4 sm:top-6 sm:right-6 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-700 p-2.5 text-slate-300 hover:text-white transition-all cursor-pointer z-30 shadow-md"
           aria-label="Close Case Study"
         >
           <X className="h-5 w-5" />
         </button>
 
-        {/* Header Badges */}
-        <div className="flex flex-wrap items-center gap-3 font-mono text-xs mb-3">
-          <span className="rounded-md bg-[#008280]/25 px-3 py-1 text-[#16D2C8] border border-[#16D2C8]/35 font-bold uppercase tracking-wider">
-            {project.category}
+        {/* Header Kicker & Sector Tag */}
+        <div className="flex flex-wrap items-center gap-2.5 font-mono text-xs mb-3">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-slate-800 px-3 py-1 text-slate-200 border border-slate-700 font-bold uppercase tracking-wider">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>{project.category}</span>
           </span>
-          <span className="text-[#94A3B8] font-semibold">// BESPOKE ARCHITECTURAL CASE STUDY</span>
+          <span className="text-slate-500">•</span>
+          <span className="text-slate-400 tracking-wider uppercase font-semibold">
+            {project.isFutureCard ? 'Reserved Client Slot' : 'Verified Commercial Flagship'}
+          </span>
         </div>
 
         {/* Title */}
-        <h2 className="font-display text-2xl sm:text-4xl font-semibold tracking-wide uppercase mb-4 text-white dark:text-[#EBECF0]">
+        <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight uppercase mb-4 text-white leading-tight">
           {project.title}
         </h2>
 
-        {/* Device Renders Showcase for Fatsani Music or Standard Image Preview */}
+        {/* Short Executive Summary Lede */}
+        <p className="font-sans text-sm sm:text-base text-slate-300 leading-relaxed mb-6 max-w-3xl">
+          {project.description}
+        </p>
+
+        {/* Media Preview: Multi-Device Showcase for Fatsani or High-Fidelity Stage for Others */}
         {isFatsani ? (
           <div className="my-6">
             <FatsaniDeviceShowcase />
           </div>
         ) : (
-          <div className="relative w-full overflow-hidden rounded-xl border border-white/15 my-6 shadow-2xl">
-            <ProgressiveImage
-              src={project.image}
-              alt={project.title}
-              aspectRatio="16/9"
-              priority={true}
-              overlayScrim="bottom"
-            />
-            <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center z-30">
+          <div className="relative w-full overflow-hidden rounded-xl border border-slate-700/60 bg-slate-950 my-6 shadow-2xl group">
+            <div className="relative aspect-[16/9] w-full overflow-hidden">
+              <img
+                src={project.image}
+                alt={project.title}
+                loading="eager"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.src.includes('unsplash')) {
+                    target.src = 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80';
+                  }
+                }}
+                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent opacity-80 pointer-events-none" />
+            </div>
+
+            {/* Stage Action Overlay */}
+            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap justify-between items-center gap-3 z-20">
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-950/80 border border-slate-700/60 font-mono text-[11px] text-slate-200 backdrop-blur-md font-semibold">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                <span>Production Verified</span>
+              </div>
+
               {project.liveUrl && project.liveUrl.startsWith('http') && (
                 <a
                   href={project.liveUrl}
@@ -82,13 +155,18 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ project, onClose
           </div>
         )}
 
-        {/* Metrics Grid */}
-        {project.metrics && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
+        {/* Quantifiable Metrics Grid */}
+        {project.metrics && project.metrics.length > 0 && (
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 my-6">
             {project.metrics.map((m, idx) => (
-              <div key={idx} className="rounded-lg border border-white/10 glass-smoke p-4 text-center">
-                <div className="font-display text-xl sm:text-2xl font-bold text-[#16D2C8]">{m.value}</div>
-                <div className="font-mono text-[10px] sm:text-xs text-[#CBD5E1] uppercase tracking-wider mt-1 font-semibold">
+              <div
+                key={idx}
+                className="case-study-metric-card rounded-xl border border-slate-700/60 bg-slate-800/40 p-4 text-center"
+              >
+                <div className="flex items-center justify-center gap-1 font-display text-xl sm:text-2xl font-black text-white">
+                  <span>{m.value}</span>
+                </div>
+                <div className="font-mono text-[10px] sm:text-xs text-slate-400 uppercase tracking-wider mt-1 font-semibold">
                   {m.label}
                 </div>
               </div>
@@ -96,85 +174,76 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ project, onClose
           </div>
         )}
 
-        {/* Narrative Details */}
-        <div className="space-y-6 pt-4 border-t border-white/10 font-sans text-sm text-[#CBD5E1] leading-relaxed">
-          {/* Project Overview */}
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="h-2 w-2 rounded-full bg-[#16D2C8]" />
-              <h4 className="font-mono text-xs uppercase tracking-widest text-[#16D2C8] font-bold">
-                PROJECT OVERVIEW
+        {/* Structured In-Depth Case Study Story Sections */}
+        <div className="space-y-6 pt-6 border-t border-slate-800 font-sans text-sm text-slate-300 leading-relaxed">
+          {/* Section 1: Project Overview */}
+          <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-5 sm:p-6 space-y-2">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <h4 className="font-mono text-xs uppercase tracking-widest text-slate-200 font-bold">
+                PROJECT OVERVIEW & STRATEGIC CONTEXT
               </h4>
             </div>
-            <p className="leading-relaxed text-[#EBECF0]/90">
+            <p className="leading-relaxed text-slate-300">
               {project.overview || project.description}
             </p>
           </div>
 
-          {/* The Unique Amaze Approach */}
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="h-2 w-2 rounded-full bg-[#367588]" />
-              <h4 className="font-mono text-xs uppercase tracking-widest text-[#367588] font-bold">
-                THE UNIQUE AMAZE APPROACH
+          {/* Section 2: The Unique Amaze Solution & Approach */}
+          <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-5 sm:p-6 space-y-2">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <h4 className="font-mono text-xs uppercase tracking-widest text-slate-200 font-bold">
+                THE UNIQUE AMAZE ARCHITECTURAL APPROACH
               </h4>
             </div>
-            <p className="leading-relaxed text-[#EBECF0]/90">
+            <p className="leading-relaxed text-slate-300">
               {project.approach ||
-                'Rather than using pre-packaged templates, we designed this project directly in high-contrast custom code, engineering mobile-first touch targets, instant page rendering, and integrated booking funnels that remove all customer hesitation.'}
+                'Rather than relying on generic page builders or repetitive pre-built templates, Unique Amaze designed and engineered this digital flagship from foundational principles. We prioritized mobile-first ergonomics, zero layout shift (CLS 0), instant sub-second response times, and an assertive conversion funnel that turns exploratory visitors into confirmed clients.'}
             </p>
           </div>
 
-          {/* Engineering Stack */}
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="h-2 w-2 rounded-full bg-[#16D2C8]" />
-              <h4 className="font-mono text-xs uppercase tracking-widest text-[#16D2C8] font-bold">
-                ENGINEERING STACK
+          {/* Section 3: Engineering Stack & Architecture */}
+          <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-5 sm:p-6 space-y-3">
+            <div className="flex items-center gap-2">
+              <Cpu className="h-4 w-4 text-emerald-400" />
+              <h4 className="font-mono text-xs uppercase tracking-widest text-slate-200 font-bold">
+                ENGINEERING STACK & INTEGRATIONS
               </h4>
             </div>
-            <div className="flex flex-wrap gap-2 pt-1 font-mono text-xs text-[#EBECF0]">
-              {techStack.map((t) => (
+            <div className="flex flex-wrap gap-2 pt-1 font-mono text-xs">
+              {techStack.map((tech, idx) => (
                 <span
-                  key={t}
-                  className="rounded-md glass-smoke px-3 py-1.5 border border-white/10 text-[#EBECF0] font-semibold hover:border-[#16D2C8]/40 transition-colors"
+                  key={idx}
+                  className="rounded-lg bg-slate-800 border border-slate-700/60 px-3 py-1.5 text-slate-200 font-semibold"
                 >
-                  {t}
+                  {tech}
                 </span>
               ))}
             </div>
           </div>
 
-          {/* Device Mockup Highlights if present */}
-          {project.deviceMockups && project.deviceMockups.length > 0 && (
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <span
-                  className="h-2 w-2 rounded-full"
-                  style={{ backgroundColor: project.accentColor || '#008280' }}
-                />
-                <h4
-                  className="font-mono text-xs uppercase tracking-widest font-bold"
-                  style={{ color: project.accentColor || '#008280' }}
-                >
-                  MULTI-DEVICE ARCHITECTURE &amp; RESPONSIVE SUITE
+          {/* Section 4: Responsive Viewports (if present) */}
+          {project.deviceMockups && project.deviceMockups.length > 0 && !isFatsani && (
+            <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-5 sm:p-6 space-y-3">
+              <div className="flex items-center gap-2">
+                <Layers className="h-4 w-4 text-emerald-400" />
+                <h4 className="font-mono text-xs uppercase tracking-widest text-slate-200 font-bold">
+                  MULTI-DEVICE VIEWPORT TESTING
                 </h4>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {project.deviceMockups.map((mockup, i) => (
-                  <div key={i} className="rounded-lg border border-white/10 glass-smoke p-4 space-y-2">
-                    <span
-                      className="font-mono text-[10px] uppercase tracking-wider font-bold block"
-                      style={{ color: project.accentColor || '#008280' }}
-                    >
-                      {mockup.badge}
-                    </span>
-                    <h5 className="font-display text-sm font-bold uppercase text-white">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {project.deviceMockups.map((mockup, idx) => (
+                  <div
+                    key={idx}
+                    className="rounded-lg border border-slate-800 bg-slate-900/60 p-3.5 space-y-1.5"
+                  >
+                    <div className="font-mono text-xs font-bold text-slate-200 uppercase">
                       {mockup.title}
-                    </h5>
-                    <p className="font-sans text-xs text-[#94A3B8] leading-relaxed">
+                    </div>
+                    <div className="font-sans text-xs text-slate-400 leading-relaxed">
                       {mockup.description}
-                    </p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -183,17 +252,17 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ project, onClose
         </div>
 
         {/* Footer CTAs */}
-        <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-3">
+        <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
             <button
               onClick={() => {
                 studioAudio.playClick(900);
                 onClose();
                 onNavigate('contact');
               }}
-              className="cta-image-btn flex items-center gap-2 rounded-md px-6 py-3 font-mono text-xs font-bold text-white shadow-lg transition-all uppercase hover:scale-[1.02] active:scale-[0.98]"
+              className="cta-image-btn flex items-center justify-center gap-2 rounded-lg px-6 py-3 font-mono text-xs font-bold text-white shadow-lg transition-all uppercase hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto cursor-pointer"
             >
-              <span className="relative z-10">COMMISSION A SIMILAR FLAGSHIP</span>
+              <span className="relative z-10">COMMISSION A SIMILAR PROJECT</span>
               <ArrowRight className="relative z-10 h-4 w-4" />
             </button>
 
@@ -202,26 +271,30 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ project, onClose
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="cta-secondary-btn flex items-center gap-2 rounded-md border px-5 py-3 font-mono text-xs font-semibold transition-all uppercase hover:scale-[1.02] active:scale-[0.98]"
+                className="flex items-center justify-center gap-2 rounded-lg border border-slate-700 bg-slate-800/60 hover:bg-slate-800 px-5 py-3 font-mono text-xs font-semibold text-slate-200 hover:text-white transition-all uppercase hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto"
               >
-                <span>VISIT LIVE FLAGSHIP</span>
+                <span>VISIT LIVE SITE</span>
                 <ExternalLink className="h-3.5 w-3.5" />
               </a>
             )}
           </div>
 
-          <button
-            onClick={() => {
-              onClose();
-              onNavigate('planner');
-            }}
-            className="font-mono text-xs text-[#008280] hover:text-[#367588] flex items-center gap-1.5 uppercase font-semibold"
-          >
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>Plan in Interactive Project Planner →</span>
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => {
+                studioAudio.playClick(800);
+                onClose();
+                onNavigate('planner');
+              }}
+              className="font-mono text-xs text-slate-400 hover:text-white flex items-center gap-1.5 uppercase font-semibold transition-colors cursor-pointer"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-slate-400" />
+              <span>Launch 2-Min Discovery Planner →</span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

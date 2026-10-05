@@ -5,6 +5,7 @@ import { TESTIMONIALS_DATA, STUDIO_MARKETS, LOGO_DATA_URI } from '../../data/uni
 import { BrandDivider } from '../common/BrandDivider';
 import { ProgressiveImage } from '../common/ProgressiveImage';
 import { UnrollingMatPanel } from './UnrollingMatPanel';
+import { TestimonialsCarousel } from '../common/TestimonialsCarousel';
 import {
   Globe,
   Clock,
@@ -61,7 +62,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
     {
       num: '01',
       title: 'Architectural Restraint',
-      subtitle: 'ZERO BLOAT & MATHEMATICAL SCALES',
+      subtitle: 'Zero Bloat & Mathematical Scales',
       desc: 'We reject generic theme builders and bloated visual baggage. Every layout is mathematically balanced using deliberate typographic ratios, intentional negative space, and clean semantic code.',
       icon: Layers,
       glass: 'glass-smoke',
@@ -70,7 +71,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
     {
       num: '02',
       title: 'The 1-to-1 Specialist Model',
-      subtitle: 'DIRECT COLLABORATION // NO INTERMEDIARIES',
+      subtitle: 'Direct Collaboration Without Intermediaries',
       desc: 'You work directly with the specialist architecting, designing, and coding your site. No account managers playing telephone, no bureaucratic overhead, and no junior handoffs.',
       icon: Users,
       glass: 'glass-slate',
@@ -79,16 +80,16 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
     {
       num: '03',
       title: 'Zero Friction Engineering',
-      subtitle: 'SUB-SECOND LOADS & 95+ LIGHTHOUSE TARGETS',
+      subtitle: 'Sub-Second Loads & 95+ Performance',
       desc: 'Speed is conversion. We engineer sites that load in under 1.2 seconds, prioritize mobile-first ergonomic touch targets, and ensure frictionless lead capture and appointment booking.',
       icon: Zap,
-      glass: 'glass-teal',
+      glass: 'glass-smoke',
       dominant: false,
     },
     {
       num: '04',
       title: 'Practical AI Intelligence',
-      subtitle: 'SAGE AI & AUTONOMOUS CLIENT CONCIERGES',
+      subtitle: 'Quiet & Effective Automation Workflows',
       desc: 'We integrate practical, quiet AI workflows that work 24/7 in the background — conversational assistants, automated client qualification, and CRM synchronization — rather than superficial gimmicks.',
       icon: Sparkles,
       glass: 'glass-dominant',
@@ -97,16 +98,16 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
     {
       num: '05',
       title: 'Dual-Region Local Value',
-      subtitle: 'HONEST LOCAL PRICING // CANADA & MALAWI',
+      subtitle: 'Honest Local Pricing in Canada & Malawi',
       desc: 'We maintain independent local price books calibrated for real purchasing power in Canada (CAD) and Malawi (MWK) — never arbitrary speculative currency conversions.',
       icon: Globe,
-      glass: 'glass-amber',
+      glass: 'glass-smoke',
       dominant: false,
     },
     {
       num: '06',
       title: 'Complete Client Ownership',
-      subtitle: '100% ASSETS, CODE & DOMAIN AUTHORITY',
+      subtitle: '100% Asset, Code & Domain Authority',
       desc: 'Upon handover, you own every line of code, design asset, and domain setting. We provide full administrative access, clear documentation, and optional proactive care plans.',
       icon: ShieldCheck,
       glass: 'glass-smoke',
@@ -115,23 +116,23 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
   ];
 
   return (
-    <div className="relative w-full py-20 sm:py-28 lg:py-32">
+    <div className="relative w-full pt-8 sm:pt-12 lg:pt-14 pb-20 sm:pb-28 lg:pb-32">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         {/* Header & Philosophy Statement */}
-        <div className="max-w-3xl mb-20 sm:mb-28">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase mb-4 font-semibold">
-            <Target className="h-3.5 w-3.5 text-[#008280]" />
-            <span>ABOUT UNIQUE AMAZE // STUDIO PHILOSOPHY</span>
+        <div className="max-w-3xl mb-16 sm:mb-24">
+          <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 tracking-widest uppercase mb-4 font-semibold">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            <span>Studio Philosophy</span>
           </div>
 
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-wide text-[#EBECF0] leading-[1.12] uppercase">
             WE BUILD DIGITAL EXPERIENCES THAT{' '}
-            <span className="text-[#008280] block sm:inline">REFUSE COMMODITIZATION.</span>
+            <span className="text-zinc-400 block sm:inline">STAND APART.</span>
           </h1>
 
           <p className="mt-8 font-sans text-base sm:text-lg text-[#CBD5E1] leading-relaxed max-w-2xl">
             Unique Amaze was founded on an unapologetic refusal to treat digital interfaces as disposable skins.
-            We treat computational physics, typographic pacing, and quiet AI intelligence as core structural materials.
+            We treat computational clarity, typographic pacing, and practical intelligence as core structural materials.
           </p>
         </div>
 
@@ -139,11 +140,11 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch mb-24 sm:mb-32">
           <div className="lg:col-span-7 rounded-xl border border-white/10 glass-smoke p-8 sm:p-12 lg:p-14 flex flex-col justify-between shadow-2xl">
             <div className="space-y-6 font-sans text-base leading-relaxed text-[#CBD5E1]">
-              <div className="font-mono text-xs text-[#16D2C8] tracking-widest uppercase font-semibold">
-                // THE STUDIO MANIFESTO
+              <div className="font-mono text-xs text-zinc-400 tracking-widest uppercase font-semibold">
+                THE STUDIO MANIFESTO
               </div>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#EBECF0] tracking-tight">
-                The code is the sculpture. The experience is the conversion.
+                The code is the structure. The experience is the conversion.
               </h2>
               <p>
                 Most business websites are built on bloated, off-the-shelf templates stitched together with fifty conflicting plugins.
@@ -151,11 +152,11 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
               </p>
               <p>
                 At Unique Amaze, we engineer websites from first principles. By fusing modern TypeScript architecture with
-                kinetic scrollytelling and practical conversational AI, we build digital flagships that position our clients
+                engaging visual pacing and practical conversational AI, we build digital flagships that position our clients
                 as the unmistakable authority in their industry.
               </p>
 
-              {/* Atelier / Creative Workspace Visual Fragment with Progressive Image & Locked Aspect Ratio */}
+              {/* Atelier / Creative Workspace Visual Fragment */}
               <div className="relative overflow-hidden rounded-lg border border-white/10 w-full bg-[#080B0E] group my-4 shadow-md">
                 <ProgressiveImage
                   src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=900&q=75"
@@ -164,9 +165,9 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
                   overlayScrim="bottom"
                   imageClassName="brightness-[0.58] contrast-[1.1]"
                 />
-                <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between font-mono text-[9px] text-[#16D2C8] z-30 pointer-events-none">
-                  <span className="tracking-widest uppercase font-semibold">STUDIO ATELIER // WORKBENCH ARTIFACTS</span>
-                  <span className="text-[#94A3B8]">CALGARY &amp; LILONGWE</span>
+                <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between font-mono text-[9px] text-zinc-300 z-30 pointer-events-none">
+                  <span className="tracking-widest uppercase font-semibold">Studio Atelier</span>
+                  <span className="text-zinc-400">Calgary &amp; Lilongwe</span>
                 </div>
               </div>
             </div>
@@ -176,13 +177,13 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
                 <img
                   src={LOGO_DATA_URI}
                   alt="Unique Amaze Logo"
-                  className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(0,130,128,0.5)]"
+                  className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(148,163,184,0.3)]"
                 />
               </div>
               <div>
                 <div className="font-display font-bold text-sm text-[#EBECF0]">UNIQUE AMAZE STUDIO</div>
-                <div className="font-mono text-[10px] text-[#008280] tracking-wider uppercase">
-                  Bespoke Web Architecture & AI Engineering
+                <div className="font-mono text-[10px] text-zinc-400 tracking-wider uppercase">
+                  Bespoke Web Architecture & Digital Engineering
                 </div>
               </div>
             </div>
@@ -194,27 +195,26 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
 
         {/* Subtle Horizontal Divider: Manifesto to Global Hubs */}
         <BrandDivider
-          variant="teal"
+          variant="minimal"
           width="container"
           spacing="lg"
-          label="GLOBAL HUBS"
-          sublabel="SYNCHRONIZED TIMEZONES"
         />
 
         {/* Global Studio Coordinates & Live Regional Clocks */}
         <div className="rounded-xl border border-white/10 glass-smoke p-8 sm:p-14 shadow-2xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 pb-6 border-b border-white/10">
             <div>
-              <div className="flex items-center gap-2 font-mono text-xs font-semibold tracking-wider text-[#008280] uppercase">
-                <Globe className="h-4 w-4 text-[#16D2C8]" />
-                <span>GLOBAL STUDIO HUBS & SYNCHRONIZED TIMEZONES</span>
+              <div className="flex items-center gap-2 font-mono text-xs font-semibold tracking-wider text-zinc-300 uppercase">
+                <Globe className="h-4 w-4 text-zinc-400" />
+                <span>Global Studio Hubs &amp; Regional Clocks</span>
               </div>
               <h2 className="mt-2 font-display text-2xl font-bold text-[#EBECF0] tracking-tight">
                 Two Continents. One Disciplined Standard.
               </h2>
             </div>
-            <span className="self-start sm:self-center font-mono text-xs text-[#16D2C8] bg-[#16D2C8]/10 border border-[#16D2C8]/30 px-3.5 py-1.5 rounded-full animate-pulse">
-              ● STUDIOS SYNCHRONIZED
+            <span className="self-start sm:self-center font-mono text-xs text-zinc-300 bg-white/10 border border-white/20 px-3.5 py-1.5 rounded-full flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <span>STUDIOS ACTIVE</span>
             </span>
           </div>
 
@@ -222,23 +222,23 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
             {STUDIO_MARKETS.map((loc) => (
               <div
                 key={loc.city}
-                className="rounded-xl border border-white/10 glass-slate p-7 hover:border-[#16D2C8]/50 transition-all group"
+                className="rounded-xl border border-white/10 glass-slate p-7 hover:border-white/30 transition-all group"
               >
                 <div className="flex items-center justify-between font-mono text-xs">
                   <span className="font-bold text-[#EBECF0] tracking-widest">{loc.city}</span>
-                  <span className="rounded px-1.5 py-0.5 text-[9px] font-bold bg-[#008280]/20 text-[#16D2C8]">
+                  <span className="rounded px-1.5 py-0.5 text-[9px] font-bold bg-white/10 text-zinc-300">
                     {loc.status}
                   </span>
                 </div>
 
-                <div className="mt-5 flex items-center gap-2 font-mono text-2xl font-bold text-[#16D2C8]">
-                  <Clock className="h-4 w-4 text-[#008280]" />
+                <div className="mt-5 flex items-center gap-2 font-mono text-2xl font-bold text-white">
+                  <Clock className="h-4 w-4 text-zinc-400" />
                   <span>{worldTimes[loc.city] || '--:--:--'}</span>
                 </div>
 
                 <div className="mt-5 space-y-1.5 font-mono text-[11px] text-[#94A3B8]">
                   <div className="flex items-center gap-1.5 text-[#CBD5E1]">
-                    <MapPin className="h-3 w-3 text-[#16D2C8]" />
+                    <MapPin className="h-3 w-3 text-zinc-400" />
                     <span>{loc.region}</span>
                   </div>
                   <div className="text-[10px] text-[#94A3B8]">TZ: {loc.tz}</div>
@@ -248,29 +248,27 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
           </div>
 
           <div className="mt-10 text-xs font-mono text-[#94A3B8] flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/[0.06]">
-            <span>CANADIAN STUDIO: CHESTERMERE & CALGARY, AB</span>
-            <span>MALAWI STUDIO: BLANTYRE & LILONGWE</span>
-            <span className="text-[#16D2C8] font-bold">ACTIVE CLIENT ROSTER 2026</span>
+            <span>CANADIAN STUDIO: CHESTERMERE &amp; CALGARY, AB</span>
+            <span>MALAWI STUDIO: BLANTYRE &amp; LILONGWE</span>
+            <span className="text-zinc-300 font-bold">ACTIVE STUDIO OPERATIONS</span>
           </div>
         </div>
 
         {/* Subtle Horizontal Divider: Global Hubs to Studio Pillars */}
         <BrandDivider
-          variant="slate"
+          variant="minimal"
           width="container"
           spacing="xl"
-          label="STUDIO PILLARS"
-          sublabel="DISCIPLINED METHODOLOGY"
         />
 
         {/* The 6 Core Studio Pillars */}
         <div>
           <div className="max-w-2xl mb-12 sm:mb-14">
-            <div className="font-mono text-xs text-[#008280] tracking-widest uppercase font-semibold mb-2">
-              // STUDIO PILLARS
+            <div className="font-mono text-xs text-zinc-400 tracking-widest uppercase font-semibold mb-2">
+              Studio Pillars
             </div>
             <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-wide text-[#EBECF0] uppercase">
-              HOW WE OPERATE & DELIVER
+              HOW WE OPERATE &amp; DELIVER
             </h2>
           </div>
 
@@ -282,21 +280,21 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
                   key={pillar.num}
                   className={`rounded-xl border p-8 sm:p-9 transition-all group flex flex-col justify-between ${pillar.glass} ${
                     pillar.dominant
-                      ? 'border-[#16D2C8]/50 shadow-xl'
-                      : 'border-white/[0.08] hover:border-[#008280]/50'
+                      ? 'border-white/30 shadow-xl'
+                      : 'border-white/[0.08] hover:border-white/20'
                   }`}
                 >
                   <div>
                     <div className="flex items-center justify-between font-mono text-xs text-[#64748B] mb-6">
-                      <span className={`${pillar.dominant ? 'text-[#16D2C8]' : 'text-[#008280]'} font-bold text-sm`}>
+                      <span className="text-white font-bold text-sm">
                         {pillar.num}
                       </span>
-                      <IconComp className={`h-4 w-4 ${pillar.dominant ? 'text-[#16D2C8]' : 'text-[#008280]'} group-hover:text-[#16D2C8] transition-colors`} />
+                      <IconComp className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
                     </div>
                     <h3 className="font-display text-lg font-bold text-[#EBECF0] tracking-tight mb-2">
                       {pillar.title}
                     </h3>
-                    <div className="font-mono text-[10px] text-[#008280] tracking-wider uppercase mb-4">
+                    <div className="font-mono text-[10px] text-zinc-400 tracking-wider uppercase mb-4 font-semibold">
                       {pillar.subtitle}
                     </div>
                     <p className="font-sans text-xs sm:text-sm text-[#CBD5E1] leading-relaxed">
@@ -311,68 +309,24 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
 
         {/* Subtle Horizontal Divider: Pillars to Verified Testimonials */}
         <BrandDivider
-          variant="cyan"
+          variant="minimal"
           width="container"
           spacing="xl"
-          label="CLIENT EXPERIENCES"
-          sublabel="VERIFIED REVIEWS"
         />
 
-        {/* Client Endorsements / Testimonials */}
+        {/* Client Endorsements / Testimonials Carousel */}
         <div>
-          <div className="max-w-2xl mb-12 sm:mb-14">
-            <div className="font-mono text-xs text-[#008280] tracking-widest uppercase font-semibold mb-2">
-              // VERIFIED CLIENT EXPERIENCES
-            </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-wide text-[#EBECF0] uppercase">
-              TRUSTED ACROSS CANADA & MALAWI
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {TESTIMONIALS_DATA.map((t, idx) => {
-              const isHighlight = idx === 1; // Middle card dominant
-              return (
-                <div
-                  key={idx}
-                  className={`rounded-xl border p-8 sm:p-10 flex flex-col justify-between ${
-                    isHighlight
-                      ? 'glass-teal border-[#008280]/50 shadow-md'
-                      : 'glass-smoke border-white/[0.08]'
-                  }`}
-                >
-                  <div>
-                    <div className="flex text-[#16D2C8] text-xs gap-1 mb-5">
-                      {'★'.repeat(t.rating)}
-                    </div>
-                    <p className="font-sans text-sm text-[#EBECF0] leading-relaxed italic">
-                      "{t.quote}"
-                    </p>
-                  </div>
-
-                  <div className="mt-8 pt-5 border-t border-white/[0.06] flex items-center gap-3.5">
-                    <div className="h-9 w-9 rounded-full bg-[#008280]/20 border border-[#008280]/40 flex items-center justify-center font-mono text-xs font-bold text-[#16D2C8]">
-                      {t.initial}
-                    </div>
-                    <div>
-                      <div className="font-sans text-xs font-bold text-[#EBECF0]">{t.name}</div>
-                      <div className="font-mono text-[10px] text-[#64748B]">{t.role}</div>
-                      <div className="font-mono text-[9px] text-[#008280]">{t.location}</div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <TestimonialsCarousel
+            currentMarket={currentMarket}
+            onNavigate={onNavigate}
+          />
         </div>
 
         {/* Subtle Horizontal Divider: Testimonials to Conversion Banner */}
         <BrandDivider
-          variant="gradient"
+          variant="minimal"
           width="container"
           spacing="xl"
-          label="PARTNERSHIP"
-          sublabel="START YOUR PROJECT"
         />
 
         {/* Bottom Conversion Banner with Architectural Background Image */}
@@ -388,9 +342,9 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, currentMarket 
           <div className="cta-scrim pointer-events-none absolute inset-0" />
 
           <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase font-bold">
-              <Sparkles className="h-3.5 w-3.5 text-[#008280]" />
-              <span>READY TO ELEVATE YOUR BRAND?</span>
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 tracking-widest uppercase font-semibold">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <span>Ready to elevate your brand?</span>
             </div>
 
             <h2 className="font-display text-2xl sm:text-4xl font-bold text-[#0F172A] dark:text-[#EBECF0] tracking-tight uppercase">

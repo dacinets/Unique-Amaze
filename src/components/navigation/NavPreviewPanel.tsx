@@ -61,17 +61,17 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
   return (
     <div className="relative h-full w-full rounded-2xl border border-white/10 bg-[#07090C]/90 p-6 lg:p-8 backdrop-blur-2xl shadow-2xl flex flex-col justify-between overflow-hidden transition-all duration-500">
       {/* Background Subtle Gradient Glow */}
-      <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#008280]/15 blur-3xl transition-opacity duration-700" />
-      <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-[#16D2C8]/10 blur-3xl transition-opacity duration-700" />
+      <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/[0.04] blur-3xl transition-opacity duration-700" />
+      <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-slate-500/[0.06] blur-3xl transition-opacity duration-700" />
 
       {/* Top Header Label */}
       <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
-        <div className="flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-[#008280] uppercase font-bold">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#16D2C8] animate-pulse" />
-          <span>CONTEXTUAL PREVIEW // {hoveredRoute.toUpperCase()}</span>
+        <div className="flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-zinc-300 uppercase font-bold">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span>OVERVIEW · {hoveredRoute.toUpperCase()}</span>
         </div>
-        <span className="font-mono text-[9px] tracking-widest text-white/40 uppercase">
-          UNIQUE AMAZE LAB
+        <span className="font-mono text-[9px] tracking-widest text-zinc-500 uppercase">
+          UNIQUE AMAZE STUDIO
         </span>
       </div>
 
@@ -80,12 +80,12 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
         {/* OVERVIEW PREVIEW */}
         {hoveredRoute === 'home' && (
           <div className="space-y-5 animate-in fade-in duration-300">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] tracking-widest text-[#5EEAD4]">
-              <Sparkles className="h-3 w-3 text-[#008280]" />
-              <span>STUDIO SYSTEM // ZERO-LATENCY</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] tracking-widest text-zinc-300">
+              <Sparkles className="h-3 w-3 text-zinc-400" />
+              <span>HIGH-PERFORMANCE STUDIO</span>
             </div>
             <h3 className="font-display text-2xl lg:text-3xl font-bold tracking-tight text-white leading-tight">
-              Architectural Digital Systems &amp; Creative AI Engineering.
+              Architectural Digital Systems &amp; Creative Engineering.
             </h3>
             <p className="font-sans text-sm text-[#94A3B8] leading-relaxed max-w-md">
               We design and construct bespoke digital flagships, intelligent web applications, and immersive media systems for industry leaders across Calgary, Canada, and global markets.
@@ -97,7 +97,7 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
               </div>
               <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
                 <div className="text-[10px] text-white/50 tracking-wider">CORE SPEED</div>
-                <div className="mt-1 font-bold text-[#5EEAD4]">SUB-100MS LATENCY</div>
+                <div className="mt-1 font-bold text-white">SUB-100MS LATENCY</div>
               </div>
             </div>
           </div>
@@ -106,8 +106,8 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
         {/* SERVICES PREVIEW */}
         {hoveredRoute === 'services' && (
           <div className="space-y-4 animate-in fade-in duration-300">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#008280]/30 bg-[#008280]/10 px-3 py-1 font-mono text-[10px] tracking-widest text-[#5EEAD4]">
-              <Layers className="h-3 w-3 text-[#16D2C8]" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] tracking-widest text-zinc-300">
+              <Layers className="h-3 w-3 text-zinc-400" />
               <span>CAPABILITIES &amp; ARCHITECTURE</span>
             </div>
             <h3 className="font-display text-xl lg:text-2xl font-bold tracking-tight text-white">
@@ -122,11 +122,11 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
               ].map((service, idx) => (
                 <div
                   key={idx}
-                  className="rounded-lg border border-white/5 bg-white/[0.02] p-2.5 transition-colors hover:border-[#008280]/40"
+                  className="rounded-lg border border-white/5 bg-white/[0.02] p-2.5 transition-colors hover:border-white/20"
                 >
                   <div className="font-bold text-white flex items-center justify-between">
                     <span>{service.title}</span>
-                    <span className="text-[10px] text-[#008280]">0{idx + 1}</span>
+                    <span className="text-[10px] text-zinc-400">0{idx + 1}</span>
                   </div>
                   <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">{service.desc}</div>
                 </div>
@@ -139,8 +139,8 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
         {hoveredRoute === 'work' && (
           <div className="space-y-4 animate-in fade-in duration-300">
             <div className="flex items-center justify-between">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] tracking-widest text-[#5EEAD4]">
-                <Activity className="h-3 w-3 text-[#008280]" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] tracking-widest text-zinc-300">
+                <Activity className="h-3 w-3 text-zinc-400" />
                 <span>SELECTED RELEASES</span>
               </div>
               <div className="flex items-center gap-1.5 font-mono text-[10px] text-white/50">
@@ -149,7 +149,7 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
                     key={i}
                     onClick={() => setSelectedWorkIndex(i)}
                     className={`h-1.5 transition-all rounded-full ${
-                      selectedWorkIndex === i ? 'w-5 bg-[#008280]' : 'w-1.5 bg-white/20'
+                      selectedWorkIndex === i ? 'w-5 bg-white' : 'w-1.5 bg-white/20'
                     }`}
                   />
                 ))}
@@ -171,7 +171,7 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
                 <div>
-                  <span className="rounded bg-[#008280]/80 px-2 py-0.5 font-mono text-[9px] font-bold text-white uppercase tracking-wider">
+                  <span className="rounded bg-black/75 px-2 py-0.5 font-mono text-[9px] font-bold text-white uppercase tracking-wider border border-white/10">
                     {workItems[selectedWorkIndex].badge}
                   </span>
                   <div className="mt-1 font-display text-base font-bold text-white">
@@ -181,7 +181,7 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
                     {workItems[selectedWorkIndex].category}
                   </div>
                 </div>
-                <span className="font-mono text-xs font-bold text-[#5EEAD4]">
+                <span className="font-mono text-xs font-bold text-white">
                   {workItems[selectedWorkIndex].stat}
                 </span>
               </div>
@@ -196,8 +196,8 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
         {/* A.M.A.Z.E. PREVIEW */}
         {hoveredRoute === 'process' && (
           <div className="space-y-4 animate-in fade-in duration-300">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] tracking-widest text-[#5EEAD4]">
-              <Cpu className="h-3 w-3 text-[#008280]" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] tracking-widest text-zinc-300">
+              <Cpu className="h-3 w-3 text-zinc-400" />
               <span>THE 5-PILLAR FORMULA</span>
             </div>
             <h3 className="font-display text-xl lg:text-2xl font-bold tracking-tight text-white">
@@ -215,7 +215,7 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
                   key={item.letter}
                   className="flex items-start gap-2.5 rounded-lg border border-white/5 bg-white/[0.02] p-2"
                 >
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#008280]/20 font-bold text-[#5EEAD4]">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-white/10 font-bold text-white">
                     {item.letter}
                   </span>
                   <div>
@@ -231,8 +231,8 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
         {/* PRICING PREVIEW */}
         {hoveredRoute === 'pricing' && (
           <div className="space-y-5 animate-in fade-in duration-300">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] tracking-widest text-[#5EEAD4]">
-              <ShieldCheck className="h-3 w-3 text-[#008280]" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] tracking-widest text-zinc-300">
+              <ShieldCheck className="h-3 w-3 text-zinc-400" />
               <span>TRANSPARENT VALUE</span>
             </div>
             <h3 className="font-display text-2xl lg:text-3xl font-bold tracking-tight text-white italic">
@@ -244,11 +244,11 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
             <div className="space-y-2 pt-1 font-mono text-xs">
               <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.03] p-3">
                 <span className="text-white">SPRINT MVP ARCHITECTURE</span>
-                <span className="font-bold text-[#5EEAD4]">{currentMarket === 'ca' ? 'From $1,500 CAD' : 'From MK 950,000'}</span>
+                <span className="font-bold text-white">{currentMarket === 'ca' ? 'From $1,500 CAD' : 'From MK 950,000'}</span>
               </div>
-              <div className="flex items-center justify-between rounded-lg border border-[#008280]/40 bg-[#008280]/10 p-3">
+              <div className="flex items-center justify-between rounded-lg border border-white/20 bg-white/5 p-3">
                 <span className="font-bold text-white">BESPOKE DIGITAL FLAGSHIP</span>
-                <span className="font-bold text-[#16D2C8]">{currentMarket === 'ca' ? '$3,200 CAD' : 'MK 2,800,000'}</span>
+                <span className="font-bold text-white">{currentMarket === 'ca' ? '$3,200 CAD' : 'MK 2,800,000'}</span>
               </div>
               <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.03] p-3">
                 <span className="text-white">ENTERPRISE MONOLITH / AI</span>
@@ -261,8 +261,8 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
         {/* CONTACT PREVIEW */}
         {hoveredRoute === 'contact' && (
           <div className="space-y-5 animate-in fade-in duration-300">
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 font-mono text-[10px] tracking-widest text-amber-300">
-              <Activity className="h-3 w-3 text-amber-400" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] tracking-widest text-zinc-300">
+              <Activity className="h-3 w-3 text-zinc-400" />
               <span>CURRENT INTAKE OPEN</span>
             </div>
             <h3 className="font-display text-2xl lg:text-3xl font-bold tracking-tight text-white">
@@ -275,10 +275,10 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
               <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
                 <div className="text-[10px] text-white/50 tracking-wider">DIRECT EMAIL</div>
                 <a
-                  href="mailto:adnetsinvestments@gmail.com"
-                  className="mt-1 block font-bold text-white hover:text-[#5EEAD4] transition-colors truncate"
+                  href="mailto:hello@uniqueamaze.com"
+                  className="mt-1 block font-bold text-white hover:text-zinc-200 transition-colors truncate"
                 >
-                  adnetsinvestments@gmail.com
+                  hello@uniqueamaze.com
                 </a>
               </div>
               <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.03] p-3">
@@ -299,7 +299,7 @@ export const NavPreviewPanel: React.FC<NavPreviewPanelProps> = ({
             onNavigate(hoveredRoute);
           }}
           data-cursor="enter"
-          className="inline-flex items-center gap-2 rounded-lg bg-[#008280] hover:bg-[#009491] px-4 py-2 font-mono text-xs font-bold text-white transition-all shadow-md hover:scale-[1.02] active:scale-[0.98]"
+          className="inline-flex items-center gap-2 rounded-lg bg-white/15 hover:bg-white/25 border border-white/20 px-4 py-2 font-mono text-xs font-bold text-white transition-all shadow-md hover:scale-[1.02] active:scale-[0.98]"
         >
           <span>EXPLORE {hoveredRoute.toUpperCase()}</span>
           <ArrowUpRight className="h-3.5 w-3.5" />

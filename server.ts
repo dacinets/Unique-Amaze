@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
+import crypto, { randomUUID, createHash } from 'crypto';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
 import { createServer as createViteServer } from 'vite';
@@ -198,6 +199,267 @@ app.post('/api/upload-mockup', (req, res) => {
   } catch (err: any) {
     console.error('Error saving mockup file:', err);
     return res.status(500).json({ error: 'Failed to write mockup file to disk.' });
+  }
+});
+
+// Helper for audit logging (mirrors api_audit_logs in database/schema.sql)
+function logAudit(endpoint: string, eventType: string, severity: 'info' | 'warning' | 'security' | 'error', details: any, req: express.Request) {
+  const ip = req.ip || req.socket.remoteAddress || 'unknown';
+  const ipHash = createHash('sha256').update(ip + (process.env.IP_SALT || 'uniqueamaze_salt')).digest('hex');
+  const auditEntry = {
+    event_uuid: randomUUID(),
+    endpoint,
+    method: req.method,
+    event_type: eventType,
+    severity,
+    ip_hash: ipHash,
+    user_agent: req.headers['user-agent']?.slice(0, 255) || 'unknown',
+    details,
+    timestamp: new Date().toISOString()
+  };
+  console.log(`[AUDIT:${severity.toUpperCase()}] ${endpoint} - ${eventType}:`, JSON.stringify(auditEntry));
+}
+
+// In-memory telemetry cache for active server runtime
+const runtimeLeads: any[] = [];
+const runtimePlannerSubmissions: any[] = [];
+
+// ============================================================================
+// PRIVACY-FOCUSED, GDPR-COMPLIANT ANALYTICS ENGINE (ZERO PII / COOKIE-FREE)
+// ============================================================================
+interface AnalyticsEventRecord {
+  id: string;
+  eventType: 'pageview' | 'event';
+  eventName: string;
+  path: string;
+  referrer: string;
+  deviceType: 'desktop' | 'tablet' | 'mobile';
+  screenCategory: string;
+  market: 'ca' | 'mw';
+  theme: 'obsidian' | 'lunar';
+  timestamp: string;
+}
+
+const serverStartTime = Date.now();
+let analyticsDay = new Date().toISOString().slice(0, 10);
+const dailyVisitorHashes = new Set<string>();
+const recentAnalyticsEvents: AnalyticsEventRecord[] = [];
+const pageviewCounts: Record<string, number> = {
+  '/': 1, // initialize with baseline
+};
+const referrerCounts: Record<string, number> = {
+  direct: 1,
+};
+const deviceTypeCounts: Record<string, number> = { desktop: 0, tablet: 0, mobile: 0 };
+const marketCounts: Record<string, number> = { ca: 0, mw: 0 };
+let totalPageviewCounter = 0;
+let dntRespectsCounter = 0;
+
+function checkAndRotateDailySalt(): void {
+  const currentDay = new Date().toISOString().slice(0, 10);
+  if (currentDay !== analyticsDay) {
+    analyticsDay = currentDay;
+    dailyVisitorHashes.clear();
+  }
+}
+
+// Ingest privacy-preserving traffic telemetry (zero cookies, zero PII)
+app.post('/api/analytics', (req, res) => {
+  try {
+    checkAndRotateDailySalt();
+
+    // 1. Honor Do Not Track (DNT) and Global Privacy Control (GPC)
+    const dnt = req.headers['dnt'] === '1' || req.headers['sec-gpc'] === '1';
+    if (dnt) {
+      dntRespectsCounter++;
+      return res.status(200).json({ success: true, tracked: false, reason: 'dnt_honored' });
+    }
+
+    const {
+      eventType = 'pageview',
+      eventName = 'page_view',
+      path: reqPath = '/',
+      referrer = 'direct',
+      deviceType = 'desktop',
+      screenCategory = 'desktop',
+      market = 'ca',
+      theme = 'obsidian',
+      timestamp,
+    } = req.body || {};
+
+    // 2. Strict Input Sanitization & Zero-PII Guarantee
+    const cleanPath = String(reqPath).split('?')[0].split('#')[0].replace(/[^a-zA-Z0-9_\-\/]/g, '').slice(0, 120) || '/';
+    const cleanReferrer = String(referrer).replace(/[^a-zA-Z0-9.\-]/g, '').slice(0, 80) || 'direct';
+    const cleanEventType = eventType === 'event' ? 'event' : 'pageview';
+    const cleanEventName = String(eventName).replace(/[^a-zA-Z0-9_\-]/g, '').slice(0, 50) || 'page_view';
+    const cleanDeviceType: 'desktop' | 'tablet' | 'mobile' =
+      deviceType === 'mobile' || deviceType === 'tablet' ? deviceType : 'desktop';
+    const cleanMarket: 'ca' | 'mw' = market === 'mw' ? 'mw' : 'ca';
+    const cleanTheme: 'obsidian' | 'lunar' = theme === 'lunar' ? 'lunar' : 'obsidian';
+
+    // 3. Ephemeral Daily Visitor Hash (resets at midnight UTC, irreversible, zero IP retention)
+    const rawIp = req.ip || req.socket.remoteAddress || '127.0.0.1';
+    const userAgent = (req.headers['user-agent'] || '').slice(0, 200);
+    const dailySalt = createHash('sha256').update(analyticsDay + (process.env.ANALYTICS_SALT || 'uniqueamaze_privacy_salt')).digest('hex');
+    const dayVisitorHash = createHash('sha256').update(rawIp + userAgent + dailySalt).digest('hex').slice(0, 16);
+    dailyVisitorHashes.add(dayVisitorHash);
+
+    // 4. Update Aggregate Counters
+    if (cleanEventType === 'pageview') {
+      totalPageviewCounter++;
+      pageviewCounts[cleanPath] = (pageviewCounts[cleanPath] || 0) + 1;
+      referrerCounts[cleanReferrer] = (referrerCounts[cleanReferrer] || 0) + 1;
+      deviceTypeCounts[cleanDeviceType] = (deviceTypeCounts[cleanDeviceType] || 0) + 1;
+      marketCounts[cleanMarket] = (marketCounts[cleanMarket] || 0) + 1;
+    }
+
+    // 5. Keep limited bounded ring buffer of recent anonymized records (max 1000)
+    const record: AnalyticsEventRecord = {
+      id: randomUUID(),
+      eventType: cleanEventType,
+      eventName: cleanEventName,
+      path: cleanPath,
+      referrer: cleanReferrer,
+      deviceType: cleanDeviceType,
+      screenCategory: String(screenCategory).slice(0, 20),
+      market: cleanMarket,
+      theme: cleanTheme,
+      timestamp: timestamp && typeof timestamp === 'string' ? timestamp : new Date().toISOString(),
+    };
+
+    recentAnalyticsEvents.unshift(record);
+    if (recentAnalyticsEvents.length > 1000) {
+      recentAnalyticsEvents.pop();
+    }
+
+    return res.status(200).json({ success: true, tracked: true });
+  } catch (err: any) {
+    console.error('Error in /api/analytics:', err);
+    return res.status(500).json({ error: 'Failed to process analytics event.' });
+  }
+});
+
+// Read aggregate privacy metrics & stats (safe for public disclosure, zero PII)
+app.get('/api/analytics/stats', (_req, res) => {
+  checkAndRotateDailySalt();
+  const uptimeHours = Number(((Date.now() - serverStartTime) / (1000 * 60 * 60)).toFixed(1));
+
+  const topPages = Object.entries(pageviewCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([p, count]) => ({ path: p, count }));
+
+  const topReferrers = Object.entries(referrerCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([r, count]) => ({ referrer: r, count }));
+
+  res.json({
+    totalPageviews: totalPageviewCounter,
+    uniqueDailyVisitors: dailyVisitorHashes.size,
+    topPages,
+    topReferrers,
+    deviceBreakdown: deviceTypeCounts,
+    marketBreakdown: marketCounts,
+    dntRespects: dntRespectsCounter,
+    uptimeHours,
+    privacyStandards: [
+      'GDPR Compliant (Regulation EU 2016/679)',
+      'ePrivacy Directive Compliant (100% Cookie-Free)',
+      'Zero PII Stored or Transmitted',
+      'Daily Rotating Cryptographic Salt',
+      'Honors Do Not Track (DNT) & Global Privacy Control (GPC)',
+      'No Cross-Site Profiling'
+    ],
+  });
+});
+
+// Contact form inquiry endpoint (mirrors contact_leads in database/schema.sql)
+app.post('/api/contact', (req, res) => {
+  try {
+    const { name, email, phone, business_name, timeline, message, market = 'ca', website_url } = req.body;
+
+    // Honeypot check: bot triggered website_url
+    if (website_url && String(website_url).trim().length > 0) {
+      logAudit('/api/contact', 'honeypot_triggered', 'security', { ip: req.ip }, req);
+      return res.status(200).json({ success: true, message: 'Inquiry received' });
+    }
+
+    if (!name || typeof name !== 'string' || name.trim().length === 0) {
+      return res.status(400).json({ error: 'Full name is required.' });
+    }
+    if (!email || typeof email !== 'string' || !email.includes('@')) {
+      return res.status(400).json({ error: 'A valid email address is required.' });
+    }
+
+    const leadUuid = randomUUID();
+    const leadRecord = {
+      lead_uuid: leadUuid,
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone ? String(phone).trim() : null,
+      business_name: business_name ? String(business_name).trim() : null,
+      market: market === 'mw' ? 'mw' : 'ca',
+      timeline: timeline ? String(timeline).trim() : null,
+      message: message ? String(message).trim() : null,
+      created_at: new Date().toISOString()
+    };
+
+    runtimeLeads.push(leadRecord);
+    logAudit('/api/contact', 'lead_created', 'info', { lead_uuid: leadUuid, market, email: email.slice(0, 3) + '***' }, req);
+
+    return res.status(200).json({
+      success: true,
+      lead_uuid: leadUuid,
+      message: 'Consultation inquiry received and queued for review.'
+    });
+  } catch (err: any) {
+    console.error('Error in /api/contact:', err);
+    logAudit('/api/contact', 'submission_error', 'error', { error: err.message }, req);
+    return res.status(500).json({ error: 'Failed to process inquiry. Please email hello@uniqueamaze.com directly.' });
+  }
+});
+
+// AI Planner Brief submission endpoint (mirrors planner_submissions in database/schema.sql)
+app.post('/api/planner', (req, res) => {
+  try {
+    const { client_name, client_email, client_phone, business_name, market = 'ca', recommendation_tier, recommendation_price, recommendation_timeline, recommendation_confidence, generated_brief_text, answers } = req.body;
+
+    if (!client_name || typeof client_name !== 'string' || client_name.trim().length === 0) {
+      return res.status(400).json({ error: 'Client name is required.' });
+    }
+    if (!client_email || typeof client_email !== 'string' || !client_email.includes('@')) {
+      return res.status(400).json({ error: 'A valid email address is required.' });
+    }
+
+    const submissionUuid = randomUUID();
+    const plannerRecord = {
+      submission_uuid: submissionUuid,
+      client_name: client_name.trim(),
+      client_email: client_email.trim(),
+      client_phone: client_phone ? String(client_phone).trim() : null,
+      business_name: business_name ? String(business_name).trim() : null,
+      market: market === 'mw' ? 'mw' : 'ca',
+      recommendation_tier: recommendation_tier || 'Business Website',
+      recommendation_price: recommendation_price || 'CAD $2,500 – $4,500',
+      recommendation_timeline: recommendation_timeline || '2–3 weeks',
+      recommendation_confidence: recommendation_confidence || 95,
+      answers: answers || {},
+      created_at: new Date().toISOString()
+    };
+
+    runtimePlannerSubmissions.push(plannerRecord);
+    logAudit('/api/planner', 'brief_generated', 'info', { submission_uuid: submissionUuid, tier: recommendation_tier }, req);
+
+    return res.status(200).json({
+      success: true,
+      submission_uuid: submissionUuid,
+      message: 'Project brief securely logged and dispatched.'
+    });
+  } catch (err: any) {
+    console.error('Error in /api/planner:', err);
+    logAudit('/api/planner', 'planner_error', 'error', { error: err.message }, req);
+    return res.status(500).json({ error: 'Failed to store project brief.' });
   }
 });
 

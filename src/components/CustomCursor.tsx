@@ -85,29 +85,29 @@ export const CustomCursor: React.FC = () => {
       ring.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 flex items-center justify-center rounded-full transition-all duration-300 will-change-transform';
 
       if (mode === 'view') {
-        ring.classList.add('h-22', 'w-22', 'border-2', 'border-[#008280]', 'bg-[#008280]/20', 'backdrop-blur-sm', 'shadow-[0_0_30px_rgba(0,130,128,0.4)]');
-        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-[#16D2C8]';
+        ring.classList.add('h-22', 'w-22', 'border-2', 'border-white/40', 'bg-white/10', 'backdrop-blur-sm', 'shadow-[0_0_20px_rgba(255,255,255,0.15)]');
+        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-white';
       } else if (mode === 'enter') {
-        ring.classList.add('h-24', 'w-24', 'border-2', 'border-[#16D2C8]', 'bg-[#008280]/25', 'backdrop-blur-md', 'shadow-[0_0_35px_rgba(22,210,200,0.5)]');
-        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-2 w-2 bg-[#16D2C8] shadow-[0_0_12px_#16D2C8]';
+        ring.classList.add('h-24', 'w-24', 'border-2', 'border-white/60', 'bg-white/15', 'backdrop-blur-md', 'shadow-[0_0_25px_rgba(255,255,255,0.2)]');
+        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-2 w-2 bg-white shadow-[0_0_10px_white]';
       } else if (mode === 'open') {
-        ring.classList.add('h-20', 'w-20', 'border-2', 'border-[#008280]', 'bg-[#050607]/80', 'backdrop-blur-md', 'shadow-[0_0_25px_rgba(0,130,128,0.4)]');
-        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-[#008280]';
+        ring.classList.add('h-20', 'w-20', 'border-2', 'border-white/40', 'bg-[#050607]/80', 'backdrop-blur-md', 'shadow-[0_0_20px_rgba(255,255,255,0.15)]');
+        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-zinc-200';
       } else if (mode === 'close') {
         ring.classList.add('h-18', 'w-18', 'border', 'border-red-500/50', 'bg-red-500/10', 'backdrop-blur-sm');
         dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-red-400';
       } else if (mode === 'explore') {
-        ring.classList.add('h-24', 'w-24', 'border-2', 'border-[#16D2C8]/90', 'bg-[#050607]/80', 'backdrop-blur-md', 'shadow-[0_0_35px_rgba(22,210,200,0.5)]');
-        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-2 w-2 bg-[#16D2C8] animate-ping';
+        ring.classList.add('h-24', 'w-24', 'border-2', 'border-white/50', 'bg-[#050607]/80', 'backdrop-blur-md', 'shadow-[0_0_20px_rgba(255,255,255,0.15)]');
+        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-2 w-2 bg-white animate-ping';
       } else if (mode === 'drag') {
-        ring.classList.add('h-20', 'w-20', 'border', 'border-[#367588]', 'bg-[#367588]/20', 'backdrop-blur-sm');
-        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-[#367588]';
+        ring.classList.add('h-20', 'w-20', 'border', 'border-slate-400', 'bg-slate-500/20', 'backdrop-blur-sm');
+        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-slate-300';
       } else if (mode === 'pointer') {
-        ring.classList.add('h-11', 'w-11', 'border', 'border-[#008280]', 'bg-[#008280]/15');
-        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-2 w-2 bg-[#008280] shadow-[0_0_12px_#008280]';
+        ring.classList.add('h-11', 'w-11', 'border', 'border-white/40', 'bg-white/10');
+        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-2 w-2 bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]';
       } else {
-        ring.classList.add('h-8', 'w-8', 'border', 'border-[#008280]/35', 'bg-transparent');
-        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-[#008280]';
+        ring.classList.add('h-8', 'w-8', 'border', 'border-white/25', 'bg-transparent');
+        dot.className = 'fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-white/80';
       }
     };
 
@@ -150,20 +150,22 @@ export const CustomCursor: React.FC = () => {
     <>
       {/* Precision Center Dot */}
       <div
+        id="custom-cursor-dot"
         ref={dotRef}
-        className="fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-[#008280] transition-opacity duration-150 will-change-transform"
+        className="fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 rounded-full h-1.5 w-1.5 bg-white transition-opacity duration-150 will-change-transform"
         style={{ opacity: 0 }}
       />
 
       {/* Trailing Optical Ring with Micro-label */}
       <div
+        id="custom-cursor-ring"
         ref={ringRef}
-        className="fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 flex items-center justify-center rounded-full border border-[#008280]/35 h-8 w-8 transition-opacity duration-150 will-change-transform"
+        className="fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 flex items-center justify-center rounded-full border border-white/30 h-8 w-8 transition-opacity duration-150 will-change-transform"
         style={{ opacity: 0 }}
       >
         <span
           ref={labelRef}
-          className="font-mono text-[9px] font-black tracking-widest text-[#16D2C8] uppercase select-none"
+          className="font-mono text-[9px] font-bold tracking-widest text-white uppercase select-none"
         />
       </div>
     </>

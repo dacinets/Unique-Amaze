@@ -143,7 +143,7 @@ export const ProgressiveImage: React.FC<ProgressiveImageProps> = ({
         }`}
       >
         {/* Generative ambient brand gradient behind image */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#008280]/15 via-[#0A0E14] to-[#16D2C8]/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] via-[#0A0E14] to-slate-800/25" />
 
         {/* Low-Res Blurred Thumbnail (if available) */}
         {derivedPlaceholder && (
@@ -161,7 +161,7 @@ export const ProgressiveImage: React.FC<ProgressiveImageProps> = ({
         {/* Studio Technical Micro-Wireframe Loading Indicator */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#06080B]/80 backdrop-blur-md border border-white/10 font-mono text-[10px] text-[#94A3B8]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#16D2C8] animate-pulse" />
+            <span className="h-1.5 w-1.5 rounded-full bg-zinc-300 animate-pulse" />
             <span className="tracking-wider uppercase">SYNCHRONIZING ASSET</span>
           </div>
         </div>

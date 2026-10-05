@@ -15,7 +15,7 @@ interface BrandDividerProps {
 }
 
 export const BrandDivider: React.FC<BrandDividerProps> = ({
-  variant = 'teal',
+  variant = 'slate',
   width = 'container',
   spacing = 'md',
   label,
@@ -45,32 +45,31 @@ export const BrandDivider: React.FC<BrandDividerProps> = ({
   const getGradientLine = () => {
     switch (variant) {
       case 'cyan':
-        return 'from-transparent via-[#16D2C8]/40 to-transparent';
-      case 'slate':
-        return 'from-transparent via-white/10 to-transparent';
+        return 'from-transparent via-slate-400/30 to-transparent';
       case 'gradient':
-        return 'from-transparent via-[#008280]/40 via-[#16D2C8]/50 via-[#367588]/40 to-transparent';
+        return 'from-transparent via-white/15 via-slate-400/25 via-white/15 to-transparent';
       case 'minimal':
         return 'from-transparent via-white/[0.07] to-transparent';
       case 'teal':
+        return 'from-transparent via-slate-400/25 to-transparent';
+      case 'slate':
       default:
-        return 'from-transparent via-[#008280]/45 to-transparent';
+        return 'from-transparent via-white/10 to-transparent';
     }
   };
 
   const getPipColor = () => {
     switch (variant) {
       case 'cyan':
-        return 'bg-[#16D2C8] shadow-[0_0_8px_#16D2C8]';
-      case 'slate':
-        return 'bg-[#94A3B8] shadow-[0_0_6px_rgba(148,163,184,0.5)]';
+        return 'bg-slate-300 shadow-[0_0_6px_rgba(255,255,255,0.4)]';
       case 'gradient':
-        return 'bg-[#16D2C8] shadow-[0_0_10px_#16D2C8]';
+        return 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)]';
       case 'minimal':
         return 'bg-white/30';
       case 'teal':
+      case 'slate':
       default:
-        return 'bg-[#008280] shadow-[0_0_8px_#008280]';
+        return 'bg-[#94A3B8] shadow-[0_0_6px_rgba(148,163,184,0.4)]';
     }
   };
 
@@ -92,11 +91,11 @@ export const BrandDivider: React.FC<BrandDividerProps> = ({
           {label ? (
             <div className="brand-divider-badge absolute flex items-center gap-2 px-3 py-0.5 rounded-full border border-white/10 bg-[#06080B]/90 backdrop-blur-md font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-[#94A3B8] shadow-sm">
               <span className={`h-1.5 w-1.5 rounded-full ${getPipColor()} animate-pulse`} />
-              <span className="font-semibold text-[#CBD5E1]">{label}</span>
+              <span className="font-semibold text-zinc-300">{label}</span>
               {sublabel && (
                 <>
-                  <span className="text-white/20">//</span>
-                  <span className="text-[#16D2C8]">{sublabel}</span>
+                  <span className="text-white/20">·</span>
+                  <span className="text-zinc-400">{sublabel}</span>
                 </>
               )}
             </div>

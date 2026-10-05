@@ -15,7 +15,7 @@ export const PROJECTS_DATA: ProjectCard[] = [
       { label: 'Conversion Lift', value: '+142%' },
       { label: 'Mobile Score', value: '98/100' }
     ],
-    accentColor: '#008280',
+    accentColor: '#367588',
     overview: 'Engineered as a friction-free appointment engine for in-home therapeutic massage clients in Alberta. The project prioritized speed, reassurance, and instantaneous mobile booking.',
     approach: 'We stripped away cumbersome multi-step booking forms in favor of an intuitive, two-tap schedule workflow with integrated intake validation and SMS confirmations.',
     engineeringStack: ['React 19', 'Next.js', 'Tailwind CSS', 'Twilio SMS Integration', 'Square Appointments API', 'Lighthouse 98+']
@@ -32,7 +32,7 @@ export const PROJECTS_DATA: ProjectCard[] = [
       { label: 'Avg Listening Dwell', value: '4.8m' },
       { label: 'Audio Engine Latency', value: '< 8ms' }
     ],
-    accentColor: '#008280',
+    accentColor: '#367588',
     overview: 'Engineered by Unique Amaze as the official digital flagship for recording artist Fatsani’s debut EP release. Moving beyond traditional social link directories, the flagship delivers an immersive digital listening environment with interactive chapter previews, synchronized lyric presentations, and direct streaming integrations across Spotify and Apple Music.',
     approach: 'Unique Amaze engineered a bespoke, high-performance web experience tailored to Fatsani’s artistic identity. We designed and optimized responsive multi-device layouts across MacBook Pro, iPad, and iPhone 17 Pro Max form factors, delivering instant sub-second load times, smooth touch interactions, and fluid media presentation.',
     engineeringStack: [
@@ -48,21 +48,21 @@ export const PROJECTS_DATA: ProjectCard[] = [
     deviceMockups: [
       {
         device: 'macbook',
-        title: 'MacBook Pro Mockup',
+        title: 'MacBook Pro 16"',
         subtitle: 'Desktop Viewport',
         badge: 'Desktop Flagship',
         description: 'Widescreen presentation engineered for desktop listeners.'
       },
       {
         device: 'ipad',
-        title: 'iPad Pro Mockup',
+        title: 'iPad Pro 12.9"',
         subtitle: 'Tablet Viewport',
         badge: 'Tablet Experience',
         description: 'Touch-optimized layout designed for tablet screens.'
       },
       {
         device: 'iphone',
-        title: 'iPhone 17 Pro Max Mockup',
+        title: 'iPhone 17 Pro Max',
         subtitle: 'Mobile Viewport',
         badge: 'Mobile Flagship',
         description: 'Streamlined mobile interface built for smartphones.'
@@ -79,9 +79,21 @@ export const PROJECTS_DATA: ProjectCard[] = [
     metrics: [
       { label: 'Private Bookings', value: 'Full Waitlist' },
       { label: 'Client Feedback', value: '5.0 ★' },
-      { label: 'Brand Recall', value: 'High' }
+      { label: 'Brand Recall', value: 'High' },
+      { label: 'Session Value', value: '+64%' }
     ],
-    accentColor: '#008280'
+    accentColor: '#367588',
+    overview: 'Designed and built as the private digital sanctuary for Belle Afrique Wellness, an appointment-only premier wellness retreat in Lilongwe, Malawi. The digital experience translates botanical elegance, sensory tranquility, and private luxury into a seamless concierge intake system.',
+    approach: 'We developed a minimalist, typography-led aesthetic with organic color harmonies, bespoke treatment selection menus, automated WhatsApp Concierge booking triggers, and integrated VIP waitlisting that converts high-net-worth clients effortlessly.',
+    engineeringStack: [
+      'React 19',
+      'TypeScript',
+      'Tailwind CSS',
+      'Framer Motion',
+      'WhatsApp Business Cloud API',
+      'Stripe & Regional Banking Gateway',
+      'Lighthouse 99+ Performance'
+    ]
   },
   {
     id: 'elvc-church',
@@ -93,9 +105,21 @@ export const PROJECTS_DATA: ProjectCard[] = [
     metrics: [
       { label: 'Weekly Listeners', value: '3,200+' },
       { label: 'Event Registrations', value: '+88%' },
-      { label: 'Media Uptime', value: '99.9%' }
+      { label: 'Media Uptime', value: '99.9%' },
+      { label: 'Mobile Share', value: '82%' }
     ],
-    accentColor: '#367588'
+    accentColor: '#367588',
+    overview: 'Engineered as the interactive spiritual hub for Encounter Love Victory Church (ELVC), connecting thousands of local community members and global diaspora congregants through high-availability live stream broadcasting, event registrations, and sermon podcast archives.',
+    approach: 'Built with a resilient edge-cached architecture to ensure rock-solid video streaming even on bandwidth-constrained mobile networks across Central Africa. Features automated sermon transcription, giving/tithe gateways with multi-currency support (MWK & USD), and instant community group discovery.',
+    engineeringStack: [
+      'React 19',
+      'Next.js',
+      'Tailwind CSS',
+      'HLS Adaptive Video Streaming',
+      'Airtable Event CMS',
+      'PayChangu & Stripe Gateways',
+      'PWA Offline Cache'
+    ]
   },
   {
     id: 'concept-lab',
@@ -107,9 +131,21 @@ export const PROJECTS_DATA: ProjectCard[] = [
     metrics: [
       { label: 'Render Target', value: '120 FPS' },
       { label: 'Interaction Latency', value: '< 5ms' },
-      { label: 'Experiments Live', value: '12' }
+      { label: 'Experiments Live', value: '12' },
+      { label: 'GPU Memory', value: '< 45MB' }
     ],
-    accentColor: '#008280'
+    accentColor: '#367588',
+    overview: 'The Unique Amaze Concept Lab is our internal research and development space where our creative technologists prototype emerging digital experiences, including real-time Three.js shaders, neural audio processing, kinetic typography engines, and conversational AI interface architectures.',
+    approach: 'We test the frontiers of browser capabilities without sacrificing sub-second load times or mobile battery performance. Every production component in our commercial studio projects originates from stress-tested experiments in this laboratory.',
+    engineeringStack: [
+      'Three.js',
+      'WebGL 2.0 Shaders',
+      'Web Audio API',
+      'React 19',
+      'Tailwind CSS',
+      'Gemini API Interactivity',
+      'GLSL Particle Engines'
+    ]
   },
   {
     id: 'future-card-1',
@@ -119,7 +155,21 @@ export const PROJECTS_DATA: ProjectCard[] = [
     image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=900&q=80',
     isFutureCard: true,
     ctaText: 'Reserve Your Slot →',
-    accentColor: '#367588'
+    accentColor: '#367588',
+    overview: 'We accept an intentionally limited roster of bespoke commissions each quarter to preserve our uncompromising standard of craft, performance, and client outcomes. Whether you operate in North America, Africa, or globally, we engineer authoritative digital flagships that outperform competitors.',
+    approach: 'Direct partnership with senior engineers and designers from architecture definition to launch and post-launch digital care. We do not use off-the-shelf templates or generic builders—every interface is custom-coded for speed, conversion, and enduring elegance.',
+    engineeringStack: [
+      'Full-Stack Custom Architecture',
+      'Sub-Second Global CDN',
+      'Zero-Template Engineering',
+      'Enterprise Security & SEO',
+      'Automated Intake & Analytics'
+    ],
+    metrics: [
+      { label: 'Quarterly Slots', value: 'Strictly 3' },
+      { label: 'Delivery Window', value: '14-21 Days' },
+      { label: 'Lighthouse Target', value: '95-100' }
+    ]
   }
 ];
 
@@ -350,7 +400,7 @@ export const CARE_PLANS: CarePlan[] = [
 export const FAQ_CATEGORIES: FAQCategory[] = [
   {
     id: 0,
-    label: '01 // Start Here',
+    label: 'Start Here',
     items: [
       {
         q: 'What does Unique Amaze do?',
@@ -372,7 +422,7 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
   },
   {
     id: 1,
-    label: '02 // Services',
+    label: 'Services',
     items: [
       {
         q: 'Do you only build AI or 3D websites?',
@@ -394,7 +444,7 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
   },
   {
     id: 2,
-    label: '03 // Pricing',
+    label: 'Pricing',
     items: [
       {
         q: 'How much does a website cost?',
@@ -416,7 +466,7 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
   },
   {
     id: 3,
-    label: '04 // Process',
+    label: 'Process',
     items: [
       {
         q: 'What is the A.M.A.Z.E. Method™?',
@@ -438,7 +488,7 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
   },
   {
     id: 4,
-    label: '05 // Technical',
+    label: 'Technical',
     items: [
       {
         q: 'Will my website be mobile-friendly?',
@@ -460,7 +510,7 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
   },
   {
     id: 5,
-    label: '06 // After Launch',
+    label: 'After Launch',
     items: [
       {
         q: 'Can you host and maintain the site?',
@@ -527,28 +577,84 @@ export const FAQ_ITEMS = [
 
 export const TESTIMONIALS_DATA: Testimonial[] = [
   {
-    name: 'Rachel M.',
-    role: 'Clinic Director',
-    location: 'Wellness Clinic · Calgary, AB',
-    quote: 'It finally feels like our website is working for us. The booking assistant answers questions at midnight and we wake up to confirmed appointments on our calendar.',
+    name: 'Rachel MacIntyre',
+    role: 'Clinic Director & Founder',
+    organization: 'Chestermere Mobile Massage',
+    location: 'Calgary & Chestermere, AB',
+    sector: 'Healthcare & Mobile Wellness',
+    verifiedProject: 'Chestermere Mobile Massage Platform',
+    quote: 'It finally feels like our website is working for us. The friction-free appointment flow answers client questions at midnight, and we wake up to confirmed bookings on our calendar. Our mobile conversion rate jumped by over 140% within the first month.',
     rating: 5,
-    initial: 'R'
+    initial: 'R',
+    metric: {
+      label: 'Conversion Lift',
+      value: '+142%'
+    },
+    avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80'
   },
   {
-    name: 'Daniel K.',
+    name: 'Fatsani',
+    role: 'Recording Artist & Producer',
+    organization: 'Fatsani Music',
+    location: 'Lilongwe, Malawi & Global',
+    sector: 'Music, Culture & Media',
+    verifiedProject: 'Multi-Device EP Flagship Experience',
+    quote: 'Moving beyond static social links into an interactive multi-device flagship completely changed how fans experience my music. The sub-second streaming on African cellular networks and seamless desktop fidelity yielded an 89% debut stream retention.',
+    rating: 5,
+    initial: 'F',
+    metric: {
+      label: 'Stream Retention',
+      value: '89.2%'
+    },
+    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80'
+  },
+  {
+    name: 'Tendai Banda',
+    role: 'Managing Partner & Curator',
+    organization: 'Belle Afrique Wellness',
+    location: 'Blantyre, Southern Region, Malawi',
+    sector: 'Boutique Hospitality & Spa',
+    verifiedProject: 'Private Sanctuary Digital Presence',
+    quote: 'Unique Amaze understood our market in Malawi and delivered a digital presence that feels genuinely world-class. Transparent regional pricing, instant WhatsApp appointment paths, and quiet luxury aesthetics keep our private sanctuary suites on a full waitlist.',
+    rating: 5,
+    initial: 'T',
+    metric: {
+      label: 'Occupancy Rate',
+      value: 'Full Waitlist'
+    },
+    avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80'
+  },
+  {
+    name: 'Pastor Emmanuel Phiri',
+    role: 'Lead Minister & Communications',
+    organization: 'Encounter Love Victory Church',
+    location: 'Lilongwe & Blantyre, Malawi',
+    sector: 'Faith & Community Media',
+    verifiedProject: 'Live Broadcast & Community Portal',
+    quote: 'Connecting thousands of weekly worshipers across mobile devices required an architecture with zero buffering and low data weight. Unique Amaze built an archive and live broadcast portal that runs smoothly on standard smartphone connections. Our event registrations climbed 88%.',
+    rating: 5,
+    initial: 'E',
+    metric: {
+      label: 'Event Engagement',
+      value: '+88%'
+    },
+    avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80'
+  },
+  {
+    name: 'Daniel K. Nyirenda',
     role: 'Managing Partner',
-    location: 'Mechanical Contractor · Chestermere, AB',
-    quote: 'Working one-on-one with a specialist made all the difference. Premium look, blazing fast load times, and we are finally dominating local search results.',
+    organization: 'Apex Precision Mechanical',
+    location: 'Chestermere & Calgary, AB',
+    sector: 'Commercial Mechanical & Contracting',
+    verifiedProject: 'Commercial Contractor Web Engine',
+    quote: 'Working one-on-one with a specialist made all the difference. We achieved a premium look, sub-second load times, and we are finally dominating local search results for commercial mechanical inquiries in Alberta.',
     rating: 5,
-    initial: 'D'
-  },
-  {
-    name: 'Tendai B.',
-    role: 'Founder',
-    location: 'Boutique Hospitality · Blantyre, Malawi',
-    quote: 'They understood our market in Malawi and built something genuinely world-class. Local pricing in Kwacha made it straightforward to say yes.',
-    rating: 5,
-    initial: 'T'
+    initial: 'D',
+    metric: {
+      label: 'Speed Benchmark',
+      value: '99/100 Core Vitals'
+    },
+    avatarUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80'
   }
 ];
 

@@ -67,11 +67,11 @@ export const NavDigitalTools: React.FC<NavDigitalToolsProps> = ({
 
   return (
     <div className="w-full">
-      {/* Editorial Header Strip */}
+      {/* Header Strip */}
       <div className="flex items-center gap-3 mb-3">
-        <div className="font-mono text-[10px] tracking-[0.25em] text-[#008280] uppercase font-bold flex items-center gap-2">
-          <Terminal className="h-3 w-3 text-[#16D2C8]" />
-          <span>DIGITAL TOOLS // INTERACTIVE AI SYSTEMS</span>
+        <div className="font-mono text-[10px] tracking-[0.25em] text-zinc-400 uppercase font-semibold flex items-center gap-2">
+          <Terminal className="h-3 w-3 text-zinc-400" />
+          <span>STUDIO UTILITIES &amp; DISCOVERY</span>
         </div>
         <div className="h-px flex-1 bg-white/[0.08]" />
       </div>
@@ -85,21 +85,21 @@ export const NavDigitalTools: React.FC<NavDigitalToolsProps> = ({
               key={tool.id}
               onClick={tool.action}
               data-cursor="explore"
-              className="group relative flex flex-col justify-between rounded-xl border border-white/10 bg-[#090D12]/80 p-3 text-left transition-all duration-300 hover:border-[#008280]/60 hover:bg-[#008280]/10 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none"
+              className="group relative flex flex-col justify-between rounded-xl border border-white/10 bg-[#090D12]/80 p-3 text-left transition-all duration-300 hover:border-white/30 hover:bg-white/5 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none"
             >
               <div className="flex items-center justify-between w-full">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/5 border border-white/10 text-[#008280] group-hover:bg-[#008280]/20 group-hover:text-[#5EEAD4] transition-colors">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/5 border border-white/10 text-zinc-300 group-hover:bg-white/10 group-hover:text-white transition-colors">
                   <Icon className="h-3.5 w-3.5" />
                 </span>
-                <span className="font-mono text-[9px] text-[#64748B] group-hover:text-[#5EEAD4] tracking-widest uppercase transition-colors">
+                <span className="font-mono text-[9px] text-zinc-500 group-hover:text-zinc-300 tracking-widest uppercase transition-colors">
                   {tool.tag}
                 </span>
               </div>
 
               <div className="mt-2.5">
-                <div className="flex items-center gap-1 font-mono text-xs font-bold text-white group-hover:text-[#5EEAD4] transition-colors">
+                <div className="flex items-center gap-1 font-mono text-xs font-bold text-white group-hover:text-zinc-200 transition-colors">
                   <span>{tool.title}</span>
-                  <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-all -translate-x-1 group-hover:translate-x-0" />
+                  <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-all -translate-x-1 group-hover:translate-x-0 text-white" />
                 </div>
                 <div className="mt-0.5 font-sans text-[11px] text-[#94A3B8] leading-tight line-clamp-1">
                   {tool.desc}

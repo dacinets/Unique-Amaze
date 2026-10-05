@@ -1,27 +1,15 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { ProjectCard, PageRoute, MarketType } from '../../types';
 import { studioAudio } from '../../utils/audio';
-import { ScrollFlyIn } from '../common/ScrollFlyIn';
-import { RevealText } from '../common/RevealText';
-import { GsapStaggerReveal } from '../common/GsapStaggerReveal';
 import {
-  Sparkles,
   ArrowUpRight,
-  Sliders,
-  Layers,
-  CheckCircle2,
-  Maximize2,
-  Eye,
-  Zap,
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Pause,
   TrendingUp,
-  Compass,
-  LayoutGrid,
-  Orbit,
+  ExternalLink,
 } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface ProjectOrbitGalleryProps {
   projects: ProjectCard[];
@@ -36,855 +24,570 @@ export const ProjectOrbitGallery: React.FC<ProjectOrbitGalleryProps> = ({
   onSelectProject,
   onNavigate,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [viewMode, setViewMode] = useState<'orbit' | 'editorial'>('orbit');
-  const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState<string>('all');
+  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
-  // Responsive breakpoint detection
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const scrollXRef = useRef<number>(0);
+  const isDraggingRef = useRef<boolean>(false);
+  const hasDraggedRef = useRef<boolean>(false);
+  const isUserInteractingRef = useRef<boolean>(false);
+  const startXRef = useRef<number>(0);
+  const startScrollLeftRef = useRef<number>(0);
 
-  const categories = useMemo(() => {
-    return ['all', ...Array.from(new Set(projects.map((p) => p.category)))];
-  }, [projects]);
+  // Filter definitions based on real business sectors
+  const filters = [
+    { key: 'all', label: 'All Work' },
+    { key: 'wellness', label: 'Wellness & Health' },
+    { key: 'music', label: 'Music & Media' },
+    { key: 'community', label: 'Community & Faith' },
+    { key: 'lab', label: 'AI & Lab' },
+  ];
 
   const filteredProjects = useMemo(() => {
-    if (selectedCategory === 'all') return projects;
-    return projects.filter((p) => p.category === selectedCategory);
-  }, [projects, selectedCategory]);
+    if (selectedFilter === 'all') return projects;
+    return projects.filter((p) => {
+      const cat = p.category.toLowerCase();
+      const title = p.title.toLowerCase();
+      if (selectedFilter === 'wellness') return cat.includes('wellness') || cat.includes('massage') || title.includes('massage');
+      if (selectedFilter === 'music') return cat.includes('music') || title.includes('fatsani');
+      if (selectedFilter === 'community') return cat.includes('church') || cat.includes('community');
+      if (selectedFilter === 'lab') return cat.includes('ai') || cat.includes('lab') || p.id.includes('lab');
+      return true;
+    });
+  }, [projects, selectedFilter]);
 
-  // GSAP ScrollTrigger synchronization for the pinned orbit stage
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container || isMobile) return;
+  // Duplicate items array 4 times to ensure uninterrupted infinite width across wide displays
+  const displayItems = useMemo(() => {
+    if (filteredProjects.length === 0) return [];
+    return [
+      ...filteredProjects,
+      ...filteredProjects,
+      ...filteredProjects,
+      ...filteredProjects,
+    ];
+  }, [filteredProjects]);
 
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: container,
-        start: 'top top',
-        end: '+=80%',
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-        scrub: 0.5,
-        onUpdate: (self) => {
-          setScrollProgress(self.progress);
-        },
-      });
-    }, container);
-
-    return () => ctx.revert();
-  }, [isMobile]);
-
-  // Determine current active focused card based on orbit progress
-  useEffect(() => {
-    if (filteredProjects.length === 0) return;
-    // Phase 2 to 3 maps 0.15 -> 0.85 across projects
-    const orbitProgress = Math.max(0, Math.min(1, (scrollProgress - 0.15) / 0.7));
-    const rawIndex = Math.round(orbitProgress * (filteredProjects.length - 1));
-    const clampedIndex = Math.max(0, Math.min(filteredProjects.length - 1, rawIndex));
-    if (clampedIndex !== activeProjectIndex) {
-      setActiveProjectIndex(clampedIndex);
+  // Measure the exact horizontal distance between Set 0 and Set 1 for mathematically seamless wrapping
+  const calculateOneSetWidth = useCallback((): number => {
+    const el = scrollContainerRef.current;
+    if (!el || filteredProjects.length === 0) return 0;
+    const cards = el.querySelectorAll<HTMLElement>('.gallery-card-item');
+    if (cards.length > filteredProjects.length) {
+      const card0 = cards[0];
+      const cardN = cards[filteredProjects.length];
+      if (card0 && cardN) {
+        const measured = cardN.offsetLeft - card0.offsetLeft;
+        if (measured > 100) return measured;
+      }
     }
-  }, [scrollProgress, filteredProjects.length, activeProjectIndex]);
+    // Fallback based on card width and gap if DOM not yet rendered
+    const card = el.querySelector<HTMLElement>('.gallery-card-item');
+    const singleCardWidth = card ? card.offsetWidth + 32 : 440;
+    return singleCardWidth * filteredProjects.length;
+  }, [filteredProjects.length]);
 
-  // Phase Calculations for the 4-stage choreography:
-  // Phase 1 (0.00 - 0.20): Emergence from depth
-  // Phase 2 (0.20 - 0.75): Orbital Rotation through Focus Zone
-  // Phase 3 (0.75 - 0.85): Dolly in and metadata intensification
-  // Phase 4 (0.85 - 1.00): Spatial Unfolding: 3D Orbit -> 2D Editorial Portfolio Grid
-  const emergenceT = Math.min(1, scrollProgress / 0.2);
-  const orbitT = Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.55));
-  const morphT = Math.max(0, Math.min(1, (scrollProgress - 0.78) / 0.22));
+  // Direct DOM update for scrubber bar to avoid React state re-rendering at 60fps
+  const updateProgressBar = useCallback((oneSetWidth: number) => {
+    if (progressBarRef.current && oneSetWidth > 0) {
+      const mod = ((scrollXRef.current % oneSetWidth) + oneSetWidth) % oneSetWidth;
+      const pct = Math.min(100, Math.max(6, (mod / oneSetWidth) * 100));
+      progressBarRef.current.style.width = `${pct}%`;
+    }
+  }, []);
 
-  // Orbital geometry settings
-  const totalProjects = filteredProjects.length;
-  const angularSpread = totalProjects > 1 ? (Math.PI * 0.95) / (totalProjects - 1) : 0;
-  const currentRotationAngle = orbitT * (totalProjects - 1) * angularSpread;
+  // Initialize scroll position into Set 1 so user can navigate both left and right immediately
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
 
-  // Configuration for animated turquoise sparkles orbiting the gallery
-  const outerOrbitSparkles = [
-    { id: 'sp-out-0', begin: '0s', size: 'hero' as const, tail: true },
-    { id: 'sp-out-1', begin: '-2.75s', size: 'medium' as const, tail: true },
-    { id: 'sp-out-2', begin: '-5.5s', size: 'hero' as const, tail: true },
-    { id: 'sp-out-3', begin: '-8.25s', size: 'micro' as const, tail: false },
-    { id: 'sp-out-4', begin: '-11.0s', size: 'hero' as const, tail: true },
-    { id: 'sp-out-5', begin: '-13.75s', size: 'medium' as const, tail: true },
-    { id: 'sp-out-6', begin: '-16.5s', size: 'hero' as const, tail: true },
-    { id: 'sp-out-7', begin: '-19.25s', size: 'micro' as const, tail: false },
-  ];
+    const timer = setTimeout(() => {
+      const oneSet = calculateOneSetWidth();
+      if (oneSet > 0) {
+        scrollXRef.current = oneSet;
+        el.scrollLeft = oneSet;
+        updateProgressBar(oneSet);
+      }
+    }, 60);
 
-  const innerOrbitSparkles = [
-    { id: 'sp-in-0', begin: '0s', size: 'medium' as const, tail: true },
-    { id: 'sp-in-1', begin: '-2.66s', size: 'micro' as const, tail: false },
-    { id: 'sp-in-2', begin: '-5.33s', size: 'hero' as const, tail: true },
-    { id: 'sp-in-3', begin: '-8.0s', size: 'micro' as const, tail: false },
-    { id: 'sp-in-4', begin: '-10.66s', size: 'medium' as const, tail: true },
-    { id: 'sp-in-5', begin: '-13.33s', size: 'hero' as const, tail: true },
-  ];
+    return () => clearTimeout(timer);
+  }, [selectedFilter, filteredProjects.length, calculateOneSetWidth, updateProgressBar]);
+
+  // Check prefers-reduced-motion to respect user system accessibility preferences
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setIsAutoPlaying(false);
+    }
+  }, []);
+
+  // Continuous autonomous horizontal motion across the section
+  useEffect(() => {
+    let animId: number;
+    let lastTimestamp = performance.now();
+
+    const loop = (timestamp: number) => {
+      const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.1);
+      lastTimestamp = timestamp;
+
+      const el = scrollContainerRef.current;
+      if (el && isAutoPlaying && !isDraggingRef.current && !isUserInteractingRef.current) {
+        // Base gliding speed in pixels per second:
+        // When hovered over card/dock, decelerate to a gentle drift (12px/s) so user can comfortably inspect/click
+        const speedPxPerSec = isHovered ? 12 : 55;
+        const delta = speedPxPerSec * dt;
+
+        scrollXRef.current += delta;
+
+        const oneSet = calculateOneSetWidth();
+        if (oneSet > 0) {
+          // Wrap forward seamlessly
+          if (scrollXRef.current >= oneSet * 2.5) {
+            scrollXRef.current -= oneSet;
+          } else if (scrollXRef.current <= 40) {
+            scrollXRef.current += oneSet;
+          }
+        }
+
+        el.scrollLeft = scrollXRef.current;
+        updateProgressBar(oneSet);
+      }
+
+      animId = requestAnimationFrame(loop);
+    };
+
+    animId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animId);
+  }, [isAutoPlaying, isHovered, calculateOneSetWidth, updateProgressBar]);
+
+  // Page Scroll Reactive Boost: Vertical scrolling dynamically drives horizontal motion across section
+  useEffect(() => {
+    let prevScrollY = window.scrollY;
+
+    const handlePageScroll = () => {
+      const currentScrollY = window.scrollY;
+      const deltaY = currentScrollY - prevScrollY;
+      prevScrollY = currentScrollY;
+
+      if (Math.abs(deltaY) < 0.5) return;
+
+      const sectionEl = document.getElementById('section-showcase');
+      if (!sectionEl) return;
+      const rect = sectionEl.getBoundingClientRect();
+
+      // Only trigger when gallery section is in the viewport
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const el = scrollContainerRef.current;
+        if (el && !isDraggingRef.current) {
+          // Dynamic horizontal translation driven by page scroll velocity
+          const boost = deltaY * 0.45;
+          scrollXRef.current += boost;
+
+          const oneSet = calculateOneSetWidth();
+          if (oneSet > 0) {
+            if (scrollXRef.current >= oneSet * 2.5) {
+              scrollXRef.current -= oneSet;
+            } else if (scrollXRef.current <= 40) {
+              scrollXRef.current += oneSet;
+            }
+          }
+
+          el.scrollLeft = scrollXRef.current;
+          updateProgressBar(oneSet);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handlePageScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handlePageScroll);
+  }, [calculateOneSetWidth, updateProgressBar]);
+
+  // Manual Previous Card Navigation
+  const handleScrollPrev = () => {
+    studioAudio.playClick(850);
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>('.gallery-card-item');
+    const cardWidth = card ? card.offsetWidth + 32 : 440;
+
+    scrollXRef.current -= cardWidth;
+    const oneSet = calculateOneSetWidth();
+    if (oneSet > 0 && scrollXRef.current <= 40) {
+      scrollXRef.current += oneSet;
+    }
+    el.scrollTo({ left: scrollXRef.current, behavior: 'smooth' });
+    updateProgressBar(oneSet);
+  };
+
+  // Manual Next Card Navigation
+  const handleScrollNext = () => {
+    studioAudio.playClick(950);
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>('.gallery-card-item');
+    const cardWidth = card ? card.offsetWidth + 32 : 440;
+
+    scrollXRef.current += cardWidth;
+    const oneSet = calculateOneSetWidth();
+    if (oneSet > 0 && scrollXRef.current >= oneSet * 2.5) {
+      scrollXRef.current -= oneSet;
+    }
+    el.scrollTo({ left: scrollXRef.current, behavior: 'smooth' });
+    updateProgressBar(oneSet);
+  };
+
+  // Pointer Drag & Touch Swipe Handlers with inertia tracking
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return;
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    isDraggingRef.current = true;
+    hasDraggedRef.current = false;
+    startXRef.current = e.clientX;
+    startScrollLeftRef.current = el.scrollLeft;
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return;
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const dx = e.clientX - startXRef.current;
+    if (Math.abs(dx) > 6) {
+      if (!hasDraggedRef.current) {
+        hasDraggedRef.current = true;
+        isUserInteractingRef.current = true;
+        try {
+          e.currentTarget.setPointerCapture(e.pointerId);
+        } catch {}
+      }
+    }
+
+    if (!hasDraggedRef.current) return;
+
+    const newScroll = startScrollLeftRef.current - dx;
+    el.scrollLeft = newScroll;
+    scrollXRef.current = newScroll;
+
+    const oneSet = calculateOneSetWidth();
+    if (oneSet > 0) {
+      if (el.scrollLeft >= oneSet * 2.5) {
+        scrollXRef.current -= oneSet;
+        startScrollLeftRef.current -= oneSet;
+        el.scrollLeft -= oneSet;
+      } else if (el.scrollLeft <= 40) {
+        scrollXRef.current += oneSet;
+        startScrollLeftRef.current += oneSet;
+        el.scrollLeft += oneSet;
+      }
+      updateProgressBar(oneSet);
+    }
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+    isUserInteractingRef.current = false;
+    const el = scrollContainerRef.current;
+    if (el) {
+      scrollXRef.current = el.scrollLeft;
+    }
+    if (e.currentTarget.hasPointerCapture?.(e.pointerId)) {
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      } catch {}
+    }
+  };
+
+  // Native trackpad / mouse wheel sync
+  const handleScroll = () => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    if (isUserInteractingRef.current) {
+      scrollXRef.current = el.scrollLeft;
+      const oneSet = calculateOneSetWidth();
+      updateProgressBar(oneSet);
+    }
+  };
 
   return (
     <section
       id="section-showcase"
-      ref={containerRef}
-      className="relative w-full border-t border-white/[0.08] bg-[#050607]"
+      className="relative w-full border-t border-white/[0.08] bg-[#050607] py-16 sm:py-20 lg:py-24 overflow-hidden"
     >
-      {/* Pinned Viewport Stage for Desktop Orbit */}
-      <div
-        ref={stageRef}
-        className={`${
-          isMobile
-            ? 'relative w-full px-4 sm:px-6 py-16 sm:py-20'
-            : 'h-screen w-full flex flex-col justify-between overflow-hidden px-4 sm:px-6 lg:px-8 py-6 sm:py-8'
-        }`}
-      >
-        {/* Subtle Ambient Radial Glow */}
-        <div className="pointer-events-none absolute inset-0 radial-mesh-teal opacity-35 z-0" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#00828008_1px,transparent_1px),linear-gradient(to_bottom,#00828008_1px,transparent_1px)] bg-[size:54px_54px]" />
+      {/* Subtle Ambient Radial Glow */}
+      <div className="pointer-events-none absolute inset-0 radial-mesh-slate opacity-20 z-0" />
 
-        {/* TOP CONTROLS & TELEMETRY STRIP */}
-        <div className="mx-auto max-w-[1280px] w-full relative z-20 flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-3 border-b border-white/[0.08]">
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-[#008280]">
-              <Sparkles className="h-3.5 w-3.5 animate-spin-slow text-[#16D2C8]" />
-              <span className="font-bold tracking-widest uppercase text-[#16D2C8]">
-                THE AMAZE ORBIT // SIGNATURE PORTFOLIO
-              </span>
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-8 sm:mb-12 pb-6 border-b border-white/[0.08]">
+          <div className="max-w-2xl space-y-3">
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 tracking-widest uppercase font-semibold">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-zinc-300">Live Portfolio Feed</span>
               <span className="text-white/20">•</span>
-              <span className="text-[#94A3B8]">
-                {currentMarket === 'mw' ? 'MALAWI & REGIONAL' : 'CANADA & GLOBAL'}
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#16D2C8]/30 bg-[#16D2C8]/10 px-2.5 py-0.5 text-[10px] text-[#16D2C8] font-bold shadow-[0_0_12px_rgba(22,210,200,0.25)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#16D2C8] animate-ping" />
-                <span>TURQUOISE ORBIT STREAM</span>
-              </span>
+              <span>{currentMarket === 'mw' ? 'Malawi & Regional' : 'Canada & Global'}</span>
             </div>
 
-            <div className="flex items-baseline gap-4">
-              <h2 className="font-display text-[clamp(1.75rem,3.4vw,3.2rem)] font-black uppercase text-[#EBECF0] tracking-[-0.035em]">
-                BUILT TO <span className="title-gradient-teal">AMAZE.</span>
-              </h2>
+            <h2 className="font-display text-[clamp(2rem,4vw,3.4rem)] font-black uppercase text-[#EBECF0] tracking-[-0.03em] leading-[1.08]">
+              Built to Perform. <br />
+              <span className="text-zinc-400">Crafted to Endure.</span>
+            </h2>
 
-              {!isMobile && (
-                <div className="hidden xl:flex items-center gap-2 rounded-full border border-white/10 bg-[#080B0E]/90 px-3 py-1 font-mono text-[11px] text-[#94A3B8]">
-                  <span>CHOREOGRAPHY:</span>
-                  <span className="text-[#16D2C8] font-bold">
-                    {morphT > 0.4
-                      ? 'PHASE 4 // 2D EDITORIAL UNFOLD'
-                      : orbitT > 0.05
-                      ? `PHASE 2 // FOCUS ZONE [0${activeProjectIndex + 1}/0${totalProjects}]`
-                      : 'PHASE 1 // SPATIAL EMERGENCE'}
-                  </span>
-                </div>
-              )}
-            </div>
+            <p className="font-sans text-sm sm:text-base text-zinc-400 leading-relaxed">
+              Explore our verified digital flagships moving across this gallery. Hover or tap any project to pause the motion and view in-depth case study architecture.
+            </p>
           </div>
 
-          {/* Controls: Sector Filters & Mode Toggles */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-            {/* Category Filter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto max-w-[420px] scrollbar-none py-1">
-              {categories.map((cat) => (
+          {/* Interactive Navigation & Control Dock */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            {/* Filter Pills */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              {filters.map((tab) => (
                 <button
-                  key={cat}
+                  key={tab.key}
                   onClick={() => {
                     studioAudio.playClick(920);
-                    setSelectedCategory(cat);
+                    setSelectedFilter(tab.key);
+                    // Reset scroll to beginning of Set 1 smoothly on filter change
+                    const el = scrollContainerRef.current;
+                    if (el) {
+                      const oneSet = calculateOneSetWidth();
+                      scrollXRef.current = oneSet > 0 ? oneSet : 0;
+                      el.scrollTo({ left: scrollXRef.current, behavior: 'smooth' });
+                    }
                   }}
-                  className={`shrink-0 rounded-lg px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-all ${
-                    selectedCategory === cat
-                      ? 'bg-[#008280] text-white font-bold border border-[#008280] shadow-[0_0_15px_rgba(0,130,128,0.4)]'
-                      : 'bg-[#0D1115] text-[#94A3B8] border border-white/[0.08] hover:border-[#008280] hover:text-[#EBECF0]'
+                  className={`rounded-lg px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-all duration-200 ${
+                    selectedFilter === tab.key
+                      ? 'bg-white/15 text-white font-bold border border-white/25 shadow-sm'
+                      : 'bg-[#0D1115] text-zinc-400 border border-white/[0.08] hover:border-white/20 hover:text-white'
                   }`}
                 >
-                  {cat === 'all' ? 'ALL WORK' : cat}
+                  {tab.label}
                 </button>
               ))}
             </div>
 
-            {/* Desktop Mode Toggle: Orbit vs 2D Editorial */}
-            {!isMobile && (
-              <div className="flex items-center rounded-lg border border-white/10 bg-[#0A0D10] p-1 font-mono text-[11px]">
-                <button
-                  onClick={() => {
-                    studioAudio.playClick(980);
-                    setViewMode('orbit');
-                  }}
-                  className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-all ${
-                    viewMode === 'orbit'
-                      ? 'bg-[#008280] text-white font-bold'
-                      : 'text-[#64748B] hover:text-[#EBECF0]'
-                  }`}
-                  title="3D Orbit Experience"
-                >
-                  <Orbit className="h-3 w-3" />
-                  <span>3D ORBIT</span>
-                </button>
-                <button
-                  onClick={() => {
-                    studioAudio.playClick(980);
-                    setViewMode('editorial');
-                  }}
-                  className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-all ${
-                    viewMode === 'editorial'
-                      ? 'bg-[#008280] text-white font-bold'
-                      : 'text-[#64748B] hover:text-[#EBECF0]'
-                  }`}
-                  title="2D Editorial Grid"
-                >
-                  <LayoutGrid className="h-3 w-3" />
-                  <span>2D GRID</span>
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* ======================================================== */}
-        {/* DESKTOP 3D SPATIAL ORBIT ENVIRONMENT                     */}
-        {/* ======================================================== */}
-        {!isMobile && viewMode === 'orbit' && (
-          <div
-            className="relative flex-1 w-full flex items-center justify-center my-auto overflow-visible select-none"
-            style={{
-              perspective: `${1400 + morphT * 1800}px`,
-              perspectiveOrigin: '50% 50%',
-            }}
-          >
-            {/* Ambient Orbit Guide Track & Animated Turquoise Sparkles Stream */}
-            <svg
-              className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
-              viewBox="0 0 1600 700"
-              fill="none"
-              style={{
-                transform: `rotateX(62deg) scale(${1 - morphT * 0.4})`,
-                transformOrigin: '50% 55%',
-                opacity: Math.max(0, 1 - morphT),
-                transition: 'opacity 0.4s ease',
-              }}
-            >
-              <defs>
-                {/* Turquoise Sparkle Glow Filters */}
-                <filter id="turquoise-glow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
-                  <feMerge>
-                    <feMergeNode in="coloredBlur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-                <filter id="turquoise-glow-bright" x="-60%" y="-60%" width="220%" height="220%">
-                  <feGaussianBlur stdDeviation="2.5" result="sharpBlur" />
-                  <feGaussianBlur stdDeviation="6" result="wideBlur" />
-                  <feMerge>
-                    <feMergeNode in="wideBlur" />
-                    <feMergeNode in="sharpBlur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-                <filter id="turquoise-halo" x="-80%" y="-80%" width="260%" height="260%">
-                  <feGaussianBlur stdDeviation="10" result="halo" />
-                </filter>
-
-                {/* Laser Light Stream Gradients for Orbit Rings */}
-                <linearGradient id="orbit-laser-stream-outer" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#16D2C8" stopOpacity="0" />
-                  <stop offset="65%" stopColor="#16D2C8" stopOpacity="0.75" />
-                  <stop offset="88%" stopColor="#00F5D4" stopOpacity="1" />
-                  <stop offset="97%" stopColor="#FFFFFF" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#16D2C8" stopOpacity="0" />
-                </linearGradient>
-
-                <linearGradient id="orbit-laser-stream-inner" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#008280" stopOpacity="0" />
-                  <stop offset="60%" stopColor="#16D2C8" stopOpacity="0.7" />
-                  <stop offset="90%" stopColor="#00F5D4" stopOpacity="1" />
-                  <stop offset="98%" stopColor="#FFFFFF" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#008280" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-
-              {/* Base Static Orbit Guide Ellipses with Subtle Turquoise Glow */}
-              <ellipse
-                cx="800"
-                cy="350"
-                rx="650"
-                ry="260"
-                stroke="#008280"
-                strokeWidth="1.5"
-                strokeDasharray="6 10"
-                strokeOpacity="0.4"
-              />
-              <ellipse
-                cx="800"
-                cy="350"
-                rx="480"
-                ry="190"
-                stroke="#16D2C8"
-                strokeWidth="1"
-                strokeOpacity="0.3"
-                strokeDasharray="4 8"
-              />
-
-              {/* Orbiting Turquoise Laser Beams */}
-              <path
-                d="M 150 350 A 650 260 0 0 1 1450 350 A 650 260 0 0 1 150 350 Z"
-                stroke="url(#orbit-laser-stream-outer)"
-                strokeWidth="2.5"
-                strokeDasharray="180 2850"
-                fill="none"
-                filter="url(#turquoise-glow)"
-              >
-                <animate
-                  attributeName="stroke-dashoffset"
-                  from="0"
-                  to="-3030"
-                  dur="11s"
-                  repeatCount="indefinite"
-                />
-              </path>
-
-              <path
-                d="M 320 350 A 480 190 0 0 1 1280 350 A 480 190 0 0 1 320 350 Z"
-                stroke="url(#orbit-laser-stream-inner)"
-                strokeWidth="1.8"
-                strokeDasharray="130 2100"
-                fill="none"
-                filter="url(#turquoise-glow)"
-              >
-                <animate
-                  attributeName="stroke-dashoffset"
-                  from="0"
-                  to="-2230"
-                  dur="8s"
-                  repeatCount="indefinite"
-                />
-              </path>
-
-              {/* Outer Orbit Animated Turquoise Sparkles Stream (dur=22s) */}
-              {outerOrbitSparkles.map((sp) => {
-                const dur = '22s';
-                const outerPath = 'M 150 350 A 650 260 0 0 1 1450 350 A 650 260 0 0 1 150 350 Z';
-                const baseTime = parseFloat(sp.begin);
-
-                return (
-                  <g key={sp.id}>
-                    {/* Trailing Turquoise Comet Dust Particles */}
-                    {sp.tail && (
-                      <>
-                        <g>
-                          <animateMotion
-                            path={outerPath}
-                            dur={dur}
-                            begin={`${baseTime + 0.18}s`}
-                            repeatCount="indefinite"
-                          />
-                          <circle r="3" fill="#16D2C8" opacity="0.65" filter="url(#turquoise-glow)" />
-                        </g>
-                        <g>
-                          <animateMotion
-                            path={outerPath}
-                            dur={dur}
-                            begin={`${baseTime + 0.38}s`}
-                            repeatCount="indefinite"
-                          />
-                          <circle r="2" fill="#00F5D4" opacity="0.5" filter="url(#turquoise-glow)" />
-                        </g>
-                        <g>
-                          <animateMotion
-                            path={outerPath}
-                            dur={dur}
-                            begin={`${baseTime + 0.58}s`}
-                            repeatCount="indefinite"
-                          />
-                          <circle r="1.3" fill="#80FFF4" opacity="0.35" />
-                        </g>
-                      </>
-                    )}
-
-                    {/* Main Turquoise Sparkle */}
-                    <g>
-                      <animateMotion
-                        path={outerPath}
-                        dur={dur}
-                        begin={sp.begin}
-                        repeatCount="indefinite"
-                      />
-                      {sp.size === 'hero' ? (
-                        <g className="animate-sparkle-twinkle">
-                          {/* Radial turquoise glow halo */}
-                          <circle r="15" fill="#16D2C8" opacity="0.25" filter="url(#turquoise-halo)" />
-                          {/* 4-point concave turquoise star */}
-                          <path
-                            d="M 0,-16 Q 0,0 16,0 Q 0,0 0,16 Q 0,0 -16,0 Q 0,0 0,-16 Z"
-                            fill="#16D2C8"
-                            filter="url(#turquoise-glow-bright)"
-                          />
-                          {/* Inner diagonal glint */}
-                          <path
-                            d="M 0,-7 Q 0,0 7,0 Q 0,0 0,7 Q 0,0 -7,0 Q 0,0 0,-7 Z"
-                            fill="#E6FFFA"
-                            transform="rotate(45)"
-                          />
-                          {/* White core spark */}
-                          <circle r="2.2" fill="#FFFFFF" />
-                        </g>
-                      ) : sp.size === 'medium' ? (
-                        <g className="animate-sparkle-twinkle-fast">
-                          <circle r="10" fill="#00F5D4" opacity="0.2" filter="url(#turquoise-halo)" />
-                          <path
-                            d="M 0,-11 Q 0,0 11,0 Q 0,0 0,11 Q 0,0 -11,0 Q 0,0 0,-11 Z"
-                            fill="#00F5D4"
-                            filter="url(#turquoise-glow)"
-                          />
-                          <path
-                            d="M 0,-5 Q 0,0 5,0 Q 0,0 0,5 Q 0,0 -5,0 Q 0,0 0,-5 Z"
-                            fill="#E6FFFA"
-                            transform="rotate(45)"
-                          />
-                          <circle r="1.6" fill="#FFFFFF" />
-                        </g>
-                      ) : (
-                        <g className="animate-sparkle-pulse">
-                          <path
-                            d="M 0,-6.5 Q 0,0 6.5,0 Q 0,0 0,6.5 Q 0,0 -6.5,0 Q 0,0 0,-6.5 Z"
-                            fill="#2DD4BF"
-                            filter="url(#turquoise-glow)"
-                          />
-                          <circle r="1.2" fill="#FFFFFF" />
-                        </g>
-                      )}
-                    </g>
-                  </g>
-                );
-              })}
-
-              {/* Inner Orbit Animated Turquoise Sparkles Stream (dur=16s) */}
-              {innerOrbitSparkles.map((sp) => {
-                const dur = '16s';
-                const innerPath = 'M 320 350 A 480 190 0 0 1 1280 350 A 480 190 0 0 1 320 350 Z';
-                const baseTime = parseFloat(sp.begin);
-
-                return (
-                  <g key={sp.id}>
-                    {sp.tail && (
-                      <g>
-                        <animateMotion
-                          path={innerPath}
-                          dur={dur}
-                          begin={`${baseTime + 0.18}s`}
-                          repeatCount="indefinite"
-                        />
-                        <circle r="2.2" fill="#16D2C8" opacity="0.6" filter="url(#turquoise-glow)" />
-                      </g>
-                    )}
-                    <g>
-                      <animateMotion
-                        path={innerPath}
-                        dur={dur}
-                        begin={sp.begin}
-                        repeatCount="indefinite"
-                      />
-                      {sp.size === 'hero' ? (
-                        <g className="animate-sparkle-twinkle">
-                          <circle r="12" fill="#16D2C8" opacity="0.22" filter="url(#turquoise-halo)" />
-                          <path
-                            d="M 0,-14 Q 0,0 14,0 Q 0,0 0,14 Q 0,0 -14,0 Q 0,0 0,-14 Z"
-                            fill="#16D2C8"
-                            filter="url(#turquoise-glow-bright)"
-                          />
-                          <path
-                            d="M 0,-6 Q 0,0 6,0 Q 0,0 0,6 Q 0,0 -6,0 Q 0,0 0,-6 Z"
-                            fill="#E6FFFA"
-                            transform="rotate(45)"
-                          />
-                          <circle r="2" fill="#FFFFFF" />
-                        </g>
-                      ) : sp.size === 'medium' ? (
-                        <g className="animate-sparkle-twinkle-fast">
-                          <path
-                            d="M 0,-9.5 Q 0,0 9.5,0 Q 0,0 0,9.5 Q 0,0 -9.5,0 Q 0,0 0,-9.5 Z"
-                            fill="#00F5D4"
-                            filter="url(#turquoise-glow)"
-                          />
-                          <path
-                            d="M 0,-4.5 Q 0,0 4.5,0 Q 0,0 0,4.5 Q 0,0 -4.5,0 Q 0,0 0,-4.5 Z"
-                            fill="#E6FFFA"
-                            transform="rotate(45)"
-                          />
-                          <circle r="1.4" fill="#FFFFFF" />
-                        </g>
-                      ) : (
-                        <g className="animate-sparkle-pulse">
-                          <path
-                            d="M 0,-5.5 Q 0,0 5.5,0 Q 0,0 0,5.5 Q 0,0 -5.5,0 Q 0,0 0,-5.5 Z"
-                            fill="#2DD4BF"
-                          />
-                          <circle r="1.1" fill="#FFFFFF" />
-                        </g>
-                      )}
-                    </g>
-                  </g>
-                );
-              })}
-            </svg>
-
-            {/* 3D Spatial Canvas Stage */}
-            <div
-              className="relative w-full h-[520px] max-w-[1600px] flex items-center justify-center will-change-transform transition-all duration-300"
-              style={{
-                transformStyle: 'preserve-3d',
-              }}
-            >
-              {filteredProjects.map((project, index) => {
-                // Calculate 3D position along elliptical arc
-                const angleOffset = index * angularSpread - currentRotationAngle;
-                const radiusX = 640;
-                const radiusZ = 380;
-
-                // 3D coordinates in orbit mode
-                const orbitX = Math.sin(angleOffset) * radiusX;
-                const orbitZ = Math.cos(angleOffset) * radiusZ - radiusZ; // Closer cards at Z=0, further at -Z
-                const orbitRotateY = -(angleOffset * 0.7 * (180 / Math.PI));
-                const orbitScale = 0.88 + Math.max(0, Math.cos(angleOffset)) * 0.22;
-                const orbitOpacity = Math.max(0.4, Math.cos(angleOffset) * 0.95 + 0.15);
-
-                // Seamless initial visibility - cards are immediately present and rendered
-                const emergenceZ = 0;
-                const emergenceBlur = 0;
-                const emergenceOpacity = 1.0;
-
-                // 2D Editorial Target Coordinates (Phase 4 morph)
-                // In 2-column grid, alternate left and right columns
-                const col = index % 2;
-                const row = Math.floor(index / 2);
-                const editorialX = (col === 0 ? -320 : 320);
-                const editorialY = (row - 0.5) * 160;
-                const editorialZ = 0;
-                const editorialRotateY = 0;
-                const editorialScale = 0.92;
-
-                // Interpolate between 3D Orbit and 2D Editorial Grid
-                const finalX = orbitX * (1 - morphT) + editorialX * morphT;
-                const finalY = (morphT > 0 ? editorialY * morphT : 0);
-                const finalZ = orbitZ * (1 - morphT) + editorialZ * morphT;
-                const finalRotateY = orbitRotateY * (1 - morphT) + editorialRotateY * morphT;
-                const finalScale = orbitScale * (1 - morphT) + editorialScale * morphT;
-                const finalOpacity = orbitOpacity * (1 - morphT) + 1.0 * morphT;
-
-                const isFocused = Math.abs(angleOffset) < 0.45 && morphT < 0.5;
-                const isHovered = hoveredProjectId === project.id;
-
-                return (
-                  <div
-                    key={project.id}
-                    data-cursor="view"
-                    onMouseEnter={() => {
-                      setHoveredProjectId(project.id);
-                      studioAudio.playHover(680 + index * 40);
-                    }}
-                    onMouseLeave={() => setHoveredProjectId(null)}
-                    onClick={() => {
-                      studioAudio.playClick(1000);
-                      onSelectProject(project);
-                    }}
-                    className={`absolute w-[440px] rounded-xl border glass-tier-1 overflow-hidden cursor-pointer transition-shadow duration-300 will-change-transform ${
-                      isFocused || isHovered
-                        ? 'border-[#008280] shadow-[0_20px_60px_rgba(0,130,128,0.35)] z-30'
-                        : 'border-white/10 hover:border-white/30 z-10'
-                    }`}
-                    style={{
-                      transform: `translate3d(${finalX}px, ${finalY}px, ${finalZ}px) rotateY(${finalRotateY}deg) scale(${
-                        isHovered ? finalScale * 1.05 : finalScale
-                      })`,
-                      opacity: finalOpacity,
-                      filter: emergenceBlur > 0.5 ? `blur(${emergenceBlur}px)` : 'none',
-                      transition: 'transform 0.15s ease-out, opacity 0.2s ease-out, border-color 0.3s ease',
-                      transformOrigin: '50% 50%',
-                    }}
-                  >
-                    {/* Media Preview Container */}
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#0A0D10]">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        loading="lazy"
-                        draggable={false}
-                        className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#06080A] via-[#06080A]/30 to-transparent opacity-90" />
-
-                      {/* Top Badges */}
-                      <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-                        <div className="rounded-md bg-[#050607]/90 px-2.5 py-1 font-mono text-[10px] text-[#008280] border border-white/10 font-bold uppercase tracking-wider backdrop-blur-md">
-                          {project.category}
-                        </div>
-                        <div className="rounded-md bg-black/60 px-2 py-0.5 font-mono text-[10px] text-white/70 border border-white/10 backdrop-blur-md">
-                          0{index + 1} / 0{totalProjects}
-                        </div>
-                      </div>
-
-                      {/* Floating Key Metric Pill */}
-                      {project.metrics && project.metrics[0] && (
-                        <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full border border-[#008280]/40 bg-[#050607]/90 px-3 py-1 font-mono text-[10px] text-[#EBECF0] backdrop-blur-md">
-                          <TrendingUp className="h-3 w-3 text-[#16D2C8]" />
-                          <span className="text-[#64748B]">{project.metrics[0].label}:</span>
-                          <span className="text-[#16D2C8] font-bold">{project.metrics[0].value}</span>
-                        </div>
-                      )}
-
-                      {/* Focus View Hover Indicator */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200 bg-black/40 backdrop-blur-[2px]">
-                        <div className="flex items-center gap-2 rounded-full border border-[#16D2C8] bg-[#050607]/95 px-4 py-2 font-mono text-xs text-white font-bold shadow-[0_0_20px_rgba(22,210,200,0.5)]">
-                          <Eye className="h-3.5 w-3.5 text-[#16D2C8]" />
-                          <span>VIEW CASE STUDY</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Card Description & Action Bar */}
-                    <div className="p-4 bg-[#080B0E]/95 space-y-2 border-t border-white/[0.06]">
-                      <div className="flex items-center justify-between">
-                        <h3 className="font-display text-base font-bold text-[#EBECF0] tracking-tight truncate">
-                          {project.title}
-                        </h3>
-                        <ArrowUpRight className="h-4 w-4 text-[#008280] shrink-0" />
-                      </div>
-                      <p className="font-sans text-xs text-[#94A3B8] line-clamp-2 leading-relaxed">
-                        {project.description}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-
-              {/* 3D Dimensional Turquoise Sparkles Orbiting in Spatial Field */}
-              {Array.from({ length: 8 }).map((_, i) => {
-                const sparkleAngle = (i / 8) * (Math.PI * 2) - currentRotationAngle;
-                const sx = Math.sin(sparkleAngle) * 640;
-                const sz = Math.cos(sparkleAngle) * 380 - 380;
-                const sy = Math.sin(i * 1.7) * 45;
-                const sScale = 0.75 + Math.max(0, Math.cos(sparkleAngle)) * 0.45;
-                const sOpacity = Math.max(0.3, Math.cos(sparkleAngle) * 0.7 + 0.3) * (1 - morphT);
-
-                return (
-                  <div
-                    key={`spatial-sparkle-${i}`}
-                    className="pointer-events-none absolute flex items-center justify-center will-change-transform z-20"
-                    style={{
-                      transform: `translate3d(${sx}px, ${sy}px, ${sz}px) scale(${sScale})`,
-                      opacity: sOpacity,
-                    }}
-                  >
-                    <div className="relative flex items-center justify-center">
-                      <div className="absolute h-8 w-8 rounded-full bg-[#16D2C8]/25 blur-md animate-pulse" />
-                      <Sparkles className="h-4 w-4 text-[#16D2C8] drop-shadow-[0_0_10px_#16D2C8] animate-sparkle-twinkle" />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* ======================================================== */}
-        {/* DESKTOP 2D EDITORIAL GRID VIEW (TOGGLED OR PHASE 4)     */}
-        {/* ======================================================== */}
-        {!isMobile && viewMode === 'editorial' && (
-          <div className="relative flex-1 w-full max-w-[1480px] mx-auto overflow-y-auto py-8 pr-2 scrollbar-none">
-            <div className="grid grid-cols-2 gap-10">
-              {filteredProjects.map((project, idx) => (
-                <div
-                  key={project.id}
-                  data-cursor="view"
-                  onClick={() => {
-                    studioAudio.playClick(1000);
-                    onSelectProject(project);
-                  }}
-                  className="group relative rounded-xl border border-white/10 bg-[#0A0D10] overflow-hidden hover:border-[#008280] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer shadow-xl"
-                >
-                  <div className="relative aspect-[16/9] w-full overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#06080A] via-transparent to-transparent opacity-85" />
-                    <div className="absolute top-4 left-4 rounded-md bg-[#050607]/90 px-3 py-1 font-mono text-[10px] text-[#008280] border border-white/10 font-bold uppercase">
-                      {project.category}
-                    </div>
-                  </div>
-
-                  <div className="p-8 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-display text-xl font-bold text-[#EBECF0]">
-                        {project.title}
-                      </h3>
-                      <ArrowUpRight className="h-4 w-4 text-[#008280] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </div>
-                    <p className="font-sans text-xs text-[#94A3B8] leading-relaxed">
-                      {project.description}
-                    </p>
-                    {project.metrics && (
-                      <div className="grid grid-cols-3 gap-3 pt-3 border-t border-white/[0.06] font-mono text-[10px]">
-                        {project.metrics.map((m, i) => (
-                          <div key={i}>
-                            <div className="text-[#64748B]">{m.label}</div>
-                            <div className="text-[#16D2C8] font-bold">{m.value}</div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* ======================================================== */}
-        {/* DESKTOP 2D EDITORIAL GRID VIEW                           */}
-        {/* ======================================================== */}
-        {!isMobile && viewMode === 'editorial' && (
-          <div className="relative flex-1 w-full max-w-[1280px] mx-auto my-auto overflow-y-auto max-h-[calc(100vh-180px)] pr-2 py-4">
-            <div className="grid grid-cols-2 gap-6">
-              {filteredProjects.map((project) => (
-                <div
-                  key={project.id}
-                  onClick={() => {
-                    studioAudio.playClick(1000);
-                    onSelectProject(project);
-                  }}
-                  className="rounded-xl border border-white/10 bg-[#0A0D10]/95 overflow-hidden hover:border-[#16D2C8]/50 transition-all cursor-pointer shadow-lg hover:shadow-[0_0_30px_rgba(22,210,200,0.18)] group"
-                >
-                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-black">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#06080A] via-transparent to-transparent opacity-80" />
-                    <div className="absolute top-3 left-3 rounded-md bg-[#050607]/90 px-2.5 py-1 font-mono text-[10px] text-[#16D2C8] border border-white/10 font-bold uppercase">
-                      {project.category}
-                    </div>
-                  </div>
-                  <div className="p-6 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-display text-lg font-bold text-[#EBECF0] group-hover:text-[#16D2C8] transition-colors">
-                        {project.title}
-                      </h3>
-                      <ArrowUpRight className="h-4 w-4 text-[#16D2C8] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </div>
-                    <p className="font-sans text-xs text-[#94A3B8] leading-relaxed line-clamp-2">
-                      {project.description}
-                    </p>
-                    {project.metrics && (
-                      <div className="grid grid-cols-3 gap-2.5 pt-3 border-t border-white/[0.06] font-mono text-[10px]">
-                        {project.metrics.map((m, i) => (
-                          <div key={i}>
-                            <div className="text-[#64748B]">{m.label}</div>
-                            <div className="text-[#16D2C8] font-bold">{m.value}</div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* ======================================================== */}
-        {/* MOBILE RESPONSIVE EXPERIENCE (TOUCH-FRIENDLY & FAST)     */}
-        {/* ======================================================== */}
-        {isMobile && (
-          <GsapStaggerReveal stagger={0.1} yOffset={45} className="space-y-8 pt-8">
-            <div className="flex items-center justify-center gap-2 py-2.5 font-mono text-[11px] text-[#16D2C8] uppercase tracking-wider bg-[#16D2C8]/10 rounded-lg border border-[#16D2C8]/25 shadow-[0_0_15px_rgba(22,210,200,0.15)]">
-              <Sparkles className="h-3.5 w-3.5 animate-spin-slow text-[#16D2C8]" />
-              <span>THE AMAZE ORBIT &bull; TURQUOISE SPARKLE STREAM</span>
-              <Sparkles className="h-3.5 w-3.5 animate-spin-slow text-[#16D2C8]" />
-            </div>
-            {filteredProjects.map((project) => (
-              <div
-                key={project.id}
+            {/* Carousel Control Buttons */}
+            <div className="flex items-center gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 sm:border-l border-white/10 sm:pl-4">
+              {/* Play / Pause Toggle Button */}
+              <button
                 onClick={() => {
                   studioAudio.playClick(1000);
-                  onSelectProject(project);
+                  setIsAutoPlaying((prev) => !prev);
                 }}
-                className="w-full rounded-xl border border-white/10 bg-[#0A0D10] overflow-hidden active:scale-[0.99] transition-transform will-change-transform"
+                title={isAutoPlaying ? 'Pause Horizontal Motion' : 'Resume Horizontal Motion'}
+                className="flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 px-3 py-1.5 font-mono text-xs text-zinc-300 hover:text-white transition-all cursor-pointer"
               >
-                <div className="relative aspect-[16/10] w-full overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#06080A] via-transparent to-transparent opacity-85" />
-                  <div className="absolute top-3 left-3 rounded-md bg-[#050607]/90 px-2.5 py-1 font-mono text-[10px] text-[#008280] border border-white/10 font-bold uppercase">
-                    {project.category}
+                {isAutoPlaying ? (
+                  <>
+                    <Pause className="h-3.5 w-3.5 text-zinc-300" />
+                    <span className="hidden md:inline text-[11px] font-semibold">PAUSE</span>
+                  </>
+                ) : (
+                  <>
+                    <Play className="h-3.5 w-3.5 text-emerald-400 fill-emerald-400" />
+                    <span className="hidden md:inline text-[11px] font-semibold text-emerald-400">PLAY</span>
+                  </>
+                )}
+              </button>
+
+              {/* Prev Button */}
+              <button
+                onClick={handleScrollPrev}
+                aria-label="Scroll gallery left"
+                className="rounded-lg border border-white/15 bg-white/5 hover:bg-white/15 p-2 text-zinc-300 hover:text-white transition-all cursor-pointer"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+
+              {/* Next Button */}
+              <button
+                onClick={handleScrollNext}
+                aria-label="Scroll gallery right"
+                className="rounded-lg border border-white/15 bg-white/5 hover:bg-white/15 p-2 text-zinc-300 hover:text-white transition-all cursor-pointer"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* HORIZONTAL MOVING TRACK VIEWPORT */}
+      <div
+        className="relative w-full"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          isDraggingRef.current = false;
+          isUserInteractingRef.current = false;
+        }}
+      >
+        {/* Soft edge gradient fades for luxury cinema finish */}
+        <div className="gallery-edge-fade-left pointer-events-none absolute top-0 bottom-0 left-0 w-8 sm:w-16 lg:w-24 bg-gradient-to-r from-[#050607] to-transparent z-20" />
+        <div className="gallery-edge-fade-right pointer-events-none absolute top-0 bottom-0 right-0 w-8 sm:w-16 lg:w-24 bg-gradient-to-l from-[#050607] to-transparent z-20" />
+
+        {/* Scrollable Moving Track with Pointer Drag & Touch support */}
+        <div
+          ref={scrollContainerRef}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+          onScroll={handleScroll}
+          className="flex gap-6 sm:gap-8 overflow-x-auto scrollbar-none px-6 sm:px-12 lg:px-16 py-4 cursor-grab active:cursor-grabbing select-none touch-pan-x"
+          style={{
+            scrollBehavior: 'auto',
+            WebkitOverflowScrolling: 'touch',
+          }}
+        >
+          {displayItems.map((project, index) => {
+            const isFutureCard = project.isFutureCard;
+
+            return (
+              <div
+                key={`${project.id}-${index}`}
+                data-cursor="view"
+                onClick={() => {
+                  if (hasDraggedRef.current) return;
+                  studioAudio.playClick(1000);
+                  if (isFutureCard) {
+                    onNavigate('contact');
+                  } else {
+                    onSelectProject(project);
+                  }
+                }}
+                className="gallery-card-item group relative w-[320px] sm:w-[390px] lg:w-[440px] shrink-0 rounded-2xl border border-white/10 bg-[#090D12] overflow-hidden hover:border-white/30 transition-all duration-300 cursor-pointer flex flex-col justify-between shadow-2xl hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)] hover:-translate-y-1.5"
+              >
+                <div>
+                  {/* Media Viewport */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/60">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.src.includes('unsplash')) {
+                          target.src = 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=900&q=80';
+                        }
+                      }}
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none"
+                    />
+
+                    {/* Calibrated Scrim Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#090D12] via-[#090D12]/20 to-transparent opacity-85 pointer-events-none" />
+
+                    {/* Top Status Tags */}
+                    <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
+                      <span className="rounded-md bg-black/80 px-2.5 py-1 font-mono text-[10px] sm:text-[11px] text-zinc-200 border border-white/10 uppercase tracking-wider backdrop-blur-md font-semibold">
+                        {project.category}
+                      </span>
+
+                      {project.metrics && project.metrics[0] && (
+                        <div className="flex items-center gap-1.5 rounded-full border border-white/15 bg-black/80 px-3 py-1 font-mono text-[10px] sm:text-[11px] text-zinc-200 backdrop-blur-md">
+                          <TrendingUp className="h-3 w-3 text-emerald-400" />
+                          <span>{project.metrics[0].value}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Text Content */}
+                  <div className="p-5 sm:p-6 space-y-3">
+                    <h3 className="font-display text-xl sm:text-2xl font-bold uppercase text-white tracking-tight leading-snug group-hover:text-zinc-200 transition-colors">
+                      {project.title}
+                    </h3>
+
+                    <p className="font-sans text-xs sm:text-sm text-zinc-400 leading-relaxed line-clamp-2">
+                      {project.description}
+                    </p>
+
+                    {/* Tech Highlights */}
+                    {project.engineeringStack && project.engineeringStack.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 pt-2">
+                        {project.engineeringStack.slice(0, 3).map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="rounded bg-white/[0.04] border border-white/[0.08] px-2 py-0.5 font-mono text-[10px] text-zinc-300"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                <div className="p-6 sm:p-7 space-y-3.5">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-display text-lg font-bold text-[#EBECF0]">
-                      {project.title}
-                    </h3>
-                    <ArrowUpRight className="h-4 w-4 text-[#008280]" />
-                  </div>
-                  <p className="font-sans text-xs text-[#94A3B8] leading-relaxed">
-                    {project.description}
-                  </p>
-                  {project.metrics && (
-                    <div className="grid grid-cols-3 gap-2.5 pt-3 border-t border-white/[0.06] font-mono text-[10px]">
-                      {project.metrics.map((m, i) => (
-                        <div key={i}>
-                          <div className="text-[#64748B]">{m.label}</div>
-                          <div className="text-[#16D2C8] font-bold">{m.value}</div>
-                        </div>
-                      ))}
-                    </div>
+                {/* Card Action Footer */}
+                <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-3 border-t border-white/[0.08] flex items-center justify-between font-mono text-xs">
+                  <span className="inline-flex items-center gap-1.5 font-semibold text-zinc-300 group-hover:text-white uppercase tracking-wider transition-colors">
+                    <span>{isFutureCard ? 'Reserve Slot' : 'Explore Case Study'}</span>
+                    <ArrowUpRight className="h-3.5 w-3.5 text-zinc-300 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </span>
+
+                  {project.liveUrl && !isFutureCard && (
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
+                      }}
+                      className="text-[11px] text-zinc-400 hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
+                    >
+                      <ExternalLink className="h-3 w-3" />
+                      <span>Live</span>
+                    </span>
                   )}
                 </div>
               </div>
-            ))}
-          </GsapStaggerReveal>
-        )}
+            );
+          })}
+        </div>
+      </div>
 
-        {/* BOTTOM METADATA RAIL */}
-        <div className="mx-auto max-w-[1280px] w-full relative z-20 flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-white/[0.08] font-mono text-[11px] text-[#64748B]">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 text-[#16D2C8]">
-              <Compass className="h-3.5 w-3.5" />
-              <span>THE AMAZE ORBIT ENGINE // 3D SPATIAL PATHWAY</span>
-            </div>
-            <span className="text-white/20 hidden sm:inline">•</span>
-            <span className="hidden sm:inline">
-              SCROLL TO TRAVERSE &bull; CLICK TO INSPECT CASE STUDY
-            </span>
+      {/* TRACK CONTROLS & BOTTOM CONVERSION RAIL */}
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10 mt-8">
+        {/* Progress Scrubber Bar */}
+        <div className="w-full bg-white/[0.06] rounded-full h-1 overflow-hidden mb-8">
+          <div
+            ref={progressBarRef}
+            className="h-full bg-white/40 transition-all duration-75 rounded-full"
+            style={{ width: '12%' }}
+          />
+        </div>
+
+        {/* Bottom Banner */}
+        <div className="pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="text-center sm:text-left">
+            <h4 className="font-display text-base sm:text-lg font-bold text-white uppercase tracking-tight">
+              Looking for a custom digital experience?
+            </h4>
+            <p className="font-sans text-xs sm:text-sm text-zinc-400 mt-0.5">
+              Drag, swipe or hover to inspect details, or explore our full archive of case studies.
+            </p>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3">
             <button
-              onClick={() => onNavigate('work')}
-              className="flex items-center gap-1.5 text-[#EBECF0] hover:text-[#008280] transition-colors font-bold uppercase"
+              onClick={() => {
+                studioAudio.playClick(900);
+                onNavigate('work');
+              }}
+              className="rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 px-5 py-2.5 font-mono text-xs font-semibold text-white uppercase tracking-wider transition-all cursor-pointer"
             >
-              <span>EXPLORE ALL ARCHIVES</span>
-              <ArrowUpRight className="h-3.5 w-3.5" />
+              Browse Full Archive
+            </button>
+            <button
+              onClick={() => {
+                studioAudio.playClick(1000);
+                onNavigate('contact');
+              }}
+              className="cta-image-btn rounded-lg px-6 py-2.5 font-mono text-xs font-bold text-white uppercase tracking-wider transition-all shadow-md cursor-pointer"
+            >
+              Start a Project
             </button>
           </div>
         </div>

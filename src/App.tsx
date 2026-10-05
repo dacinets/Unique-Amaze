@@ -4,26 +4,83 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { scrollEngine } from './utils/scrollEngine';
 import { PageRoute, MarketType, StudioTheme } from './types';
+import { analytics } from './utils/analytics';
 import { CustomCursor } from './components/CustomCursor';
-import { TelemetryBar } from './components/common/TelemetryBar';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { HomeView } from './components/home/HomeView';
 import { ServicesView } from './components/services/ServicesView';
 import { WorkView } from './components/work/WorkView';
+import { IndustriesView } from './components/industries/IndustriesView';
 import { ProcessView } from './components/process/ProcessView';
 import { PricingView } from './components/pricing/PricingView';
 import { PlannerView } from './components/planner/PlannerView';
 import { FaqView } from './components/faq/FaqView';
 import { ContactView } from './components/contact/ContactView';
 import { AboutView } from './components/about/AboutView';
+import { PrivacyView } from './components/privacy/PrivacyView';
+import { TermsView } from './components/terms/TermsView';
 import { ChatBox } from './components/chat/ChatBox';
+import { Breadcrumbs } from './components/navigation/Breadcrumbs';
+
+const ROUTE_MAP: Record<string, PageRoute> = {
+  '/': 'home',
+  '/services': 'services',
+  '/work': 'work',
+  '/industries': 'industries',
+  '/process': 'process',
+  '/pricing': 'pricing',
+  '/ai-planner': 'planner',
+  '/planner': 'planner',
+  '/faq': 'faq',
+  '/about': 'about',
+  '/contact': 'contact',
+  '/privacy': 'privacy',
+  '/terms': 'terms',
+};
+
+export const resolveRouteFromPath = (pathname: string): PageRoute => {
+  if (ROUTE_MAP[pathname]) return ROUTE_MAP[pathname];
+  const clean = pathname.toLowerCase();
+  if (clean.startsWith('/services')) return 'services';
+  if (clean.startsWith('/work')) return 'work';
+  if (clean.startsWith('/industries')) return 'industries';
+  if (clean.startsWith('/process')) return 'process';
+  if (clean.startsWith('/pricing')) return 'pricing';
+  if (clean.startsWith('/ai-planner') || clean.startsWith('/planner')) return 'planner';
+  if (clean.startsWith('/faq')) return 'faq';
+  if (clean.startsWith('/about')) return 'about';
+  if (clean.startsWith('/contact')) return 'contact';
+  if (clean.startsWith('/privacy')) return 'privacy';
+  if (clean.startsWith('/terms')) return 'terms';
+  return 'home';
+};
+
+const PAGE_PATHS: Record<PageRoute, string> = {
+  home: '/',
+  services: '/services',
+  work: '/work',
+  industries: '/industries',
+  process: '/process',
+  pricing: '/pricing',
+  planner: '/ai-planner',
+  faq: '/faq',
+  about: '/about',
+  contact: '/contact',
+  privacy: '/privacy',
+  terms: '/terms',
+};
 
 export default function App() {
-  const [currentRoute, setCurrentRoute] = useState<PageRoute>('home');
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const currentRoute: PageRoute = resolveRouteFromPath(location.pathname);
+
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentMarket, setCurrentMarket] = useState<MarketType>(() => {
@@ -61,6 +118,30 @@ export default function App() {
     };
   }, []);
 
+  // Update document title dynamically based on route
+  useEffect(() => {
+    const titles: Record<PageRoute, string> = {
+      home: 'Unique Amaze | Bespoke Web Architecture & Intelligent Engineering',
+      services: 'Services & Digital Care | Unique Amaze Web Studio',
+      work: 'Selected Work & Flagship Portfolio | Unique Amaze Web Studio',
+      industries: 'Industry Conversion Architecture | Unique Amaze',
+      process: 'The A.M.A.Z.E.™ Framework | Unique Amaze Web Studio',
+      pricing: 'Transparent Pricing & Packages (CAD & MWK) | Unique Amaze',
+      planner: '2-Minute AI Project Planner & Discovery | Unique Amaze',
+      faq: 'Frequently Asked Questions & SLAs | Unique Amaze',
+      about: 'About Unique Amaze Studio | Calgary & Lilongwe Hubs',
+      contact: 'Book Free Strategy Consultation | Unique Amaze',
+      privacy: 'Privacy Protocol & Data Ethics | Unique Amaze',
+      terms: 'Terms of Service & Performance Warranties | Unique Amaze',
+    };
+    document.title = titles[currentRoute] || 'Unique Amaze | Bespoke Web Studio';
+  }, [currentRoute]);
+
+  // Privacy-focused GDPR-compliant anonymous pageview telemetry
+  useEffect(() => {
+    analytics.trackPageview(location.pathname);
+  }, [location.pathname]);
+
   // Synchronize document-level theme attribute for high-contrast accessibility styling
   useEffect(() => {
     try {
@@ -84,20 +165,26 @@ export default function App() {
   }, [currentTheme]);
 
   const handleToggleTheme = () => {
-    setCurrentTheme((prev) => (prev === 'obsidian' ? 'lunar' : 'obsidian'));
+    const nextTheme = currentTheme === 'obsidian' ? 'lunar' : 'obsidian';
+    setCurrentTheme(nextTheme);
+    analytics.trackEvent('theme_toggle', { theme: nextTheme });
   };
 
   const handleNavigate = (route: PageRoute) => {
     setIsMenuOpen(false);
-    if (route === currentRoute) {
+    const targetPath = PAGE_PATHS[route] || '/';
+    analytics.trackEvent('navigation_click', { route, path: targetPath });
+    if (location.pathname === targetPath) {
       scrollEngine.scrollTo(0, { immediate: false });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    setCurrentRoute(route);
+    navigate(targetPath);
   };
 
   const handleMarketChange = (market: MarketType) => {
     setCurrentMarket(market);
+    analytics.trackEvent('market_change', { market });
     try {
       localStorage.setItem('unique_amaze_market', market);
     } catch (e) {
@@ -119,6 +206,8 @@ export default function App() {
         return <ServicesView onNavigate={handleNavigate} currentMarket={currentMarket} />;
       case 'work':
         return <WorkView onNavigate={handleNavigate} />;
+      case 'industries':
+        return <IndustriesView onNavigate={handleNavigate} currentMarket={currentMarket} />;
       case 'process':
         return <ProcessView onNavigate={handleNavigate} />;
       case 'pricing':
@@ -137,6 +226,10 @@ export default function App() {
         return <AboutView onNavigate={handleNavigate} currentMarket={currentMarket} />;
       case 'contact':
         return <ContactView onNavigate={handleNavigate} currentMarket={currentMarket} />;
+      case 'privacy':
+        return <PrivacyView onNavigate={handleNavigate} />;
+      case 'terms':
+        return <TermsView onNavigate={handleNavigate} />;
       default:
         return (
           <HomeView
@@ -153,21 +246,14 @@ export default function App() {
       data-theme={currentTheme}
       className={`relative min-h-screen transition-colors duration-300 antialiased ${
         currentTheme === 'lunar'
-          ? 'bg-[#F8FAFC] text-[#0F172A] selection:bg-[#008280] selection:text-white'
-          : 'bg-[#050607] text-[#F3F7F8] selection:bg-[#16D2C8] selection:text-[#050607]'
+          ? 'bg-[#F8FAFC] text-[#0F172A] selection:bg-slate-200 selection:text-slate-900'
+          : 'bg-[#050607] text-[#F3F7F8] selection:bg-slate-800 selection:text-white'
       }`}
     >
       {/* Precision Dual-Ring Custom Optical Cursor */}
       <CustomCursor />
 
-      {/* Top Telemetry and System Status Strip with Theme and Audio Controls */}
-      <TelemetryBar
-        onNavigate={handleNavigate}
-        currentTheme={currentTheme}
-        onToggleTheme={handleToggleTheme}
-      />
-
-      {/* Sticky Main Navigation with Market Switcher */}
+      {/* Sticky Main Navigation with Clean Minimal Header */}
       <Navbar
         currentRoute={currentRoute}
         currentMarket={currentMarket}
@@ -178,6 +264,14 @@ export default function App() {
         onOpenChat={() => setIsChatOpen(true)}
         isMenuOpen={isMenuOpen}
         onMenuToggle={setIsMenuOpen}
+      />
+
+      {/* App Shell Breadcrumb Navigation Component for Enhanced Deep Path Readability */}
+      <Breadcrumbs
+        currentRoute={currentRoute}
+        currentTheme={currentTheme}
+        currentMarket={currentMarket}
+        onNavigate={handleNavigate}
       />
 
       {/* Primary Multi-Page Route Viewport with Seamless Fade Transitions and Dynamic Depth Transform */}
@@ -217,7 +311,7 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      {/* Rich Architectural Footer */}
+      {/* Rich Architectural Footer with Absolute Footer Regional Container */}
       <Footer
         onNavigate={handleNavigate}
         currentMarket={currentMarket}

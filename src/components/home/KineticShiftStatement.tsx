@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Sparkles } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { GsapStaggerReveal } from '../common/GsapStaggerReveal';
@@ -29,9 +28,7 @@ export const KineticShiftStatement: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  // Tracking expands when section is centered (progress ~ 0.5)
-  const trackingPx = Math.sin(scrollProgress * Math.PI) * 14;
-  const scaleVal = 1 + Math.sin(scrollProgress * Math.PI) * 0.08;
+  const scaleVal = 1 + Math.sin(scrollProgress * Math.PI) * 0.04;
 
   const words = [
     { text: 'WEBSITES', highlight: false },
@@ -53,45 +50,40 @@ export const KineticShiftStatement: React.FC = () => {
       ref={sectionRef}
       className="relative w-full border-t border-white/[0.08] bg-[#07090C] py-10 sm:py-12 lg:py-14 overflow-hidden"
     >
-      {/* Subtle background glow & draft grid */}
-      <div className="pointer-events-none absolute inset-0 radial-mesh-teal opacity-30" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#0082800a_1px,transparent_1px),linear-gradient(to_bottom,#0082800a_1px,transparent_1px)] bg-[size:64px_64px]" />
+      {/* Ambient background glow */}
+      <div className="pointer-events-none absolute inset-0 radial-mesh-slate opacity-20 z-0" />
 
       <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        {/* Top Telemetry Tag */}
-        <GsapStaggerReveal yOffset={20} delay={0.05}>
-          <div className="inline-flex items-center gap-2 rounded-md border border-[#008280]/40 bg-[#008280]/10 px-4 py-1.5 font-mono text-xs text-[#008280] mb-8">
-            <Sparkles className="h-3.5 w-3.5 text-[#008280]" />
-            <span className="tracking-[0.25em] uppercase font-bold">
-              KINETIC SCROLL DYNAMICS // 04 THE SHIFT
-            </span>
-          </div>
-        </GsapStaggerReveal>
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 font-mono text-xs text-zinc-300 mb-5 shadow-sm">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="tracking-widest uppercase font-semibold">
+            The Digital Shift
+          </span>
+        </div>
 
-        {/* Explosive Dynamic Typography Container */}
+        {/* Dynamic Typography Container */}
         <div
           className="will-change-transform transition-transform duration-100 ease-out my-4"
           style={{
             transform: `scale(${scaleVal})`,
-            letterSpacing: `${trackingPx}px`,
           }}
         >
-          <h2 className="font-display text-[clamp(2.2rem,4.8vw,4.5rem)] font-black uppercase text-[#EBECF0] leading-[1.02] max-w-4xl mx-auto select-none">
+          <h2 className="font-display text-[clamp(2rem,4.4vw,4.2rem)] font-black uppercase text-[#EBECF0] leading-[1.08] max-w-4xl mx-auto select-none">
             {words.map((w, idx) => {
               const wordThreshold = (idx + 1) / (words.length + 2);
-              const isIlluminated = scrollProgress >= wordThreshold * 0.7;
+              const isIlluminated = scrollProgress >= wordThreshold * 0.5;
 
               return (
                 <span
                   key={idx}
-                  className={`inline-block mr-2.5 sm:mr-5 transition-all duration-300 ${
+                  className={`inline-block mr-2 sm:mr-4 transition-all duration-200 ${
                     w.highlight
                       ? isIlluminated
-                        ? 'title-gradient-teal drop-shadow-[0_0_25px_rgba(0,130,128,0.5)]'
-                        : 'text-[#008280]/40'
+                        ? 'text-white font-black drop-shadow-[0_0_24px_rgba(255,255,255,0.3)]'
+                        : 'text-zinc-300 font-bold'
                       : isIlluminated
                       ? 'text-[#EBECF0]'
-                      : 'text-[#64748B]/40'
+                      : 'text-[#94A3B8]'
                   }`}
                 >
                   {w.text}
@@ -101,29 +93,11 @@ export const KineticShiftStatement: React.FC = () => {
           </h2>
         </div>
 
-        {/* Dynamic Architectural Caliper Coordinates */}
-        <GsapStaggerReveal stagger={0.08} yOffset={24} className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10 font-mono text-xs text-[#64748B]">
-          <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#008280]" />
-            <span>KINETIC RATIO: {(scrollProgress * 100).toFixed(1)}%</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#367588]" />
-            <span>OPTICAL EXPANSION: +{trackingPx.toFixed(1)}px</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
-            <span>GOLDEN RATIO 1.618 CALIBRATION</span>
-          </div>
-        </GsapStaggerReveal>
-
         {/* Manifest Statement Subtitle */}
-        <GsapStaggerReveal yOffset={32} delay={0.15}>
-          <p className="font-sans text-sm sm:text-base md:text-lg text-[#94A3B8] font-normal leading-relaxed max-w-[65ch] mx-auto mt-8">
-            The next generation of websites don’t wait to be read — they{' '}
-            <strong className="title-gradient-teal font-bold">listen, qualify, and execute</strong> long after your office has closed for the evening.
-          </p>
-        </GsapStaggerReveal>
+        <p className="font-sans text-sm sm:text-base md:text-lg text-zinc-300 font-normal leading-relaxed max-w-[65ch] mx-auto mt-8">
+          Modern digital flagships do not wait to be read — they guide, qualify, and convert visitors
+          with seamless speed and clear intent.
+        </p>
       </div>
     </section>
   );

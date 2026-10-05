@@ -43,22 +43,22 @@ export const ValueIntro: React.FC<ValueIntroProps> = ({ onNavigate, currentMarke
             className="lg:col-span-7 space-y-8"
           >
             <div>
-              <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase font-semibold mb-4">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#008280] animate-pulse" />
+              <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 tracking-widest uppercase font-semibold mb-4">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 <span>
                   {currentMarket === 'mw'
-                    ? 'MALAWI · BOUTIQUE AI STUDIO · LOCAL EXPERTISE'
-                    : 'CANADA · BOUTIQUE AI STUDIO · SENIOR CRAFT'}
+                    ? 'Malawi · Senior Craft · Local Price Book'
+                    : 'Canada · Senior Craft · Transparent Rates'}
                 </span>
               </div>
 
               <h2 className="font-display text-[clamp(1.85rem,3.8vw,3.4rem)] font-black tracking-[-0.035em] text-[#EBECF0] leading-[1.12] uppercase">
                 Websites that don’t just sit there — they{' '}
-                <span className="title-gradient-teal block sm:inline">grow your business.</span>
+                <span className="text-zinc-300 block sm:inline">grow your business.</span>
               </h2>
             </div>
 
-            <p className="font-sans text-sm sm:text-base text-[#94A3B8] leading-relaxed max-w-[65ch]">
+            <p className="font-sans text-sm sm:text-base text-zinc-400 leading-relaxed max-w-[65ch]">
               {currentMarket === 'mw' ? (
                 <>
                   Unique Amaze is a boutique digital engineering studio building premium, AI-integrated websites for ambitious businesses in Malawi and across Africa. You collaborate directly with a senior specialist who merges conversion strategy, sub-1.2s mobile optimization, and local Airtel Money / Mpamba checkout to turn visitors into enquiries.
@@ -71,13 +71,13 @@ export const ValueIntro: React.FC<ValueIntroProps> = ({ onNavigate, currentMarke
             </p>
 
             <div className="pt-3 flex flex-wrap gap-2.5">
-              <span className="font-mono text-xs text-[#64748B] py-1.5 mr-1 uppercase tracking-wider font-semibold">
+              <span className="font-mono text-xs text-zinc-500 py-1.5 mr-1 uppercase tracking-wider font-semibold">
                 ENGINEERED FOR:
               </span>
               {industries.map((ind) => (
                 <span
                   key={ind}
-                  className="rounded-md border border-white/[0.08] bg-[#0E1216] px-3.5 py-1.5 font-mono text-xs text-[#94A3B8] hover:border-[#008280] hover:text-[#EBECF0] transition-colors"
+                  className="rounded-md border border-white/[0.08] bg-[#0E1216] px-3.5 py-1.5 font-mono text-xs text-zinc-400 hover:border-white/20 hover:text-white transition-colors"
                 >
                   {ind}
                 </span>
@@ -92,47 +92,47 @@ export const ValueIntro: React.FC<ValueIntroProps> = ({ onNavigate, currentMarke
               yOffset={40}
               className="grid grid-cols-2 gap-5"
             >
-              <div className="rounded-xl border border-[#16D2C8]/35 glass-dominant p-6 sm:p-7 space-y-2.5 h-full will-change-transform shadow-[0_15px_35px_rgba(0,130,128,0.15)]">
-                <div className="font-display text-3xl sm:text-4xl font-black text-[#16D2C8] tracking-tight">1-to-1</div>
-                <div className="font-mono text-xs text-[#EBECF0] font-bold uppercase tracking-wider">Specialist Attention</div>
-                <p className="text-xs text-[#CBD5E1] leading-relaxed">
+              <div className="rounded-xl border border-white/10 bg-[#090D12] p-6 sm:p-7 space-y-2.5 h-full will-change-transform shadow-lg hover:border-white/20 transition-colors">
+                <div className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">1-to-1</div>
+                <div className="font-mono text-xs text-zinc-200 font-bold uppercase tracking-wider">Specialist Attention</div>
+                <p className="text-xs text-zinc-400 leading-relaxed">
                   Direct collaboration with the architect — zero junior handoffs or account managers.
                 </p>
               </div>
 
-              <div className="rounded-xl border border-white/10 glass-teal p-6 sm:p-7 space-y-2.5 h-full will-change-transform">
-                <div className="font-display text-3xl sm:text-4xl font-black text-[#16D2C8] tracking-tight">
+              <div className="rounded-xl border border-white/10 bg-[#090D12] p-6 sm:p-7 space-y-2.5 h-full will-change-transform shadow-lg hover:border-white/20 transition-colors">
+                <div className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
                   {currentMarket === 'mw' ? '< 1.2s' : '99+'}
                 </div>
-                <div className="font-mono text-xs text-[#EBECF0] font-bold uppercase tracking-wider">
+                <div className="font-mono text-xs text-zinc-200 font-bold uppercase tracking-wider">
                   {currentMarket === 'mw' ? 'Mobile Load Target' : 'Lighthouse Target'}
                 </div>
-                <p className="text-xs text-[#CBD5E1] leading-relaxed">
+                <p className="text-xs text-zinc-400 leading-relaxed">
                   {currentMarket === 'mw'
                     ? 'Sub-1.2s load speeds on TNM & Airtel networks with zero data bloat.'
                     : 'Google Core Web Vitals tuned for dominant local search rankings.'}
                 </p>
               </div>
 
-              <div className="rounded-xl border border-white/10 glass-slate p-6 sm:p-7 space-y-2.5 h-full will-change-transform">
-                <div className="font-display text-3xl sm:text-4xl font-black text-[#EBECF0] tracking-tight">
+              <div className="rounded-xl border border-white/10 bg-[#090D12] p-6 sm:p-7 space-y-2.5 h-full will-change-transform shadow-lg hover:border-white/20 transition-colors">
+                <div className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
                   {currentMarket === 'mw' ? 'MWK' : 'CAD $'}
                 </div>
-                <div className="font-mono text-xs text-[#EBECF0] font-bold uppercase tracking-wider">
+                <div className="font-mono text-xs text-zinc-200 font-bold uppercase tracking-wider">
                   {currentMarket === 'mw' ? 'Malawi Price Book' : 'Transparent Rates'}
                 </div>
-                <p className="text-xs text-[#CBD5E1] leading-relaxed">
+                <p className="text-xs text-zinc-400 leading-relaxed">
                   {currentMarket === 'mw'
                     ? 'Calibrated in fair Malawi Kwacha with milestone payments.'
                     : 'Transparent pricing with no hidden fees or scope creep.'}
                 </p>
               </div>
 
-              <div className="rounded-xl border border-white/10 glass-smoke p-6 sm:p-7 space-y-2.5 h-full will-change-transform">
-                <div className="font-display text-3xl sm:text-4xl font-black text-[#16D2C8] tracking-tight">24/7</div>
-                <div className="font-mono text-xs text-[#EBECF0] font-bold uppercase tracking-wider">Intelligent Intake</div>
-                <p className="text-xs text-[#CBD5E1] leading-relaxed">
-                  AI-ready assistants capture and qualify opportunities while you sleep.
+              <div className="rounded-xl border border-white/10 bg-[#090D12] p-6 sm:p-7 space-y-2.5 h-full will-change-transform shadow-lg hover:border-white/20 transition-colors">
+                <div className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">24/7</div>
+                <div className="font-mono text-xs text-zinc-200 font-bold uppercase tracking-wider">Intelligent Intake</div>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  Smart intake and discovery tools capture and qualify opportunities smoothly.
                 </p>
               </div>
             </GsapStaggerReveal>
@@ -143,10 +143,10 @@ export const ValueIntro: React.FC<ValueIntroProps> = ({ onNavigate, currentMarke
                   studioAudio.playClick(850);
                   onNavigate('process');
                 }}
-                className="w-full flex items-center justify-between rounded-xl border border-white/10 glass-smoke p-6 text-xs font-mono text-[#EBECF0] hover:border-[#16D2C8] transition-all group shadow-lg"
+                className="w-full flex items-center justify-between rounded-xl border border-white/10 bg-[#080B0E] p-6 text-xs font-mono text-zinc-200 hover:border-white/30 hover:text-white transition-all group shadow-md"
               >
                 <span className="font-bold tracking-wide">EXPLORE THE 5-STEP A.M.A.Z.E. METHOD™</span>
-                <ArrowRight className="h-4 w-4 text-[#16D2C8] group-hover:translate-x-1.5 transition-transform" />
+                <ArrowRight className="h-4 w-4 text-zinc-400 group-hover:text-white group-hover:translate-x-1.5 transition-all" />
               </button>
             </GsapStaggerReveal>
           </div>

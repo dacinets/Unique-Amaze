@@ -1,7 +1,7 @@
 export type ViewMode = 'showcase' | 'archive' | 'lab' | 'capabilities' | 'commission';
 export type ArchiveViewStyle = 'grid' | 'index';
 
-export type PageRoute = 'home' | 'services' | 'work' | 'process' | 'pricing' | 'planner' | 'faq' | 'contact' | 'about';
+export type PageRoute = 'home' | 'services' | 'work' | 'industries' | 'process' | 'pricing' | 'planner' | 'faq' | 'contact' | 'about' | 'privacy' | 'terms';
 export type MarketType = 'ca' | 'mw';
 export type StudioTheme = 'obsidian' | 'lunar';
 
@@ -86,6 +86,11 @@ export interface Testimonial {
   quote: string;
   rating: number;
   initial: string;
+  organization?: string;
+  metric?: { label: string; value: string };
+  verifiedProject?: string;
+  sector?: string;
+  avatarUrl?: string;
 }
 
 export interface ProjectMetric {

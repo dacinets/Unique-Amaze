@@ -7,6 +7,7 @@ import { KineticShiftStatement } from './KineticShiftStatement';
 import { TransformationCards } from './TransformationCards';
 import { CinematicGrid } from './CinematicGrid';
 import { ProjectOrbitGallery } from './ProjectOrbitGallery';
+import { TestimonialsCarousel } from '../common/TestimonialsCarousel';
 import { SpatialScrollHUD } from '../common/SpatialScrollHUD';
 import { AbstractWireframeBackground } from '../common/AbstractWireframeBackground';
 import { ScrollFlyIn } from '../common/ScrollFlyIn';
@@ -18,6 +19,7 @@ import { BrandDivider } from '../common/BrandDivider';
 import { studioAudio } from '../../utils/audio';
 import { scrollEngine } from '../../utils/scrollEngine';
 import { useScrollEngine } from '../../utils/useScrollEngine';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Sparkles, ArrowRight, Layers, ShieldCheck, Zap, Globe, Cpu, Check, CheckCircle2 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -45,6 +47,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
       'section-transformation',
       'section-cinematic-grid',
       'section-showcase',
+      'section-testimonials',
       'section-cta',
     ];
 
@@ -59,6 +62,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
       }
     }
   }, [scrollState.scrollY]);
+
+  // Refresh ScrollTrigger to ensure accurate layout geometry across all devices
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleScrollTo = (targetId: string) => {
     const el = document.getElementById(targetId);
@@ -75,6 +86,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
         PROJECTS_DATA.find((p) => p.id === 'chestermere-massage') || PROJECTS_DATA[0],
         PROJECTS_DATA.find((p) => p.id === 'elvc-church') || PROJECTS_DATA[3],
         PROJECTS_DATA[4] || PROJECTS_DATA[0],
+        PROJECTS_DATA[5] || PROJECTS_DATA[1],
       ]
     : [
         PROJECTS_DATA.find((p) => p.id === 'chestermere-massage') || PROJECTS_DATA[0],
@@ -82,6 +94,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
         PROJECTS_DATA.find((p) => p.id === 'belle-afrique') || PROJECTS_DATA[2],
         PROJECTS_DATA.find((p) => p.id === 'elvc-church') || PROJECTS_DATA[3],
         PROJECTS_DATA[4] || PROJECTS_DATA[0],
+        PROJECTS_DATA[5] || PROJECTS_DATA[1],
       ];
 
   return (
@@ -112,12 +125,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
       {/* Subtle Horizontal Divider: Value to Capabilities */}
       <BrandDivider
-        variant="teal"
+        variant="minimal"
         width="container"
         spacing="none"
         className="py-3 sm:py-4"
-        label="STUDIO CAPABILITIES"
-        sublabel="ARCHITECTURE & AI"
       />
 
       {/* 3. Pinned Scrollytelling Section: Capabilities Stack */}
@@ -135,12 +146,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
       {/* Subtle Horizontal Divider: Shift to Transformation */}
       <BrandDivider
-        variant="gradient"
+        variant="minimal"
         width="container"
         spacing="none"
         className="py-3 sm:py-4"
-        label="THE TRANSFORMATION"
-        sublabel="BEFORE & AFTER"
       />
 
       {/* 5. Transformation Before/After Paradigm Comparison */}
@@ -148,17 +157,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <TransformationCards />
       </div>
 
-      {/* Subtle Horizontal Divider: Transformation to Cinematic Grid */}
+      {/* Subtle Horizontal Divider: Transformation to Design Grid */}
       <BrandDivider
-        variant="teal"
+        variant="minimal"
         width="container"
         spacing="none"
         className="py-3 sm:py-4"
-        label="EDITORIAL COMPOSITION"
-        sublabel="TACTILE CRAFT"
       />
 
-      {/* 6. CinematicGrid: Asymmetrical Editorial Framing for Imagery & Typography */}
+      {/* 6. CinematicGrid: Structured Visual Framing for Imagery & Typography */}
       <div className="relative z-10">
         <CinematicGrid
           onNavigate={onNavigate}
@@ -166,17 +173,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
         />
       </div>
 
-      {/* Subtle Horizontal Divider: Cinematic Grid to Showcase */}
+      {/* Subtle Horizontal Divider: Grid to Showcase */}
       <BrandDivider
-        variant="cyan"
+        variant="minimal"
         width="container"
         spacing="none"
         className="py-3 sm:py-4"
-        label="SELECTED CLIENT WORK"
-        sublabel="LIVE ARCHITECTURE"
       />
 
-      {/* 7. Signature Amaze Orbit 3D / Editorial Project Gallery */}
+      {/* 7. Signature Amaze Selected Project Gallery */}
       <div className="relative z-10">
         <ProjectOrbitGallery
           projects={featuredProjects}
@@ -186,17 +191,31 @@ export const HomeView: React.FC<HomeViewProps> = ({
         />
       </div>
 
-      {/* Subtle Horizontal Divider: Showcase to CTA */}
+      {/* Subtle Horizontal Divider: Showcase to Testimonials */}
       <BrandDivider
-        variant="teal"
+        variant="minimal"
         width="container"
         spacing="none"
         className="py-3 sm:py-4"
-        label="PROJECT INITIATION"
-        sublabel="START YOUR FLAGSHIP"
       />
 
-      {/* 7. Closing Call to Action Banner with Architectural Image Background */}
+      {/* 8. Verified Client Testimonials Carousel */}
+      <div className="relative z-10 py-12 sm:py-16">
+        <TestimonialsCarousel
+          currentMarket={currentMarket}
+          onNavigate={onNavigate}
+        />
+      </div>
+
+      {/* Subtle Horizontal Divider: Testimonials to CTA */}
+      <BrandDivider
+        variant="minimal"
+        width="container"
+        spacing="none"
+        className="py-3 sm:py-4"
+      />
+
+      {/* 9. Closing Call to Action Banner with Architectural Image Background */}
       <section
         id="section-cta"
         className="cta-image-container group relative z-10 w-full border-t border-white/[0.08] py-12 sm:py-16 lg:py-20 overflow-hidden"
@@ -215,8 +234,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
         <div className="relative z-10 mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8 text-center">
           <GsapStaggerReveal stagger={0.12} yOffset={32} className="space-y-6 max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-widest uppercase font-semibold">
-              <Sparkles className="h-3.5 w-3.5 text-[#008280]" />
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 tracking-widest uppercase font-semibold">
+              <Sparkles className="h-3.5 w-3.5 text-zinc-400" />
               <span>LET’S BUILD SOMETHING EXTRAORDINARY</span>
             </div>
 
@@ -253,7 +272,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 }}
                 className="cta-secondary-btn flex items-center gap-2 rounded-lg border px-8 py-4 font-mono text-xs font-bold transition-all uppercase tracking-wider hover:scale-[1.01]"
               >
-                <Sparkles className="h-4 w-4 text-[#008280]" />
+                <Sparkles className="h-4 w-4 text-zinc-400" />
                 <span className="relative z-10">LAUNCH PROJECT PLANNER</span>
               </button>
             </div>

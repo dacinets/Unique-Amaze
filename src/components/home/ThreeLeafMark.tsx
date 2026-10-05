@@ -90,18 +90,18 @@ export const ThreeLeafMark: React.FC<ThreeLeafMarkProps> = ({ className = '', in
       roughness: 0.25,
       clearcoat: 0.85,
       clearcoatRoughness: 0.2,
-      emissive: 0x0c2026,
+      emissive: 0x0f172a,
       emissiveIntensity: 0.14,
       envMapIntensity: 1.25
     });
 
     const tealMat = new THREE.MeshPhysicalMaterial({
-      color: 0x008280,
+      color: 0x475569,
       metalness: 0.92,
       roughness: 0.22,
       clearcoat: 0.85,
       clearcoatRoughness: 0.2,
-      emissive: 0x002424,
+      emissive: 0x1e293b,
       emissiveIntensity: 0.16,
       envMapIntensity: 1.3
     });
@@ -128,15 +128,15 @@ export const ThreeLeafMark: React.FC<ThreeLeafMarkProps> = ({ className = '', in
     key.position.set(3, 4, 5);
     scene.add(key);
 
-    const tealLight = new THREE.PointLight(0x008280, 4.0, 25);
+    const tealLight = new THREE.PointLight(0x64748b, 3.5, 25);
     tealLight.position.set(-4, 1.5, 3);
     scene.add(tealLight);
 
-    const slateLight = new THREE.PointLight(0x367588, 3.8, 25);
+    const slateLight = new THREE.PointLight(0x475569, 3.8, 25);
     slateLight.position.set(4, -1, 3);
     scene.add(slateLight);
 
-    const rim = new THREE.DirectionalLight(0x4a8fa3, 0.7);
+    const rim = new THREE.DirectionalLight(0x94a3b8, 0.7);
     rim.position.set(-2, -3, -4);
     scene.add(rim);
 

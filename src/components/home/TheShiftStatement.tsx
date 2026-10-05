@@ -5,11 +5,11 @@ export const TheShiftStatement: React.FC = () => {
   return (
     <section className="relative w-full border-t border-white/[0.08] bg-[#0A0D10] py-28 sm:py-36 lg:py-44 overflow-hidden">
       {/* Subtle background glow */}
-      <div className="pointer-events-none absolute inset-0 radial-mesh-teal opacity-25" />
+      <div className="pointer-events-none absolute inset-0 radial-mesh-slate opacity-20" />
 
       <div className="mx-auto max-w-[1280px] px-6 sm:px-12 text-center relative z-10">
-        <div className="inline-flex items-center gap-2 font-mono text-xs text-[#008280] tracking-[0.3em] uppercase mb-8 font-semibold">
-          <Sparkles className="h-3.5 w-3.5" />
+        <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 tracking-[0.3em] uppercase mb-8 font-semibold">
+          <Sparkles className="h-3.5 w-3.5 text-zinc-400" />
           <span>THE SHIFT</span>
         </div>
 
@@ -20,7 +20,7 @@ export const TheShiftStatement: React.FC = () => {
 
         <p className="font-sans text-lg sm:text-2xl text-[#94A3B8] font-normal leading-relaxed max-w-3xl mx-auto">
           The next generation of websites don’t wait to be read — they{' '}
-          <strong className="text-[#008280] font-semibold">listen, respond, and keep working</strong> long after you have closed your laptop.
+          <strong className="text-white font-semibold">listen, respond, and keep working</strong> long after you have closed your laptop.
         </p>
       </div>
     </section>
